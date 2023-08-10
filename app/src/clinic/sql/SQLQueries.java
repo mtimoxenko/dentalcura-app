@@ -8,6 +8,12 @@ public enum SQLQueries {
             "INSERT INTO ODONTOLOGO VALUES(?,?,?,?);",
             "SELECT * FROM ODONTOLOGO",
             "SELECT COUNT(*) FROM ODONTOLOGO;"
+    ),
+    PACIENTE (
+            "DROP TABLE IF EXISTS PACIENTE; CREATE TABLE PACIENTE(ID BIGINT PRIMARY KEY, NOMBRE VARCHAR(255), APELLIDO VARCHAR(255), DOMICILIO VARCHAR(255), DNI INT, FECHA_ALTA VARCHAR(255));",
+                    "INSERT INTO PACIENTE VALUES(?,?,?,?,?,?);",
+                    "SELECT * FROM PACIENTE",
+                    "SELECT COUNT(*) FROM PACIENTE;"
     );
 
     // ----    Statement Interface   ----

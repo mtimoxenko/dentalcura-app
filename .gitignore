@@ -28,5 +28,5 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-
+.$uml.drawio.png.bkp
 logs.log
