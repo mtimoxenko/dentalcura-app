@@ -1,6 +1,5 @@
 package clinic.persistence;
 
-import clinic.entities.Odontologo;
 import clinic.entities.Paciente;
 import clinic.sql.SQLQueries;
 import org.apache.log4j.Logger;
