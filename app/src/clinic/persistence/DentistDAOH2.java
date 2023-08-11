@@ -1,22 +1,27 @@
 package clinic.persistence;
 
+//<<<<<<< HEAD:app/src/clinic/persistence/PacienteDAOH2.java
 import clinic.entities.Paciente;
 import clinic.sql.SQLQueries;
+//=======
+import clinic.entities.Dentist;
+//>>>>>>> 452fd03af646e1699970662edae6ea14d4fd3226:app/src/clinic/persistence/DentistDAOH2.java
 import org.apache.log4j.Logger;
+import clinic.sql.SQLQueries;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PacienteDAOH2 implements IDao<Paciente>{
+public class DentistDAOH2 implements IDao<Dentist>{
 
-    private final static Logger LOGGER = Logger.getLogger(PacienteDAOH2.class);
+    private final static Logger LOGGER = Logger.getLogger(DentistDAOH2.class);
     private final static String DB_JDBC_DRIVER = "org.h2.Driver";
     private final static String DB_URL = "jdbc:h2:~/test";
     private final static String DB_USER = "sa";
     private final static String DB_PASSWORD = "";
 
-    public void crearTablas(){
+    public void createTable(){
         Connection connection;
         Statement statement;
 
@@ -25,40 +30,39 @@ public class PacienteDAOH2 implements IDao<Paciente>{
             connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
             statement = connection.createStatement();
 
-            statement.execute(SQLQueries.PACIENTE.getCreateTable());
+            statement.execute(SQLQueries.DENTIST.getCreateTable());
 
             statement.close();
             connection.close();
-            LOGGER.info("Se creo la tabla PACIENTE en la DB.");
+            LOGGER.info("DENTIST table was created in DB");
         } catch (SQLException | ClassNotFoundException e) {
-            LOGGER.error("Algo salio mal durante la creacion de la tabla PACIENTE... :( " + e);
+            LOGGER.error("Something went wrong... :( " + e);
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Paciente guardar(Paciente paciente) {
+    public Dentist insert(Dentist dentist) {
         Connection connection;
         PreparedStatement preparedStatement;
 
         try {
             Class.forName(DB_JDBC_DRIVER);
             connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
-            preparedStatement = connection.prepareStatement(SQLQueries.PACIENTE.getInsertCustom());
+            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getInsertCustom());
 
-            preparedStatement.setLong(1,paciente.id());
-            preparedStatement.setString(2,paciente.nombre());
-            preparedStatement.setString(3,paciente.apellido());
-            preparedStatement.setString(4,paciente.domicilio());
-            preparedStatement.setInt(5, paciente.dni());
-            preparedStatement.setString(6, paciente.fechaAlta());
+            preparedStatement.setLong(1, dentist.id());
+            preparedStatement.setString(2, dentist.name());
+            preparedStatement.setString(3, dentist.surname());
+            preparedStatement.setInt(4, dentist.licenseNumber());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
-            LOGGER.info("Paciente " + paciente.nombre() + " " + paciente.apellido() + " fue agregado correctamente a la DB.");
+
+            LOGGER.info("Data successfully inserted in a table: " + dentist.name() + " " + dentist.surname());
         } catch (SQLException | ClassNotFoundException e) {
-            LOGGER.error("No fue posible agregar paciente " + paciente.nombre() + " " + paciente.apellido() + " a la DB... :(" + e);
+            LOGGER.error("Something went wrong... :( " + e);
             throw new RuntimeException(e);
         }
 
@@ -66,28 +70,26 @@ public class PacienteDAOH2 implements IDao<Paciente>{
     }
 
     @Override
-    public List<Paciente> listarTodos() {
+    public List<Dentist> selectAll() {
 
         Connection connection;
         PreparedStatement preparedStatement;
-        List<Paciente> pacientes = new ArrayList<>();
+        List<Dentist> dentists = new ArrayList<>();
 
         try {
             Class.forName(DB_JDBC_DRIVER);
             connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
-            preparedStatement = connection.prepareStatement(SQLQueries.PACIENTE.getSelectAll());
+            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getSelectAll());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
                 Long id = resultSet.getLong(1);
-                String nombre = resultSet.getString(2);
-                String apellido = resultSet.getString(3);
-                String domicilio = resultSet.getString(4);
-                int dni = resultSet.getInt(5);
-                String fechaAlta = resultSet.getString(6);
+                String name = resultSet.getString(2);
+                String surname = resultSet.getString(3);
+                int licenseNumber = resultSet.getInt(4);
 
-                Paciente paciente = new Paciente(id,nombre, apellido, domicilio, dni, fechaAlta);
-                pacientes.add(paciente);
+                Dentist dentist = new Dentist(id,name, surname,licenseNumber);
+                dentists.add(dentist);
             }
 
             resultSet.close();
@@ -95,17 +97,17 @@ public class PacienteDAOH2 implements IDao<Paciente>{
             connection.close();
 
         } catch (SQLException | ClassNotFoundException e) {
-            LOGGER.error("No fue posible extraer los datos de la DB... :(" + e);
+            LOGGER.error("Something went wrong... :( " + e);
             throw new RuntimeException(e);
         }
 
-        LOGGER.info("Extrayendo registros de la DB...");
-        pacientes.forEach(LOGGER::info);
-        return pacientes;
+        LOGGER.info("Retrieving data from the database... ");
+        dentists.forEach(LOGGER::info);
+        return dentists;
     }
 
     @Override
     public String toString() {
-        return "Data Base H2";
+        return "H2 relational database";
     }
 }
