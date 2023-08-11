@@ -1,14 +1,12 @@
-import clinic.entities.Odontologo;
-import clinic.entities.Paciente;
-import clinic.persistence.PacienteDAOH2;
-import clinic.service.PacienteService;
+import clinic.entities.Dentist;
+import clinic.entities.Patient;
+import clinic.persistence.PatientDAOH2;
+import clinic.service.PatientService;
 import org.apache.log4j.Logger;
-import clinic.persistence.OdontologoDAOH2;
-import clinic.persistence.OdontologoDaoEnMemoria;
-import clinic.service.OdontologoService;
+import clinic.persistence.DentistDAOH2;
+import clinic.persistence.DentistDAOInMemory;
+import clinic.service.DentistService;
 
-import java.time.LocalDate;
-import java.util.Date;
 
 // Pasar a INGLES -> atributos/metodos - LOGGERS - tablas en la DB
 // TESTS
@@ -20,35 +18,35 @@ public class Main {
 
     public static void main(String[] args) {
 
-        LOGGER.info("Iniciando la secuencia de codigo... ODONTOLOGO");
+        LOGGER.info("Sequence init...");
 
-        Odontologo odontologo = new Odontologo(1L,"Ramiro","Ranalli", 123456);
-        Odontologo odontologo2 = new Odontologo(2L,"Javier","Mascherano", 654321);
+        Dentist dentist = new Dentist(1L,"Ramiro","Ranalli", 123456);
+        Dentist dentist2 = new Dentist(2L,"Javier","Mascherano", 654321);
 
-        OdontologoService odontologoService = new OdontologoService();
+        DentistService dentistService = new DentistService();
         // seteamos una estrategia de persistencia
-        odontologoService.setOdontologoIDao(new OdontologoDAOH2());
-        LOGGER.info("Estrategia de persistencia: " + odontologoService.getOdontologoIDao());
+        dentistService.setDentistIDao(new DentistDAOH2());
+        LOGGER.info("Persistence Layer: " + dentistService.getDentistIDao());
 
         // creamos la tabla en la DB
-        odontologoService.crearTablaOdontologo();
+        dentistService.createTableDentist();
 
         // insertamos objetos
-        odontologoService.guardarOdontologo(odontologo);
-        odontologoService.guardarOdontologo(odontologo2);
+        dentistService.insertDentist(dentist);
+        dentistService.insertDentist(dentist2);
 
         // listamos todos los registros
-        odontologoService.listarTodosOdontologos();
+        dentistService.selectAllDentist();
 
 
 
         // cambiamos la estrategia de persistencia
-        odontologoService.setOdontologoIDao(new OdontologoDaoEnMemoria());
-        LOGGER.info("Estrategia de persistencia: " + odontologoService.getOdontologoIDao());
+        dentistService.setDentistIDao(new DentistDAOInMemory());
+        LOGGER.info("Persistence Layer: " + dentistService.getDentistIDao());
 
-        odontologoService.guardarOdontologo(odontologo);
-        odontologoService.guardarOdontologo(odontologo2);
-        odontologoService.listarTodosOdontologos();
+        dentistService.insertDentist(dentist);
+        dentistService.insertDentist(dentist2);
+        dentistService.selectAllDentist();
 
 
 
@@ -62,38 +60,38 @@ public class Main {
 
 
 
-        LOGGER.info("Iniciando la secuencia de codigo... PACIENTE");
-
-        Paciente paciente = new Paciente(1L,"Juan", "Perez", "Cuba 2628", 11223344, "01/01/2020");
-        Paciente paciente2 = new Paciente(2L,"Lola", "Rodriguez", "San Martin 1270", 93153234, "15/11/2022");
 
 
-        PacienteService pacienteService = new PacienteService();
+        Patient patient = new Patient(1L,"Juan", "Perez", "Cuba 2628", 11223344, "01/01/2020");
+        Patient patient2 = new Patient(2L,"Lola", "Rodriguez", "San Martin 1270", 93153234, "15/11/2022");
+
+
+        PatientService patientService = new PatientService();
 //        // seteamos una estrategia de persistencia
-        pacienteService.setPacienteIDao(new PacienteDAOH2());
+        patientService.setPatientIDao(new PatientDAOH2());
 
-        LOGGER.info("Estrategia de persistencia: " + pacienteService.getPacienteIDao());
+        LOGGER.info("Persistence Layer: " + patientService.getPatientIDao());
 //
 //        // creamos la tabla en la DB
-        pacienteService.crearTablaPaciente();
+        patientService.createTablePatient();
 //
 //        // insertamos objetos
-        pacienteService.guardarPaciente(paciente);
-        pacienteService.guardarPaciente(paciente2);
+        patientService.insertPatient(patient);
+        patientService.insertPatient(patient2);
 //
 //        // listamos todos los registros
-        pacienteService.listarTodosPacientes();
+        patientService.selectAllPatient();
 
 //        // cambiamos la estrategia de persistencia
-//        odontologoService.setOdontologoIDao(new OdontologoDaoEnMemoria());
-//        LOGGER.info("Estrategia de persistencia: " + odontologoService.getOdontologoIDao());
+        //        odontologoService.setOdontologoIDao(new OdontologoDaoEnMemoria());
+//        LOGGER.info("Persistence Layer: " + odontologoService.getOdontologoIDao());
 
 //
 //        odontologoService.guardarOdontologo(odontologo);
 //        odontologoService.guardarOdontologo(odontologo2);
 //        odontologoService.listarTodosOdontologos();
 //
-        LOGGER.info("El programa termino su ejecucion.");
+        LOGGER.info("Task execution finished");
 
     }
 

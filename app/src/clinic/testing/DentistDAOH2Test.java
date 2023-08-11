@@ -9,8 +9,8 @@ import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OdontologoDAOH2Test {
-    private final static Logger LOGGER = Logger.getLogger(OdontologoDAOH2Test.class);
+class DentistDAOH2Test {
+    private final static Logger LOGGER = Logger.getLogger(DentistDAOH2Test.class);
     private final static String DB_JDBC_DRIVER = "org.h2.Driver";
     private final static String DB_URL = "jdbc:h2:~/test";
     private final static String DB_USER = "sa";
@@ -26,7 +26,7 @@ class OdontologoDAOH2Test {
         try {
             Class.forName(DB_JDBC_DRIVER);
             connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
-            preparedStatement = connection.prepareStatement(SQLQueries.ODONTOLOGO.getSelectAll());
+            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getSelectAll());
             ResultSet resultSet = preparedStatement.executeQuery();
             int count = 0;
 

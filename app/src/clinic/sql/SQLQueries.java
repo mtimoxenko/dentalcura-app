@@ -3,17 +3,17 @@ package clinic.sql;
 
 public enum SQLQueries {
 
-    ODONTOLOGO (
-            "DROP TABLE IF EXISTS ODONTOLOGO; CREATE TABLE ODONTOLOGO(ID BIGINT PRIMARY KEY, NOMBRE VARCHAR(255), APELLIDO VARCHAR(255), MATRICULA INT);",
-            "INSERT INTO ODONTOLOGO VALUES(?,?,?,?);",
-            "SELECT * FROM ODONTOLOGO",
-            "SELECT COUNT(*) FROM ODONTOLOGO;"
+    DENTIST(
+            "DROP TABLE IF EXISTS dentist; CREATE TABLE dentist(id BIGINT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), license_num INT);",
+            "INSERT INTO dentist VALUES(?,?,?,?);",
+            "SELECT * FROM dentist",
+            "SELECT COUNT(*) FROM dentist;"
     ),
-    PACIENTE (
-            "DROP TABLE IF EXISTS PACIENTE; CREATE TABLE PACIENTE(ID BIGINT PRIMARY KEY, NOMBRE VARCHAR(255), APELLIDO VARCHAR(255), DOMICILIO VARCHAR(255), DNI INT, FECHA_ALTA VARCHAR(255));",
-                    "INSERT INTO PACIENTE VALUES(?,?,?,?,?,?);",
-                    "SELECT * FROM PACIENTE",
-                    "SELECT COUNT(*) FROM PACIENTE;"
+    PATIENT(
+            "DROP TABLE IF EXISTS patient; CREATE TABLE patient(id BIGINT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), address VARCHAR(255), ni_num INT, reg_date VARCHAR(255));",
+                    "INSERT INTO patient VALUES(?,?,?,?,?,?);",
+                    "SELECT * FROM patient",
+                    "SELECT COUNT(*) FROM patient;"
     );
 
     // ----    Statement Interface   ----
