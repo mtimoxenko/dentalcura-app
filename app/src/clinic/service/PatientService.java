@@ -1,5 +1,6 @@
 package clinic.service;
 
+import clinic.entities.Dentist;
 import clinic.entities.Patient;
 import clinic.persistence.IDao;
 
@@ -26,5 +27,17 @@ public class PatientService {
 
     public List<Patient> selectAllPatient(){
         return patientIDao.selectAll();
+    }
+
+    public Patient selectPatientByID(Long id){
+        return patientIDao.selectByID(id);
+    }
+
+    public Patient updatePatientByID(Patient patient){
+        return patientIDao.updateByID(patient);
+    }
+
+    public Patient deletePatientByID(Long id){
+        return patientIDao.deleteByID(id);
     }
 }

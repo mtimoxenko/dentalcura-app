@@ -16,6 +16,8 @@ public class DentistService {
         this.dentistIDao = dentistIDao;
     }
 
+
+
     public void createTableDentist(){
         dentistIDao.createTable();
     }
@@ -26,5 +28,17 @@ public class DentistService {
 
     public List<Dentist> selectAllDentist(){
         return dentistIDao.selectAll();
+    }
+
+    public Dentist selectDentistByID(Long id){
+        return dentistIDao.selectByID(id);
+    }
+
+    public Dentist updateDentistByID(Dentist dentist){
+        return dentistIDao.updateByID(dentist);
+    }
+
+    public Dentist deleteDentistByID(Long id){
+        return dentistIDao.deleteByID(id);
     }
 }

@@ -36,7 +36,7 @@ public class PatientDaoMemory implements IDao<Patient>{
     }
 
     @Override
-    public Patient updateByID(Long id) {
+    public Patient updateByID(Patient patient) {
         return null;
     }
 

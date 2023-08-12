@@ -8,7 +8,7 @@ public interface IDao<T> {
     T insert(T t);
     List<T> selectAll();
     T selectByID (Long id);
-    T updateByID (Long id);
+    T updateByID (T t);
     T deleteByID (Long id);
 
 }
