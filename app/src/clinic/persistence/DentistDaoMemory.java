@@ -9,7 +9,7 @@ import java.util.List;
 public class DentistDaoMemory implements IDao<Dentist>{
 
     private final static Logger LOGGER = Logger.getLogger(DentistDaoMemory.class);
-    private final List<Dentist> dentistsList = new ArrayList<>();
+    private final List<Dentist> dentistList = new ArrayList<>();
 
 
     @Override
@@ -18,7 +18,7 @@ public class DentistDaoMemory implements IDao<Dentist>{
 
     @Override
     public Dentist insert(Dentist dentist) {
-        dentistsList.add(dentist);
+        dentistList.add(dentist);
         LOGGER.info("Data saved in memory: " +dentist.name() + " " + dentist.surname() + ", license no.: " + dentist.licenseNumber());
         return dentist;
     }
@@ -26,8 +26,8 @@ public class DentistDaoMemory implements IDao<Dentist>{
     @Override
     public List<Dentist> selectAll() {
         LOGGER.info("Retrieving data from memory...");
-        dentistsList.forEach(LOGGER::info);
-        return dentistsList;
+        dentistList.forEach(LOGGER::info);
+        return dentistList;
     }
 
     @Override
