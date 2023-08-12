@@ -106,6 +106,21 @@ public class PatientDAOH2 implements IDao<Patient>{
     }
 
     @Override
+    public Patient selectByID(Long id) {
+        return null;
+    }
+
+    @Override
+    public Patient updateByID(Long id) {
+        return null;
+    }
+
+    @Override
+    public Patient deleteByID(Long id) {
+        return null;
+    }
+
+    @Override
     public String toString() {
         return "H2 relational database";
     }

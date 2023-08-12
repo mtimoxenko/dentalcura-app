@@ -104,6 +104,21 @@ public class DentistDAOH2 implements IDao<Dentist>{
     }
 
     @Override
+    public Dentist selectByID(Long id) {
+        return null;
+    }
+
+    @Override
+    public Dentist updateByID(Long id) {
+        return null;
+    }
+
+    @Override
+    public Dentist deleteByID(Long id) {
+        return null;
+    }
+
+    @Override
     public String toString() {
         return "H2 relational database";
     }
