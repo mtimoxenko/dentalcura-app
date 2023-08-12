@@ -17,17 +17,26 @@ public class Main {
 
         LOGGER.info("Sequence init...");
 
-
-
-        // -------- DENTIST -----------
-
         // -----> H2
+        dentistH2();
+        patientH2();
+
+        // -----> In-Memory
+        dentistMemory();
+        patientMemory();
+
+        LOGGER.info("Task execution finished");
+
+    }
+
+    private static void dentistH2(){
+
         Dentist dentist = new Dentist(1L,"Ramiro","Ranalli", 123456);
         Dentist dentist2 = new Dentist(2L,"Javier","Mascherano", 654321);
 
         DentistService dentistService = new DentistService();
 
-            // seteamos una estrategia de persistencia
+            // seteamos la estrategia de persistencia
         dentistService.setDentistIDao(new DentistDAOH2());
         LOGGER.info("Persistence Layer: " + dentistService.getDentistIDao());
 
@@ -44,48 +53,24 @@ public class Main {
             // listamos un registro por ID
         dentistService.selectDentistByID(1L);
 
-        // eliminamos un registro por ID
+            // eliminamos un registro por ID
         dentistService.deleteDentistByID(1L);
 
-        // actualizamos un registro por ID
+            // actualizamos un registro por ID
         dentistService.updateDentistByID(new Dentist(2L,"Lionel","Messi",10));
+    }
+    private static void patientH2(){
 
-
-        // -----> MEMORY
-            // cambiamos la estrategia de persistencia
-        dentistService.setDentistIDao(new DentistDaoMemory());
-        LOGGER.info("Persistence Layer: " + dentistService.getDentistIDao());
-
-        dentistService.insertDentist(dentist);
-        dentistService.insertDentist(dentist2);
-        dentistService.selectAllDentist();
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // -------- PATIENT -----------
-
-        // -----> H2
         Patient patient = new Patient(1L,"Juan", "Perez", "Cuba 2628", 11223344, "01/01/2020");
         Patient patient2 = new Patient(2L,"Lola", "Rodriguez", "San Martin 1270", 93153234, "15/11/2022");
 
         PatientService patientService = new PatientService();
 
-
-            // seteamos una estrategia de persistencia
+            // seteamos la estrategia de persistencia
         patientService.setPatientIDao(new PatientDAOH2());
         LOGGER.info("Persistence Layer: " + patientService.getPatientIDao());
 
-          // creamos la tabla en la DB
+            // creamos la tabla en la DB
         patientService.createTablePatient();
 
             // insertamos objetos
@@ -95,31 +80,50 @@ public class Main {
             // listamos todos los registros
         patientService.selectAllPatient();
 
-        // listamos un registro por ID
+            // listamos un registro por ID
         patientService.selectPatientByID(1L);
 
-        // eliminamos un registro por ID
+            // eliminamos un registro por ID
         patientService.deletePatientByID(1L);
 
-        // actualizamos un registro por ID
+            // actualizamos un registro por ID
         patientService.updatePatientByID(new Patient(2L,"Juan","Carlos","Rivadavia 1050",93123654,"1/1/1980"));
+    }
 
+    private static void dentistMemory(){
 
+        Dentist dentist = new Dentist(1L,"Ramiro","Ranalli", 123456);
+        Dentist dentist2 = new Dentist(2L,"Javier","Mascherano", 654321);
 
+        DentistService dentistService = new DentistService();
 
+            // seteamos la estrategia de persistencia
+        dentistService.setDentistIDao(new DentistDaoMemory());
+        LOGGER.info("Persistence Layer: " + dentistService.getDentistIDao());
 
-        // -----> MEMORY
-            // cambiamos la estrategia de persistencia
+            // insertamos objetos
+        dentistService.insertDentist(dentist);
+        dentistService.insertDentist(dentist2);
+
+            // listamos todos los registros
+        dentistService.selectAllDentist();
+    }
+    private static void patientMemory(){
+
+        Patient patient = new Patient(1L,"Juan", "Perez", "Cuba 2628", 11223344, "01/01/2020");
+        Patient patient2 = new Patient(2L,"Lola", "Rodriguez", "San Martin 1270", 93153234, "15/11/2022");
+
+        PatientService patientService = new PatientService();
+
+            // seteamos la estrategia de persistencia
         patientService.setPatientIDao(new PatientDaoMemory());
         LOGGER.info("Persistence Layer: " + patientService.getPatientIDao());
 
-
+            // insertamos objetos
         patientService.insertPatient(patient);
         patientService.insertPatient(patient2);
+        // listamos todos los registros
         patientService.selectAllPatient();
-
-        LOGGER.info("Task execution finished");
-
     }
 
 }
