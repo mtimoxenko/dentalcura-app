@@ -1,6 +1,7 @@
-package clinic.persistence;
+package clinic.testing;
 
 import clinic.entities.Patient;
+import clinic.persistence.PatientDaoMemory;
 import clinic.service.PatientService;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;

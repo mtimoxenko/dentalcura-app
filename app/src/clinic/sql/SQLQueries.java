@@ -6,14 +6,12 @@ public enum SQLQueries {
     DENTIST(
             "DROP TABLE IF EXISTS dentist; CREATE TABLE dentist(id BIGINT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), license_num INT);",
             "INSERT INTO dentist VALUES(?,?,?,?);",
-            "SELECT * FROM dentist",
-            "SELECT COUNT(*) FROM dentist;"
+            "SELECT * FROM dentist"
     ),
     PATIENT(
             "DROP TABLE IF EXISTS patient; CREATE TABLE patient(id BIGINT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), address VARCHAR(255), ni_num INT, reg_date VARCHAR(255));",
-                    "INSERT INTO patient VALUES(?,?,?,?,?,?);",
-                    "SELECT * FROM patient",
-                    "SELECT COUNT(*) FROM patient;"
+            "INSERT INTO patient VALUES(?,?,?,?,?,?);",
+            "SELECT * FROM patient"
     );
 
     // ----    Statement Interface   ----
@@ -26,17 +24,11 @@ public enum SQLQueries {
     // SELECT - INSERT - UPDATE - DELETE
     private final String insertCustom;
     private final String selectAll;
-    private final String selectAllRows;
 
-    SQLQueries(String createTable, String insertCustom, String selectAll, String selectAllRows) {
+    SQLQueries(String createTable, String insertCustom, String selectAll) {
         this.createTable = createTable;
         this.insertCustom = insertCustom;
         this.selectAll = selectAll;
-        this.selectAllRows = selectAllRows;
-    }
-
-    public String getSelectAllRows() {
-        return selectAllRows;
     }
 
     public String getCreateTable() {

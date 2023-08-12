@@ -19,14 +19,19 @@ public class DentistDaoMemory implements IDao<Dentist>{
     @Override
     public Dentist insert(Dentist dentist) {
         dentistsList.add(dentist);
-        LOGGER.info("Data successfully inserted in memory, dentist: " + dentist.surname() + ", license number: " + dentist.licenseNumber());
+        LOGGER.info("Data saved in memory: " +dentist.name() + " " + dentist.surname() + ", license no.: " + dentist.licenseNumber());
         return dentist;
     }
 
     @Override
     public List<Dentist> selectAll() {
+        LOGGER.info("Retrieving data from memory...");
         dentistsList.forEach(LOGGER::info);
-        LOGGER.info("Retrieving data from the memory...");
         return dentistsList;
+    }
+
+    @Override
+    public String toString() {
+        return "In-Memory";
     }
 }

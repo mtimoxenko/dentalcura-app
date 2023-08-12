@@ -1,13 +1,10 @@
 package clinic.persistence;
 
-//<<<<<<< HEAD:app/src/clinic/persistence/PacienteDAOH2.java
-import clinic.entities.Paciente;
 import clinic.sql.SQLQueries;
 //=======
 import clinic.entities.Dentist;
 //>>>>>>> 452fd03af646e1699970662edae6ea14d4fd3226:app/src/clinic/persistence/DentistDAOH2.java
 import org.apache.log4j.Logger;
-import clinic.sql.SQLQueries;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -60,7 +57,7 @@ public class DentistDAOH2 implements IDao<Dentist>{
             preparedStatement.close();
             connection.close();
 
-            LOGGER.info("Data successfully inserted in a table: " + dentist.name() + " " + dentist.surname());
+            LOGGER.info("Data inserted in a table: " + dentist.name() + " " + dentist.surname());
         } catch (SQLException | ClassNotFoundException e) {
             LOGGER.error("Something went wrong... :( " + e);
             throw new RuntimeException(e);

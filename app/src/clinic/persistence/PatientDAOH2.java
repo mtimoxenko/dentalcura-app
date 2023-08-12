@@ -57,7 +57,7 @@ public class PatientDAOH2 implements IDao<Patient>{
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
-            LOGGER.info("Data successfully inserted in a table: " + patient.name() + " " + patient.surname());
+            LOGGER.info("Data inserted in a table: " + patient.name() + " " + patient.surname());
         } catch (SQLException | ClassNotFoundException e) {
             LOGGER.error("Something went wrong... :( " + e);
             throw new RuntimeException(e);
