@@ -96,6 +96,7 @@ public class Main {
 
         Dentist dentist = new Dentist(1L,"Ramiro","Ranalli", 123456);
         Dentist dentist2 = new Dentist(2L,"Javier","Mascherano", 654321);
+        Dentist dentist3 = new Dentist(1L,"Rename","Update",1010);
 
         DentistService dentistService = new DentistService();
 
@@ -106,9 +107,11 @@ public class Main {
             // insertamos objetos
         dentistService.insertDentist(dentist);
         dentistService.insertDentist(dentist2);
+        dentistService.insertDentist(dentist3);
 
             // listamos todos los registros
         dentistService.selectAllDentist();
+        dentistService.selectDentistByID(2L);
     }
     private static void patientMemory(){
 
