@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DentistDaoMemory implements IDao<Dentist>{
 
@@ -18,6 +19,13 @@ public class DentistDaoMemory implements IDao<Dentist>{
 
     @Override
     public Dentist insert(Dentist dentist) {
+
+        for (Dentist dentist1 : dentistList) {
+            if (Objects.equals(dentist.id(), dentist1.id())){
+                LOGGER.error("error, not added, id repeated");
+                return null;
+            }
+        }
         dentistList.add(dentist);
         LOGGER.info("Data saved in memory: " +dentist.name() + " " + dentist.surname() + ", license no.: " + dentist.licenseNumber());
         return dentist;
@@ -35,7 +43,7 @@ public class DentistDaoMemory implements IDao<Dentist>{
         Dentist dentistSelected = null;
 
         for (Dentist dentist : dentistList) {
-            if(id==dentist.id()){
+            if(Objects.equals(id, dentist.id())){
                 dentistSelected = dentist;
                 LOGGER.info("Dentist selected by ID: " + id + ". " + dentist.toString());
             }
@@ -47,20 +55,22 @@ public class DentistDaoMemory implements IDao<Dentist>{
     public Dentist updateByID(Dentist dentist) {
 
         for (Dentist dentist1 : dentistList) {
-            if (dentist.id()==dentist1.id()){
+            if (Objects.equals(dentist.id(), dentist1.id())){
                 dentistList.add(dentist);
                 dentistList.remove(dentist1);
                 LOGGER.info("Dentist ID: " + dentist.id() + ", successfully updated. " + dentist.toString());
+                return dentist;
             }
         }
-        return dentist;
+        LOGGER.error("error, id not found, dentist not updated");
+        return null;
     }
 
     @Override
     public Dentist deleteByID(Long id) {
 
         for (Dentist dentist : dentistList) {
-            if(id==dentist.id()){
+            if(Objects.equals(id, dentist.id())){
                 dentistList.remove(dentist);
                 LOGGER.info("Dentist deleted by ID: " + id + ". " + dentist.toString());
                 return dentist;
