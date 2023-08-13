@@ -1,6 +1,5 @@
 package clinic.persistence;
 
-import clinic.entities.Dentist;
 import clinic.entities.Patient;
 import org.apache.log4j.Logger;
 
@@ -45,7 +44,7 @@ public class PatientDaoMemory implements IDao<Patient>{
         for (Patient patient : patientList) {
             if(Objects.equals(id, patient.id())){
                 patientSelected = patient;
-                LOGGER.info("Dentist selected by ID: " + id + ". " + patient.toString());
+                LOGGER.info("Patient selected by ID: " + id + ". " + patient);
             }
         }
         return patientSelected;
@@ -57,7 +56,7 @@ public class PatientDaoMemory implements IDao<Patient>{
             if (Objects.equals(patient.id(), patient1.id())){
                 patientList.add(patient);
                 patientList.remove(patient1);
-                LOGGER.info("Patient ID: " + patient.id() + ", successfully updated. " + patient1.toString());
+                LOGGER.info("Patient ID: " + patient.id() + ", successfully updated. " + patient1);
                 return patient;
             }
         }
@@ -71,7 +70,7 @@ public class PatientDaoMemory implements IDao<Patient>{
         for (Patient patient : patientList) {
             if (Objects.equals(id, patient.id())){
                 patientList.remove(patient);
-                LOGGER.info("Patient deleted by ID: " + id + ". " + patient.toString());
+                LOGGER.info("Patient deleted by ID: " + id + ". " + patient);
                 return patient;
             }
         }

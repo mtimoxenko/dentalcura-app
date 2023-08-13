@@ -45,7 +45,7 @@ public class DentistDaoMemory implements IDao<Dentist>{
         for (Dentist dentist : dentistList) {
             if(Objects.equals(id, dentist.id())){
                 dentistSelected = dentist;
-                LOGGER.info("Dentist selected by ID: " + id + ". " + dentist.toString());
+                LOGGER.info("Dentist selected by ID: " + id + ". " + dentist);
             }
         }
         return dentistSelected;
@@ -58,7 +58,7 @@ public class DentistDaoMemory implements IDao<Dentist>{
             if (Objects.equals(dentist.id(), dentist1.id())){
                 dentistList.add(dentist);
                 dentistList.remove(dentist1);
-                LOGGER.info("Dentist ID: " + dentist.id() + ", successfully updated. " + dentist.toString());
+                LOGGER.info("Dentist ID: " + dentist.id() + ", successfully updated. " + dentist);
                 return dentist;
             }
         }
@@ -72,7 +72,7 @@ public class DentistDaoMemory implements IDao<Dentist>{
         for (Dentist dentist : dentistList) {
             if(Objects.equals(id, dentist.id())){
                 dentistList.remove(dentist);
-                LOGGER.info("Dentist deleted by ID: " + id + ". " + dentist.toString());
+                LOGGER.info("Dentist deleted by ID: " + id + ". " + dentist);
                 return dentist;
             }
         }
