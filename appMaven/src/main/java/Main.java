@@ -1,17 +1,17 @@
-import clinic.entities.Dentist;
-import clinic.entities.Patient;
-import clinic.persistence.DentistDaoMemory;
-import clinic.persistence.PatientDAOH2;
-import clinic.persistence.PatientDaoMemory;
-import clinic.service.PatientService;
-import org.apache.log4j.Logger;
-import clinic.persistence.DentistDAOH2;
-import clinic.service.DentistService;
+import org.clinic.entities.Dentist;
+import org.clinic.entities.Patient;
+import org.clinic.persistence.DentistDAOH2;
+import org.clinic.persistence.PatientDAOH2;
+import org.clinic.persistence.DentistDaoMemory;
+import org.clinic.persistence.PatientDaoMemory;
+import org.clinic.service.PatientService;
+import org.clinic.service.DentistService;
 
+import java.util.logging.Logger;
 
 
 public class Main {
-    private final static Logger LOGGER = Logger.getLogger(Main.class);
+    private final static Logger LOGGER = Logger.getLogger(String.valueOf(Main.class));
 
     public static void main(String[] args) {
 
