@@ -17,6 +17,7 @@ class DentistDaoMemoryTest {
 
         Dentist dentist = new Dentist(6L,"Test","Hack", 1235);
         Dentist dentist2 = new Dentist(11L,"TestList","Hacker", 2323);
+        Dentist dentist3 = new Dentist(11L,"Rename","Update",1010);
 
         DentistService dentistService = new DentistService();
         dentistService.setDentistIDao(new DentistDaoMemory());
@@ -24,9 +25,15 @@ class DentistDaoMemoryTest {
         dentistService.insertDentist(dentist);
         dentistService.insertDentist(dentist2);
 
+        Assertions.assertEquals("Dentist: Rename Update, License no.: 1010", dentistService.updateDentistByID(dentist3).toString());
 
-        Assertions.assertEquals("[Dentist: Test Hack, License no.: 1235, Dentist: TestList Hacker, License no.: 2323]", dentistService.selectAllDentist().toString());
+        Assertions.assertEquals("[Dentist: Test Hack, License no.: 1235, Dentist: Rename Update, License no.: 1010]", dentistService.selectAllDentist().toString());
+
+        dentistService.deleteDentistByID(11L);
+
+        Assertions.assertEquals("[Dentist: Test Hack, License no.: 1235]", dentistService.selectAllDentist().toString());
         LOGGER.info("Test OK!");
+
 
     }
 

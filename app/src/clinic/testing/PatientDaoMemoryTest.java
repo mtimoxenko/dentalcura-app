@@ -20,7 +20,13 @@ class PatientDaoMemoryTest {
         PatientService patientService = new PatientService();
         patientService.setPatientIDao(new PatientDaoMemory());
 
-
+        assertEquals(4,patientService.insertPatient(patient).id());
+        assertEquals("Max",patientService.insertPatient(patient).name());
+        assertEquals("Check",patientService.insertPatient(patient).surname());
+        assertEquals("Lake 123",patientService.insertPatient(patient).address());
         assertEquals(555,patientService.insertPatient(patient).niNumber());
+        assertEquals("05/05/2023",patientService.insertPatient(patient).registrationDate());
+        assertEquals("Patient: Max Check, ni_number: 555",patientService.insertPatient(patient).toString());
+
     }
 }

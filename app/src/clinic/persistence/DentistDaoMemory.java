@@ -32,16 +32,40 @@ public class DentistDaoMemory implements IDao<Dentist>{
 
     @Override
     public Dentist selectByID(Long id) {
-        return null;
+        Dentist dentistSelected = null;
+
+        for (Dentist dentist : dentistList) {
+            if(id==dentist.id()){
+                dentistSelected = dentist;
+                LOGGER.info("Dentist selected by ID: " + id + ". " + dentist.toString());
+            }
+        }
+        return dentistSelected;
     }
 
     @Override
     public Dentist updateByID(Dentist dentist) {
-        return null;
+
+        for (Dentist dentist1 : dentistList) {
+            if (dentist.id()==dentist1.id()){
+                dentistList.add(dentist);
+                dentistList.remove(dentist1);
+                LOGGER.info("Dentist ID: " + dentist.id() + ", successfully updated. " + dentist.toString());
+            }
+        }
+        return dentist;
     }
 
     @Override
     public Dentist deleteByID(Long id) {
+
+        for (Dentist dentist : dentistList) {
+            if(id==dentist.id()){
+                dentistList.remove(dentist);
+                LOGGER.info("Dentist deleted by ID: " + id + ". " + dentist.toString());
+                return dentist;
+            }
+        }
         return null;
     }
 
