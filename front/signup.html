@@ -13,14 +13,14 @@
   <!-- ---------------- estilos compartidos de login y signup ---------------- -->
   <link rel="stylesheet" href="./css/loginSignupStyles.css">
 
-  <!-- ---------------------- logica aplicada en login ----------------------- -->
+
+  <!-- ---------------------- logica aplicada en register -------------------- -->
   <script src="./scripts/utils.js"></script>
-  <script src="./scripts/login.js"></script>
+  <script src="./scripts/signup.js"></script>
 
 </head>
 
 <body>
-
   <header class="container">
     <nav>
       <h1>Welcome to Favaloro Clinic</h1>
@@ -31,22 +31,30 @@
     <form>
       <div class="form-header">
         <h2>Appointment Manager</h2>
-        <p class="rounded">Login</p>
+        <p class="rounded">Register</p>
       </div>
+
+      <label>Name</label>
+      <input id="inputName" type="text">
+
+      <label>Surname</label>
+      <input id="inputSurname" type="text">
 
       <label>Email</label>
       <input id="inputEmail" type="text">
+
       <label>Password</label>
       <input id="inputPassword" type="password">
 
-      <button type="submit">Login</button>
+      <label>Repeat password</label>
+      <input id="inputPasswordRepeat" type="password">
 
+      <button type="submit">Register Now</button>
     </form>
 
     <div class="ingresarA">
-      <a href="signup.html">Don't have an account? Sing up here</a>
+      <a href="index.html">Already have an account?</a>
     </div>
-
   </div>
 
 </body>
