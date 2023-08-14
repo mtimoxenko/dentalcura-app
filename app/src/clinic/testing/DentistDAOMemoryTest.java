@@ -1,14 +1,14 @@
 package clinic.testing;
 
 import clinic.entities.Dentist;
-import clinic.persistence.DentistDaoMemory;
+import clinic.persistence.DentistDAOMemory;
 import clinic.service.DentistService;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class DentistDaoMemoryTest {
-    private final static Logger LOGGER = Logger.getLogger(DentistDaoMemoryTest.class);
+class DentistDAOMemoryTest {
+    private final static Logger LOGGER = Logger.getLogger(DentistDAOMemoryTest.class);
 
     @Test
     void selectAllTest(){
@@ -20,7 +20,7 @@ class DentistDaoMemoryTest {
         Dentist dentist3 = new Dentist(11L,"Rename","Update",1010);
 
         DentistService dentistService = new DentistService();
-        dentistService.setDentistIDao(new DentistDaoMemory());
+        dentistService.setDentistIDao(new DentistDAOMemory());
 
         dentistService.insertDentist(dentist);
         dentistService.insertDentist(dentist2);

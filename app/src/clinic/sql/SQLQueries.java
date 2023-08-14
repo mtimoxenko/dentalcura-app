@@ -18,6 +18,14 @@ public enum SQLQueries {
             "SELECT * FROM patient WHERE id=?",
             "UPDATE patient SET name=?, surname=?, address=?, ni_num=?, reg_date=? WHERE id=?;",
             "DELETE FROM patient WHERE id=?"
+    ),
+    APPOINTMENT(
+            "DROP TABLE IF EXISTS appointment; CREATE TABLE appointment(id BIGINT PRIMARY KEY, date VARCHAR(255), patient_id BIGINT, CONSTRAINT fk_appointment_patient FOREIGN KEY (patient_id) REFERENCES patient(id), dentist_id BIGINT, CONSTRAINT fk_appointment_dentist FOREIGN KEY (dentist_id) REFERENCES dentist(id));",
+            "INSERT INTO appointment VALUES(?,?,?,?);",
+            "SELECT * FROM appointment",
+            "SELECT * FROM appointment WHERE id=?",
+            "UPDATE appointment SET date=?, patient_id=?, dentist_id=? WHERE id=?;",
+            "DELETE FROM appointment WHERE id=?"
     );
 
     // ----    Statement Interface   ----

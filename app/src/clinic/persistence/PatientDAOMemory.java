@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PatientDaoMemory implements IDao<Patient>{
+public class PatientDAOMemory implements IDao<Patient>{
 
-    private final static Logger LOGGER = Logger.getLogger(PatientDaoMemory.class);
+    private final static Logger LOGGER = Logger.getLogger(PatientDAOMemory.class);
     private final List<Patient> patientList = new ArrayList<>();
 
 

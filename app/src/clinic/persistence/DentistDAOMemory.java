@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class DentistDaoMemory implements IDao<Dentist>{
+public class DentistDAOMemory implements IDao<Dentist>{
 
-    private final static Logger LOGGER = Logger.getLogger(DentistDaoMemory.class);
+    private final static Logger LOGGER = Logger.getLogger(DentistDAOMemory.class);
     private final List<Dentist> dentistList = new ArrayList<>();
 
 

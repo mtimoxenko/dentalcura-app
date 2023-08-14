@@ -1,15 +1,15 @@
 package clinic.testing;
 
 import clinic.entities.Patient;
-import clinic.persistence.PatientDaoMemory;
+import clinic.persistence.PatientDAOMemory;
 import clinic.service.PatientService;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PatientDaoMemoryTest {
-    private static final Logger LOGGER = Logger.getLogger(PatientDaoMemory.class);
+class PatientDAOMemoryTest {
+    private static final Logger LOGGER = Logger.getLogger(PatientDAOMemory.class);
 
     @Test
     void insert() {
@@ -20,7 +20,7 @@ class PatientDaoMemoryTest {
         Patient patient3 = new Patient(5L,"Test","Update","Tokio 44",30,"30/05/2023");
 
         PatientService patientService = new PatientService();
-        patientService.setPatientIDao(new PatientDaoMemory());
+        patientService.setPatientIDao(new PatientDAOMemory());
 
         assertEquals(4,patientService.insertPatient(patient).id());
         assertEquals("Max",patientService.selectPatientByID(4L).name());
