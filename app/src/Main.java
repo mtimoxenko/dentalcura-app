@@ -7,7 +7,7 @@ import clinic.service.PatientService;
 import org.apache.log4j.Logger;
 import clinic.service.DentistService;
 
-
+// DEPRECATED
 
 public class Main {
     private final static Logger LOGGER = Logger.getLogger(Main.class);
