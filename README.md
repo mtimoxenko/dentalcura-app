@@ -1,4 +1,4 @@
-# &emsp;&emsp;&emsp;&emsp; :hospital: &emsp;DentalCura - Your Dental Care Booking Solution &emsp;:hospital:
+# &emsp;&emsp;&emsp;&emsp; :hospital: &emsp;DentalCura App &emsp;:hospital:
 <br/><br/><br/><br/><br/><br/>
 
 ## &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; UML Class Diagram
