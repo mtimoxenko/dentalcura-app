@@ -29,9 +29,12 @@ public class DentistDAOH2 implements IDao<Dentist>{
 
             statement.close();
             connection.close();
+
             log.info("DENTIST table was created in DB");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... " + e);
+            log.error("Creating DENTIST table in DB was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
@@ -55,9 +58,11 @@ public class DentistDAOH2 implements IDao<Dentist>{
             preparedStatement.close();
             connection.close();
 
-            log.info("Data inserted in a table: " + dentist.name() + " " + dentist.surname());
+            log.info("New reg ADDED to table [" + dentist + "]");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Add new " + dentist +  " to table was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
@@ -91,13 +96,17 @@ public class DentistDAOH2 implements IDao<Dentist>{
             preparedStatement.close();
             connection.close();
 
+            log.info("Reading data from DB...");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Read data from DB was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
-        log.info("Retrieving data from the database... ");
-        dentists.forEach(dentist -> log.info("Dentist: " + dentist));
+        log.info("Rendering data for all Dentists in DB...");
+        dentists.forEach(dentist -> log.info("id [" + dentist.id() + "] " + dentist));
+
         return dentists;
     }
 
@@ -126,13 +135,17 @@ public class DentistDAOH2 implements IDao<Dentist>{
             preparedStatement.close();
             connection.close();
 
+            log.info("Searching Dentist by ID in DB...");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Retrieve Dentist by ID from DB was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
-        log.info("Selecting by id " + "(" + id + ") " + dentist);
+        log.info("Register id " + "[" + id + "] was found.");
+        log.info(String.valueOf(dentist));
+
         return dentist;
     }
 
@@ -157,11 +170,15 @@ public class DentistDAOH2 implements IDao<Dentist>{
             preparedStatement.close();
             connection.close();
 
-            log.info("Data UPDATED in table by id " + "(" + dentist.id() + ")");
+            log.info("Dentist id " + "[" + dentist.id() + "]" +" was UPDATED in table");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Updating Dentist id "  +  "[" + dentist.id() + "]" + " was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
+
+        log.info("UPDATED [" + dentist + "]");
 
         return dentist;
     }
@@ -182,9 +199,11 @@ public class DentistDAOH2 implements IDao<Dentist>{
             preparedStatement.close();
             connection.close();
 
-            log.info("Data DELETED from table by id " + "(" + id + ")");
+            log.info("Dentist id " + "[" + id + "]" +" was DELETED from table");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Delete Dentist id "  +  "[" + id + "]" + " from table was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 

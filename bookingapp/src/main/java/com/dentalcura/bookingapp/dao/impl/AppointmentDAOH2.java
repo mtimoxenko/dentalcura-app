@@ -33,9 +33,12 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
 
             statement.close();
             connection.close();
-            log.info("Appointment table was created in DB");
+
+            log.info("APPOINTMENT table was created in DB");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Creating APPOINTMENT table in DB was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
@@ -59,9 +62,11 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             preparedStatement.close();
             connection.close();
 
-            log.info("Data inserted in a table: " + appointment);
+            log.info("New reg ADDED to table [" + appointment + "]");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Add new " + appointment +  " to table was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
@@ -98,13 +103,17 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             preparedStatement.close();
             connection.close();
 
+            log.info("Reading data from DB...");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Read data from DB was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
-        log.info("Retrieving data from the database... ");
-        appointments.forEach(appointment -> log.info("Appointment: " + appointment));
+        log.info("Rendering data for all Appointments in DB...");
+        appointments.forEach(appointment -> log.info("id [" + appointment.getId() + "] " + appointment));
+
         return appointments;
     }
 
@@ -136,13 +145,17 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             preparedStatement.close();
             connection.close();
 
+            log.info("Searching Appointment by ID in DB...");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Retrieve Appointment by ID from DB was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
-        log.info("Selecting by id " + "(" + id + ") " + appointment);
+        log.info("Register id " + "[" + id + "] was found.");
+        log.info(String.valueOf(appointment));
+
         return appointment;
     }
 
@@ -167,11 +180,15 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             preparedStatement.close();
             connection.close();
 
-            log.info("Data UPDATED in table by id " + "(" + appointment.getId() + ")");
+            log.info("Appointment id  " + "[" + appointment.getId() + "]" +" was UPDATED in table");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Updating Appointment id "  +  "[" + appointment.getId() + "]" + " was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
+
+        log.info("UPDATED [" + appointment + "]");
 
         return appointment;
     }
@@ -192,9 +209,11 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             preparedStatement.close();
             connection.close();
 
-            log.info("Data DELETED from table by id " + "(" + id + ")");
+            log.info("Appointment id  " + "[" + id + "]" +" was deleted from table");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Delete Appointment id "  +  "[" + id + "]" + " from table was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 

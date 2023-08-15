@@ -2,19 +2,14 @@ package com.dentalcura.bookingapp.service;
 
 import com.dentalcura.bookingapp.dao.IDao;
 import com.dentalcura.bookingapp.model.Appointment;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
+@Getter
+@Setter
 public class AppointmentService {
     private IDao<Appointment> appointmentIDao;
-
-    public IDao<Appointment> getAppointmentIDao() {
-        return appointmentIDao;
-    }
-
-    public void setAppointmentIDao(IDao<Appointment> appointmentIDao) {
-        this.appointmentIDao = appointmentIDao;
-    }
-
 
 
     public void createTableAppointment(){
