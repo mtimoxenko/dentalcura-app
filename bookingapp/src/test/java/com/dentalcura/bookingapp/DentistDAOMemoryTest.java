@@ -1,8 +1,8 @@
 package com.dentalcura.bookingapp;
 
-import clinic.entities.Dentist;
-import clinic.persistence.DentistDAOMemory;
-import clinic.service.DentistService;
+import com.dentalcura.bookingapp.model.Dentist;
+import com.dentalcura.bookingapp.dao.impl.DentistDAOMemory;
+import com.dentalcura.bookingapp.service.DentistService;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,11 +27,12 @@ class DentistDAOMemoryTest {
 
 
         Assertions.assertNull(dentistService.insertDentist(dentist3));
-        Assertions.assertEquals("Dentist: Rename Update, License no.: 1010", dentistService.updateDentistByID(dentist3).toString());
+        Assertions.assertEquals("Rename Update, License no.: 1010", dentistService.updateDentistByID(dentist3).toString());
 
-        Assertions.assertEquals("[Dentist: Test Hack, License no.: 1235, Dentist: Rename Update, License no.: 1010]", dentistService.selectAllDentist().toString());
+        Assertions.assertEquals("[Test Hack, License no.: 1235, Rename Update, License no.: 1010]", dentistService.selectAllDentist().toString());
         dentistService.deleteDentistByID(11L);
-        Assertions.assertEquals("[Dentist: Test Hack, License no.: 1235]", dentistService.selectAllDentist().toString());
+        dentistService.deleteDentistByID(1L);
+        Assertions.assertEquals("[Test Hack, License no.: 1235]", dentistService.selectAllDentist().toString());
         Assertions.assertNull(dentistService.updateDentistByID(dentist2));
         LOGGER.info("Test OK!");
 

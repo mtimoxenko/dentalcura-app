@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Slf4j
 public class AppointmentDAOMemory implements IDao<Appointment>{
-    private final List<Appointment> dentistList = new ArrayList<>();
+    private final List<Appointment> appointmentsList = new ArrayList<>();
 
 
     @Override
@@ -22,71 +22,73 @@ public class AppointmentDAOMemory implements IDao<Appointment>{
 
     @Override
     public Appointment insert(Appointment appointment) {
+        log.info("Insert appointment, running");
 
-//        for (Dentist dentist1 : dentistList) {
-//            if (Objects.equals(dentist.id(), dentist1.id())){
-//                LOGGER.error("error, not added, id repeated");
-//                return null;
-//            }
-//        }
-//        dentistList.add(dentist);
-//        LOGGER.info("Data saved in memory: " +dentist.name() + " " + dentist.surname() + ", license no.: " + dentist.licenseNumber());
-//        return appointment;
-        return null;
+        for (Appointment appointment1 : appointmentsList) {
+            if (Objects.equals(appointment1.getId(),appointment.getId())) {
+                log.info("Appointment not added, appointment id already exists");
+                return null;
+            }
+        }
+        appointmentsList.add(appointment);
+        log.info("Data saved in memory: " + appointment);
+        return appointment;
     }
 
     @Override
     public List<Appointment> selectAll() {
-//        LOGGER.info("Retrieving data from memory...");
-//        dentistList.forEach(LOGGER::info);
-//        return dentistList;
-        return null;
+        log.info("Retrieving appointment data from memory...");
+        appointmentsList.forEach(appointment -> log.info(String.valueOf(appointment)));
+        return appointmentsList;
     }
 
     @Override
     public Appointment selectByID(Long id) {
-//        Dentist dentistSelected = null;
-//
-//        for (Dentist dentist : dentistList) {
-//            if(Objects.equals(id, dentist.id())){
-//                dentistSelected = dentist;
-//                LOGGER.info("Dentist selected by ID: " + id + ". " + dentist);
-//            }
-//        }
-//        return dentistSelected;
+        log.info("Search appointment by id");
+
+        for (Appointment appointment : appointmentsList) {
+            if(Objects.equals(id,appointment.getId())){
+                log.info("Appointment selected from memory by ID: " + id + ". " + appointment);
+                return appointment;
+            }
+        }
+        log.info("Appointment not found");
         return null;
     }
 
     @Override
     public Appointment updateByID(Appointment appointment) {
+        log.info("Update appointment internal memory, running");
 
-//        for (Dentist dentist1 : dentistList) {
-//            if (Objects.equals(dentist.id(), dentist1.id())){
-//                dentistList.add(dentist);
-//                dentistList.remove(dentist1);
-//                LOGGER.info("Dentist ID: " + dentist.id() + ", successfully updated. " + dentist);
-//                return dentist;
-//            }
-//        }
-//        LOGGER.error("error, id not found, dentist not updated");
+        for (Appointment appointment1 : appointmentsList) {
+            if(Objects.equals(appointment1.getId(),appointment.getId())){
+                appointmentsList.add(appointment);
+                appointmentsList.remove(appointment1);
+                log.info("Appointment ID: " + appointment1.getId() + ", successfully updated. " + appointment);
+                return appointment;
+            }
+        }
+        log.info("Appointment not found, appointment not updated");
         return null;
     }
 
     @Override
     public Appointment deleteByID(Long id) {
-//
-//        for (Dentist dentist : dentistList) {
-//            if(Objects.equals(id, dentist.id())){
-//                dentistList.remove(dentist);
-//                LOGGER.info("Dentist deleted by ID: " + id + ". " + dentist);
-//                return dentist;
-//            }
-//        }
+        log.info("Delete appointment internal memory, running");
+
+        for (Appointment appointment : appointmentsList) {
+            if(Objects.equals(id,appointment.getId())){
+                appointmentsList.remove(appointment);
+                log.info("Appointment deleted by ID: " + id + ". " + appointment);
+                return appointment;
+            }
+        }
+        log.info("Appointment not found");
         return null;
     }
 
     @Override
     public String toString() {
-        return "In-Memory";
+        return "internal-Memory";
     }
 }

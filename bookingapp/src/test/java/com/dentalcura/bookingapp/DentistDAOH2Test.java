@@ -1,13 +1,11 @@
 package com.dentalcura.bookingapp;
 
-
-import clinic.sql.SQLQueries;
+import com.dentalcura.bookingapp.sql.SQLQueries;
 import org.apache.log4j.Logger;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DentistDAOH2Test {
     private final static Logger LOGGER = Logger.getLogger(DentistDAOH2Test.class);
@@ -34,7 +32,7 @@ class DentistDAOH2Test {
                 count++;
             }
 
-            assertEquals(count, 2);
+            Assertions.assertEquals(count, 2);
             LOGGER.info("Test OK!");
             preparedStatement.close();
 

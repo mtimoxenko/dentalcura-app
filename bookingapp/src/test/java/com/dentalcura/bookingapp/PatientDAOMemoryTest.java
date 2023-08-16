@@ -1,11 +1,12 @@
 package com.dentalcura.bookingapp;
 
-import clinic.entities.Patient;
-import clinic.persistence.PatientDAOMemory;
-import clinic.service.PatientService;
+import com.dentalcura.bookingapp.model.Patient;
+import com.dentalcura.bookingapp.dao.impl.PatientDAOMemory;
+import com.dentalcura.bookingapp.service.PatientService;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class PatientDAOMemoryTest {
@@ -33,8 +34,9 @@ class PatientDAOMemoryTest {
         patientService.insertPatient(patient);
         patientService.updatePatientByID(patient);
         patientService.deletePatientByID(5L);
-        assertEquals("[Patient: Max Check, ni_number: 555]",patientService.selectAllPatient().toString());
+        assertEquals("[Max Check, ni_number: 555]",patientService.selectAllPatient().toString());
         assertEquals("Lake 123",patientService.selectPatientByID(4L).address());
+        assertEquals(null,patientService.selectPatientByID(8L));
 
     }
 }

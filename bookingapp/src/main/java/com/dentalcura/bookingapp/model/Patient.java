@@ -5,7 +5,7 @@ public record Patient(Long id, String name, String surname, String address, int 
 
     @Override
     public String toString() {
-        return "Patient: " + name + " " + surname +
+        return name + " " + surname +
                 ", ni_number: " + niNumber;
     }
 }

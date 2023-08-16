@@ -20,40 +20,43 @@ public class DentistDAOMemory implements IDao<Dentist>{
 
     @Override
     public Dentist insert(Dentist dentist) {
+        log.info("Insert dentist, running");
 
         for (Dentist dentist1 : dentistList) {
             if (Objects.equals(dentist.id(), dentist1.id())){
-                log.error("error, not added, id repeated");
+                log.info("Dentist not added, id already exists");
                 return null;
             }
         }
         dentistList.add(dentist);
-        log.info("Data saved in memory: " +dentist.name() + " " + dentist.surname() + ", license no.: " + dentist.licenseNumber());
+        log.info("Data saved in memory: " +dentist);
         return dentist;
     }
 
     @Override
     public List<Dentist> selectAll() {
-        log.info("Retrieving data from memory...");
+        log.info("Retrieving dentist data from memory...");
         dentistList.forEach(dentist -> log.info("Dentist: " + dentist));
         return dentistList;
     }
 
     @Override
     public Dentist selectByID(Long id) {
-        Dentist dentistSelected = null;
+        log.info("Search dentist by id");
 
         for (Dentist dentist : dentistList) {
             if(Objects.equals(id, dentist.id())){
-                dentistSelected = dentist;
-                log.info("Dentist selected by ID: " + id + ". " + dentist);
+                log.info("Dentist selected from memory by ID: " + id + ". " + dentist);
+                return dentist;
             }
         }
-        return dentistSelected;
+        log.info("Dentist not found");
+        return null;
     }
 
     @Override
     public Dentist updateByID(Dentist dentist) {
+        log.info("Update dentist internal memory, running");
 
         for (Dentist dentist1 : dentistList) {
             if (Objects.equals(dentist.id(), dentist1.id())){
@@ -63,12 +66,13 @@ public class DentistDAOMemory implements IDao<Dentist>{
                 return dentist;
             }
         }
-        log.error("error, id not found, dentist not updated");
+        log.info("Dentist not updated, id not found");
         return null;
     }
 
     @Override
     public Dentist deleteByID(Long id) {
+        log.info("Delete dentist internal memory, running");
 
         for (Dentist dentist : dentistList) {
             if(Objects.equals(id, dentist.id())){
@@ -77,11 +81,12 @@ public class DentistDAOMemory implements IDao<Dentist>{
                 return dentist;
             }
         }
+        log.info("Dentist not found, id not found");
         return null;
     }
 
     @Override
     public String toString() {
-        return "In-Memory";
+        return "internal-Memory";
     }
 }

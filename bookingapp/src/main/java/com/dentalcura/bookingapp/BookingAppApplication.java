@@ -35,8 +35,8 @@ public class BookingAppApplication {
 //        appointmentH2();
 
 		// -----> In-Memory
-//        dentistMemory();
-//        patientMemory();
+        dentistMemory();
+        patientMemory();
 //		appointmentMemory();     //  <--- facus_branch
 
 
@@ -170,10 +170,11 @@ public class BookingAppApplication {
 		dentistService.insertDentist(dentist);
 		dentistService.insertDentist(dentist2);
 		dentistService.insertDentist(dentist3);
+		dentistService.updateDentistByID(dentist3);
 
 		// listamos todos los registros
 		dentistService.selectAllDentist();
-		dentistService.selectDentistByID(2L);
+
 	}
 	private static void patientMemory(){
 
@@ -194,20 +195,40 @@ public class BookingAppApplication {
 	}
 	private static void appointmentMemory(){
 
-//        Patient patient = new Patient(1L,"Juan", "Perez", "Cuba 2628", 11223344, "01/01/2020");
-//        Patient patient2 = new Patient(2L,"Lola", "Rodriguez", "San Martin 1270", 93153234, "15/11/2022");
-//
-//        PatientService patientService = new PatientService();
-//
-//        // seteamos la estrategia de persistencia
-//        patientService.setPatientIDao(new PatientDAOMemory());
-//		log.info("Persistence Layer: " + patientService.getPatientIDao());
-//
-//        // insertamos objetos
-//        patientService.insertPatient(patient);
-//        patientService.insertPatient(patient2);
-//        // listamos todos los registros
-//        patientService.selectAllPatient();
+		Patient patientA = new Patient(3L,"Bender", "Bot", "San Martin", 300, "15/11/2022");
+		Patient patientB = new Patient(3L,"Leela", "Up", "B", 10, "X/X/X");
+
+		Dentist dentistA = new Dentist(3L,"Dr","Test",200);
+		Dentist dentistB = new Dentist(3L,"Doctor","Fry",100);
+
+		Appointment appointment = new Appointment(1L,"11/22/33", patientA, dentistA);
+		Appointment appointment2 = new Appointment(2L,"12/22/33", patientA, dentistA);
+		Appointment appointment3 = new Appointment(3L,"12/22/33", patientB, dentistA);
+		Appointment appointment4 = new Appointment(4L,"12/22/33", patientB, dentistB);
+
+		Appointment appointment5 = new Appointment(2L,"15/22/33", patientA, dentistB);
+		Appointment appointment6 = new Appointment(22L,"15/22/33", patientA, dentistA);
+
+		AppointmentService appointmentService = new AppointmentService();
+		appointmentService.setAppointmentIDao(new AppointmentDAOMemory());
+
+		appointmentService.insertAppointment(appointment);
+		appointmentService.insertAppointment(appointment2);
+		appointmentService.insertAppointment(appointment3);
+		appointmentService.insertAppointment(appointment4);
+		appointmentService.insertAppointment(appointment5);
+
+		// listamos todos los registros
+		appointmentService.selectAllAppointment();
+
+		// listamos un registro por ID
+//		appointmentService.selectAppointmentByID(1L);
+
+		// eliminamos un registro por ID
+//        appointmentService.deleteDAppointmentByID(1L);
+
+		// actualizamos un registro por ID
+//		appointmentService.updateAppointmentByID(new Appointment(1L,"00/00/00", patientB, dentistB));
 	}
 
 

@@ -1,6 +1,5 @@
 package com.dentalcura.bookingapp.dao.impl;
 
-
 import com.dentalcura.bookingapp.dao.IDao;
 import com.dentalcura.bookingapp.model.Patient;
 import lombok.extern.slf4j.Slf4j;
@@ -21,39 +20,44 @@ public class PatientDAOMemory implements IDao<Patient> {
 
     @Override
     public Patient insert(Patient patient) {
+        log.info("Insert patient (running)");
+
         for (Patient patient1 : patientList) {
             if (Objects.equals(patient.id(), patient1.id())){
-                log.error("error, not added, id repeated");
+                log.info("Patient not added, id already exists");
                 return null;
             }
         }
         patientList.add(patient);
-        log.info("Data saved in memory: " + patient.name() + " " + patient.surname());
+        log.info("Data saved in memory: " + patient);
         return patient;
     }
 
     @Override
     public List<Patient> selectAll() {
-        log.info("Retrieving data from memory...");
+        log.info("Retrieving patient data from memory...");
         patientList.forEach(patient -> log.info("Patient: " + patient));
         return patientList;
     }
 
     @Override
     public Patient selectByID(Long id) {
-        Patient patientSelected = null;
+        log.info("Search patient by id");
 
         for (Patient patient : patientList) {
             if(Objects.equals(id, patient.id())){
-                patientSelected = patient;
-                log.info("Patient selected by ID: " + id + ". " + patient);
+                log.info("Patient selected from memory by ID: " + id + ". " + patient);
+                return patient;
             }
         }
-        return patientSelected;
+        log.info("Patient not found");
+        return null;
     }
 
     @Override
     public Patient updateByID(Patient patient) {
+        log.info("Update patient internal memory, running");
+
         for (Patient patient1 : patientList) {
             if (Objects.equals(patient.id(), patient1.id())){
                 patientList.add(patient);
@@ -62,12 +66,13 @@ public class PatientDAOMemory implements IDao<Patient> {
                 return patient;
             }
         }
-        log.error("error, id not found, patient not updated");
+        log.info("Patient not updated, id not found");
         return null;
     }
 
     @Override
     public Patient deleteByID(Long id) {
+        log.info("Delete patient internal memory, running");
 
         for (Patient patient : patientList) {
             if (Objects.equals(id, patient.id())){
@@ -76,11 +81,12 @@ public class PatientDAOMemory implements IDao<Patient> {
                 return patient;
             }
         }
+        log.info("Patient not found, id not found");
         return null;
     }
 
     @Override
     public String toString() {
-        return "In-Memory";
+        return "internal-Memory";
     }
 }
