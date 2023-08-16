@@ -1,11 +1,11 @@
 package com.dentalcura.bookingapp.dao.impl;
 
-
 import com.dentalcura.bookingapp.dao.IDao;
 import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.model.Patient;
-import com.dentalcura.bookingapp.sql.SQLQueries;
+import com.dentalcura.bookingapp.util.DB;
+import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
@@ -14,19 +14,14 @@ import java.util.List;
 
 @Slf4j
 public class AppointmentDAOH2 implements IDao<Appointment>{
-
-    private final static String DB_JDBC_DRIVER = "org.h2.Driver";
-    private final static String DB_URL = "jdbc:h2:~/test";
-    private final static String DB_USER = "sa";
-    private final static String DB_PASSWORD = "";
-
+    
     public void createTable(){
         Connection connection;
         Statement statement;
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             statement = connection.createStatement();
 
             statement.execute(SQLQueries.APPOINTMENT.getCreateTable());
@@ -49,8 +44,8 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
         PreparedStatement preparedStatement;
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getInsertCustom());
 
             preparedStatement.setLong(1, appointment.getId());
@@ -81,8 +76,8 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
         List<Appointment> appointments = new ArrayList<>();
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getSelectAll());
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -124,8 +119,8 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
         Appointment appointment = null;
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getSelectById());
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -165,8 +160,8 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
         PreparedStatement preparedStatement;
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getUpdateById());
 
             preparedStatement.setLong(4, appointment.getId());
@@ -199,8 +194,8 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
         PreparedStatement preparedStatement;
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getDeleteById());
 
             preparedStatement.setLong(1, id);

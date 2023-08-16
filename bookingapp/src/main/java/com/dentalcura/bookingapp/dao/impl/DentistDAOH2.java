@@ -2,7 +2,8 @@ package com.dentalcura.bookingapp.dao.impl;
 
 import com.dentalcura.bookingapp.dao.IDao;
 import com.dentalcura.bookingapp.model.Dentist;
-import com.dentalcura.bookingapp.sql.SQLQueries;
+import com.dentalcura.bookingapp.util.DB;
+import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
@@ -11,18 +12,14 @@ import java.util.List;
 
 @Slf4j
 public class DentistDAOH2 implements IDao<Dentist>{
-    private final static String DB_JDBC_DRIVER = "org.h2.Driver";
-    private final static String DB_URL = "jdbc:h2:~/test";
-    private final static String DB_USER = "sa";
-    private final static String DB_PASSWORD = "";
 
     public void createTable(){
         Connection connection;
         Statement statement;
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             statement = connection.createStatement();
 
             statement.execute(SQLQueries.DENTIST.getCreateTable());
@@ -45,8 +42,8 @@ public class DentistDAOH2 implements IDao<Dentist>{
         PreparedStatement preparedStatement;
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getInsertCustom());
 
             preparedStatement.setLong(1, dentist.id());
@@ -77,8 +74,8 @@ public class DentistDAOH2 implements IDao<Dentist>{
         List<Dentist> dentists = new ArrayList<>();
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getSelectAll());
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -117,8 +114,8 @@ public class DentistDAOH2 implements IDao<Dentist>{
         Dentist dentist = null;
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getSelectById());
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -155,8 +152,8 @@ public class DentistDAOH2 implements IDao<Dentist>{
         PreparedStatement preparedStatement;
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getUpdateById());
 
             preparedStatement.setLong(4, dentist.id());
@@ -189,8 +186,8 @@ public class DentistDAOH2 implements IDao<Dentist>{
         PreparedStatement preparedStatement;
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getDeleteById());
 
             preparedStatement.setLong(1, id);

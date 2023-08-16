@@ -1,4 +1,4 @@
-package com.dentalcura.bookingapp.sql;
+package com.dentalcura.bookingapp.util;
 
 
 import lombok.AllArgsConstructor;
