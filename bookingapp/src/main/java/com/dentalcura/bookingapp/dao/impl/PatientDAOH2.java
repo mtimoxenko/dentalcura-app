@@ -1,6 +1,7 @@
 package com.dentalcura.bookingapp.dao.impl;
 
 import com.dentalcura.bookingapp.dao.IDao;
+import com.dentalcura.bookingapp.model.Address;
 import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.util.DB;
 import com.dentalcura.bookingapp.util.SQLQueries;
@@ -17,7 +18,17 @@ public class PatientDAOH2 implements IDao<Patient> {
         Connection connection;
         Statement statement;
 
+
+        // primero crea la tabla ADDRESS ?
         try {
+            //               TURBIOOOOOOO!!!
+            // aca llamaria al AddressDAOH2.insert
+            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+            addressDAOH2.createTable();
+            // -------------------------------------
+
+
+
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             statement = connection.createStatement();
@@ -49,11 +60,10 @@ public class PatientDAOH2 implements IDao<Patient> {
             preparedStatement.setLong(1, patient.id());
             preparedStatement.setString(2, patient.name());
             preparedStatement.setString(3, patient.surname());
-            // ----------------------------------------------------------
-//            preparedStatement.setString(4, patient.address());
-            // ----------------------------------------------------------
-            preparedStatement.setInt(5, patient.niNumber());
-            preparedStatement.setString(6, patient.registrationDate());
+            preparedStatement.setInt(4, patient.niNumber());
+            preparedStatement.setString(5, patient.registrationDate());
+            // fk address_id
+            preparedStatement.setLong(6, patient.address().id());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -62,7 +72,15 @@ public class PatientDAOH2 implements IDao<Patient> {
             log.info("New reg ADDED to table [" + patient + "]");
 
 
+
+            //               TURBIOOOOOOO!!!
             // aca llamaria al AddressDAOH2.insert
+            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+            addressDAOH2.insert(patient.address());
+            // -------------------------------------
+
+
+
 
         } catch (SQLException | ClassNotFoundException e) {
             log.error("Add new " + patient +  " to table was not possible");
@@ -90,15 +108,27 @@ public class PatientDAOH2 implements IDao<Patient> {
                 Long id = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
-                String address = resultSet.getString(4);
-                int niNumber = resultSet.getInt(5);
-                String registrationDate = resultSet.getString(6);
+                int niNumber = resultSet.getInt(4);
+                String registrationDate = resultSet.getString(5);
 
 
+
+
+
+
+                // ---> 6
                 //  Domicilio <- listarPorIdDomicilio(id_PACIENTE)
+                //               TURBIOOOOOOO!!!
+                // aca llamaria al AddressDAOH2.insert
+                AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+                Address address = addressDAOH2.selectByID(id);
+                // -------------------------------------
 
 
-                Patient patient = new Patient(id,name, surname, Domicilio <- listarPorIdDomicilio(id_PACIENTE) , niNumber, registrationDate);
+
+
+
+                Patient patient = new Patient(id, name, surname, niNumber, registrationDate, address);
                 patients.add(patient);
             }
 
@@ -137,15 +167,26 @@ public class PatientDAOH2 implements IDao<Patient> {
                 Long tabId = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
-                String address = resultSet.getString(4);
-                int niNumber = resultSet.getInt(5);
-                String regDate = resultSet.getString(6);
+//                String address = resultSet.getString(4);
+                int niNumber = resultSet.getInt(4);
+                String regDate = resultSet.getString(5);
+
+
 
 
 //               AddressDAOH2.selectById ?
+                // ---> 6
+                //  Domicilio <- listarPorIdDomicilio(id_PACIENTE)
+                //               TURBIOOOOOOO!!!
+                // aca llamaria al AddressDAOH2.insert
+                AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+                Address address = addressDAOH2.selectByID(id);
+                // -------------------------------------
 
 
-                patient = new Patient(tabId, name, surname, address, niNumber, regDate);
+
+
+                patient = new Patient(tabId, name, surname, niNumber, regDate, address);
             }
 
             resultSet.close();
@@ -181,15 +222,31 @@ public class PatientDAOH2 implements IDao<Patient> {
             preparedStatement.setString(1, patient.name());
             preparedStatement.setString(2, patient.surname());
 //            preparedStatement.setString(3, patient.address());
-            preparedStatement.setInt(4, patient.niNumber());
-            preparedStatement.setString(5, patient.registrationDate());
+            preparedStatement.setInt(3, patient.niNumber());
+            preparedStatement.setString(4, patient.registrationDate());
 
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
 
-//            AddressDAOH2.updateById
+
+
+
+
+
+
+            //               TURBIOOOOOOO!!!
+            // aca llamaria al AddressDAOH2.insert
+            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+            addressDAOH2.updateByID(patient.address());
+            // -------------------------------------
+
+
+
+
+
+
 
             log.info("Patient id  " + "[" + patient.id() + "]" +" was UPDATED in table");
 
@@ -208,11 +265,20 @@ public class PatientDAOH2 implements IDao<Patient> {
     public Patient deleteByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
+        Patient patient = null;
 
         // primero borra address?
         // AddressDAOH2.deleteByID
 
         try {
+
+            patient = selectByID(id);
+            //               TURBIOOOOOOO!!!
+            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+            addressDAOH2.deleteByID(patient.address().id());
+            // -------------------------------------
+
+
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getDeleteById());
@@ -223,6 +289,8 @@ public class PatientDAOH2 implements IDao<Patient> {
             preparedStatement.close();
             connection.close();
 
+
+
             log.info("Patient id  " + "[" + id + "]" +" was deleted from table");
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -231,7 +299,7 @@ public class PatientDAOH2 implements IDao<Patient> {
             throw new RuntimeException(e);
         }
 
-        return null;
+        return patient;
     }
 
     @Override

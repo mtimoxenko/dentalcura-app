@@ -1,7 +1,7 @@
 package com.dentalcura.bookingapp.dao.impl;
 
 import com.dentalcura.bookingapp.dao.IDao;
-import com.dentalcura.bookingapp.model.Dentist;
+import com.dentalcura.bookingapp.model.Address;
 import com.dentalcura.bookingapp.util.DB;
 import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class AddressDAOH2 implements IDao<Dentist>{
+public class AddressDAOH2 implements IDao<Address>{
 
+    @Override
     public void createTable(){
         Connection connection;
         Statement statement;
@@ -22,43 +23,45 @@ public class AddressDAOH2 implements IDao<Dentist>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             statement = connection.createStatement();
 
-            statement.execute(SQLQueries.DENTIST.getCreateTable());
+            statement.execute(SQLQueries.ADDRESS.getCreateTable());
 
             statement.close();
             connection.close();
 
-            log.info("DENTIST table was created in DB");
+            log.info("ADDRESS table was created in DB");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Creating DENTIST table in DB was not possible");
+            log.error("Creating ADDRESS table in DB was not possible");
             log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Dentist insert(Dentist dentist) {
+    public Address insert(Address address) {
         Connection connection;
         PreparedStatement preparedStatement;
 
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getInsertCustom());
+            preparedStatement = connection.prepareStatement(SQLQueries.ADDRESS.getInsertCustom());
 
-            preparedStatement.setLong(1, dentist.id());
-            preparedStatement.setString(2, dentist.name());
-            preparedStatement.setString(3, dentist.surname());
-            preparedStatement.setInt(4, dentist.licenseNumber());
+            preparedStatement.setLong(1, address.id());
+            preparedStatement.setString(2, address.streetName());
+            preparedStatement.setInt(3, address.streetNumber());
+            preparedStatement.setInt(4, address.floor());
+            preparedStatement.setString(5, address.department());
+
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
 
-            log.info("New reg ADDED to table [" + dentist + "]");
+            log.info("New reg ADDED to table [" + address + "]");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Add new " + dentist +  " to table was not possible");
+            log.error("Add new " + address +  " to table was not possible");
             log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
@@ -67,26 +70,28 @@ public class AddressDAOH2 implements IDao<Dentist>{
     }
 
     @Override
-    public List<Dentist> selectAll() {
+    public List<Address> selectAll() {
 
         Connection connection;
         PreparedStatement preparedStatement;
-        List<Dentist> dentists = new ArrayList<>();
+        List<Address> addresses = new ArrayList<>();
 
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getSelectAll());
+            preparedStatement = connection.prepareStatement(SQLQueries.ADDRESS.getSelectAll());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
                 Long id = resultSet.getLong(1);
-                String name = resultSet.getString(2);
-                String surname = resultSet.getString(3);
-                int licenseNumber = resultSet.getInt(4);
+                String streetName = resultSet.getString(2);
+                int streetNumber = resultSet.getInt(3);
+                int floor = resultSet.getInt(4);
+                String department = resultSet.getString(5);
 
-                Dentist dentist = new Dentist(id,name, surname,licenseNumber);
-                dentists.add(dentist);
+
+                Address address = new Address(id, streetName, streetNumber, floor, department);
+                addresses.add(address);
             }
 
             resultSet.close();
@@ -101,94 +106,96 @@ public class AddressDAOH2 implements IDao<Dentist>{
             throw new RuntimeException(e);
         }
 
-        log.info("Rendering data for all Dentists in DB...");
-        dentists.forEach(dentist -> log.info("id [" + dentist.id() + "] " + dentist));
+        log.info("Rendering data for all Addresses in DB...");
+        addresses.forEach(address -> log.info("id [" + address.id() + "] " + address));
 
-        return dentists;
+        return addresses;
     }
 
     @Override
-    public Dentist selectByID(Long id) {
+    public Address selectByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
-        Dentist dentist = null;
+        Address address = null;
 
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getSelectById());
+            preparedStatement = connection.prepareStatement(SQLQueries.ADDRESS.getSelectById());
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                Long tabId = resultSet.getLong(1);
-                String name = resultSet.getString(2);
-                String surname = resultSet.getString(3);
-                int licenseNumber = resultSet.getInt(4);
-                dentist = new Dentist(tabId, name, surname,licenseNumber);
+                String streetName = resultSet.getString(2);
+                int streetNumber = resultSet.getInt(3);
+                int floor = resultSet.getInt(4);
+                String department = resultSet.getString(5);
+
+                address = new Address(id, streetName, streetNumber, floor, department);
             }
 
             resultSet.close();
             preparedStatement.close();
             connection.close();
 
-            log.info("Searching Dentist by ID in DB...");
+            log.info("Searching Address by ID in DB...");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Retrieve Dentist by ID from DB was not possible");
+            log.error("Retrieve Address by ID from DB was not possible");
             log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
         log.info("Register id " + "[" + id + "] was found.");
-        log.info(String.valueOf(dentist));
+        log.info(String.valueOf(address));
 
-        return dentist;
+        return address;
     }
 
     @Override
-    public Dentist updateByID(Dentist dentist) {
+    public Address updateByID(Address address) {
         Connection connection;
         PreparedStatement preparedStatement;
 
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getUpdateById());
+            preparedStatement = connection.prepareStatement(SQLQueries.ADDRESS.getUpdateById());
 
-            preparedStatement.setLong(4, dentist.id());
+            preparedStatement.setLong(5, address.id());
 
-            preparedStatement.setString(1, dentist.name());
-            preparedStatement.setString(2, dentist.surname());
-            preparedStatement.setInt(3, dentist.licenseNumber());
+            preparedStatement.setString(1, address.streetName());
+            preparedStatement.setInt(2, address.streetNumber());
+            preparedStatement.setInt(3, address.floor());
+            preparedStatement.setString(4, address.department());
 
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
 
-            log.info("Dentist id " + "[" + dentist.id() + "]" +" was UPDATED in table");
+            log.info("Address id " + "[" + address.id() + "]" +" was UPDATED in table");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Updating Dentist id "  +  "[" + dentist.id() + "]" + " was not possible");
+            log.error("Updating Address id "  +  "[" + address.id() + "]" + " was not possible");
             log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
-        log.info("UPDATED [" + dentist + "]");
+        log.info("UPDATED [" + address + "]");
 
-        return dentist;
+        return address;
     }
 
     @Override
-    public Dentist deleteByID(Long id) {
+    public Address deleteByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
 
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getDeleteById());
+            preparedStatement = connection.prepareStatement(SQLQueries.ADDRESS.getDeleteById());
 
             preparedStatement.setLong(1, id);
 
@@ -196,10 +203,10 @@ public class AddressDAOH2 implements IDao<Dentist>{
             preparedStatement.close();
             connection.close();
 
-            log.info("Dentist id " + "[" + id + "]" +" was DELETED from table");
+            log.info("Address id " + "[" + id + "]" +" was DELETED from table");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Delete Dentist id "  +  "[" + id + "]" + " from table was not possible");
+            log.error("Delete Address id "  +  "[" + id + "]" + " from table was not possible");
             log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }

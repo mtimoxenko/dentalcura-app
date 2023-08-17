@@ -1,6 +1,7 @@
 package com.dentalcura.bookingapp.dao.impl;
 
 import com.dentalcura.bookingapp.dao.IDao;
+import com.dentalcura.bookingapp.model.Address;
 import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.model.Patient;
@@ -87,7 +88,8 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
                 Long patient_id = resultSet.getLong(3);
                 Long dentist_id = resultSet.getLong(4);
 
-                Patient patient = new Patient(patient_id, "patient_nameTest","patient_surnameTest","patient_addressTest",0,"patient_red_date_test" );
+                Address address = new Address(1L,"street_name_test",1,4,"B");
+                Patient patient = new Patient(patient_id, "patient_nameTest","patient_surnameTest",333,"test_date",address );
                 Dentist dentist = new Dentist(dentist_id, "dentist_nameTest", "dentist_surnameTest",0);
 
                 Appointment appointment = new Appointment(id, date, patient,dentist);
@@ -130,7 +132,8 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
                 Long patient_id = resultSet.getLong(3);
                 Long dentist_id = resultSet.getLong(4);
 
-                Patient patient = new Patient(patient_id, "patient_nameTest","patient_surnameTest","patient_addressTest",0,"patient_red_date_test" );
+                Address address = new Address(1L,"street_name_test",1,4,"B");
+                Patient patient = new Patient(patient_id, "patient_nameTest","patient_surnameTest",333,"test_date",address );
                 Dentist dentist = new Dentist(dentist_id, "dentist_nameTest", "dentist_surnameTest",0);
 
                 appointment = new Appointment(id, date, patient,dentist);

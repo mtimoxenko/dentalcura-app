@@ -17,12 +17,20 @@ public enum SQLQueries {
             "DELETE FROM dentist WHERE id=?"
     ),
     PATIENT(
-            "DROP TABLE IF EXISTS patient; CREATE TABLE patient(id BIGINT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), address VARCHAR(255), ni_num INT, reg_date VARCHAR(255));",
+            "DROP TABLE IF EXISTS patient; CREATE TABLE patient(id BIGINT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), ni_num INT, reg_date VARCHAR(255), address_id BIGINT, CONSTRAINT fk_patient_address FOREIGN KEY (address_id) REFERENCES address(id));",
             "INSERT INTO patient VALUES(?,?,?,?,?,?);",
             "SELECT * FROM patient",
             "SELECT * FROM patient WHERE id=?",
-            "UPDATE patient SET name=?, surname=?, address=?, ni_num=?, reg_date=? WHERE id=?;",
+            "UPDATE patient SET name=?, surname=?, address=?, ni_num=?, reg_date=?, address_id=? WHERE id=?;",
             "DELETE FROM patient WHERE id=?"
+    ),
+    ADDRESS(
+            "DROP TABLE IF EXISTS address; CREATE TABLE address(id BIGINT PRIMARY KEY, street_name VARCHAR(255), street_num INT, floor INT, department CHAR(1));",
+            "INSERT INTO address VALUES(?,?,?,?,?);",
+            "SELECT * FROM address",
+            "SELECT * FROM address WHERE id=?",
+            "UPDATE address SET street_name=?, street_num=?, floor=?, department=? WHERE id=?;",
+            "DELETE FROM address WHERE id=?"
     ),
     APPOINTMENT(
             "DROP TABLE IF EXISTS appointment; CREATE TABLE appointment(id BIGINT PRIMARY KEY, date VARCHAR(255), patient_id BIGINT, CONSTRAINT fk_appointment_patient FOREIGN KEY (patient_id) REFERENCES patient(id), dentist_id BIGINT, CONSTRAINT fk_appointment_dentist FOREIGN KEY (dentist_id) REFERENCES dentist(id));",
@@ -31,14 +39,6 @@ public enum SQLQueries {
             "SELECT * FROM appointment WHERE id=?",
             "UPDATE appointment SET date=?, patient_id=?, dentist_id=? WHERE id=?;",
             "DELETE FROM appointment WHERE id=?"
-    ),
-    ADDRESS(
-            "DROP TABLE IF EXISTS address; CREATE TABLE address(id BIGINT PRIMARY KEY, street_name VARCHAR(255), street_num INT, floor INT, department CHAR(1), patient_id BIGINT, CONSTRAINT fk_address_patient FOREIGN KEY (patient_id) REFERENCES patient(id));",
-            "INSERT INTO address VALUES(?,?,?,?,?,?);",
-            "SELECT * FROM address",
-            "SELECT * FROM address WHERE id=?",
-            "UPDATE address SET street_name=?, street_num=?, floor=?, department=?, patient_id=? WHERE id=?;",
-            "DELETE FROM address WHERE id=?"
     );
 
 
