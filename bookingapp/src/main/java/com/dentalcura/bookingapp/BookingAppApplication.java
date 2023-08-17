@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @SpringBootApplication
-@RestController
 @Slf4j
 public class BookingAppApplication {
 
@@ -25,34 +24,33 @@ public class BookingAppApplication {
 
 		log.info("Sequence init...");
 
-		// separar mas las funciones
-		// crearTablas se ejecuta una sola vez
-
-
-		// -----> H2
-        dentistH2();
-//        patientH2();
-//        appointmentH2();
-
-		// -----> In-Memory
-//        dentistMemory();
-//        patientMemory();
-//		appointmentMemory();     //  <--- facus_branch
-
+		// execute once
+		// agregar la creacion de la tabla Address
+		 createTablesH2();
 
 
 		log.info("Task execution finished");
 
 	}
 
-	@GetMapping
-	public String helloFriend() {
-		return "Hello Friend";
+
+	private static void createTablesH2(){
+
+		DentistService dentistService = new DentistService();
+		PatientService patientService = new PatientService();
+		AppointmentService appointmentService = new AppointmentService();
+
+		// seteamos la estrategia de persistencia
+		dentistService.setDentistIDao(new DentistDAOH2());
+		patientService.setPatientIDao(new PatientDAOH2());
+		appointmentService.setAppointmentIDao(new AppointmentDAOH2());
+
+		// creamos las tablas en la DB
+		dentistService.createTableDentist();
+		patientService.createTablePatient();
+		appointmentService.createTableAppointment();
+
 	}
-
-
-
-
 
 	// -----> H2
 	private static void dentistH2(){
@@ -153,62 +151,7 @@ public class BookingAppApplication {
 		appointmentService.updateAppointmentByID(new Appointment(1L,"00/00/00", patientX, dentistX));
 	}
 
-	// -----> In-Memory
-	private static void dentistMemory(){
 
-		Dentist dentist = new Dentist(1L,"Ramiro","Ranalli", 123456);
-		Dentist dentist2 = new Dentist(2L,"Javier","Mascherano", 654321);
-		Dentist dentist3 = new Dentist(1L,"Rename","Update",1010);
-
-		DentistService dentistService = new DentistService();
-
-		// seteamos la estrategia de persistencia
-		dentistService.setDentistIDao(new DentistDAOMemory());
-		log.info("Persistence Layer: " + dentistService.getDentistIDao());
-
-		// insertamos objetos
-		dentistService.insertDentist(dentist);
-		dentistService.insertDentist(dentist2);
-		dentistService.insertDentist(dentist3);
-
-		// listamos todos los registros
-		dentistService.selectAllDentist();
-		dentistService.selectDentistByID(2L);
-	}
-	private static void patientMemory(){
-
-		Patient patient = new Patient(1L,"Juan", "Perez", "Cuba 2628", 11223344, "01/01/2020");
-		Patient patient2 = new Patient(2L,"Lola", "Rodriguez", "San Martin 1270", 93153234, "15/11/2022");
-
-		PatientService patientService = new PatientService();
-
-		// seteamos la estrategia de persistencia
-		patientService.setPatientIDao(new PatientDAOMemory());
-		log.info("Persistence Layer: " + patientService.getPatientIDao());
-
-		// insertamos objetos
-		patientService.insertPatient(patient);
-		patientService.insertPatient(patient2);
-		// listamos todos los registros
-		patientService.selectAllPatient();
-	}
-	private static void appointmentMemory(){
-
-//        Patient patient = new Patient(1L,"Juan", "Perez", "Cuba 2628", 11223344, "01/01/2020");
-//        Patient patient2 = new Patient(2L,"Lola", "Rodriguez", "San Martin 1270", 93153234, "15/11/2022");
-//
-//        PatientService patientService = new PatientService();
-//
-//        // seteamos la estrategia de persistencia
-//        patientService.setPatientIDao(new PatientDAOMemory());
-//		log.info("Persistence Layer: " + patientService.getPatientIDao());
-//
-//        // insertamos objetos
-//        patientService.insertPatient(patient);
-//        patientService.insertPatient(patient2);
-//        // listamos todos los registros
-//        patientService.selectAllPatient();
-	}
 
 
 }

@@ -49,7 +49,9 @@ public class PatientDAOH2 implements IDao<Patient> {
             preparedStatement.setLong(1, patient.id());
             preparedStatement.setString(2, patient.name());
             preparedStatement.setString(3, patient.surname());
-            preparedStatement.setString(4, patient.address());
+            // ----------------------------------------------------------
+//            preparedStatement.setString(4, patient.address());
+            // ----------------------------------------------------------
             preparedStatement.setInt(5, patient.niNumber());
             preparedStatement.setString(6, patient.registrationDate());
 
@@ -58,6 +60,9 @@ public class PatientDAOH2 implements IDao<Patient> {
             connection.close();
 
             log.info("New reg ADDED to table [" + patient + "]");
+
+
+            // aca llamaria al AddressDAOH2.insert
 
         } catch (SQLException | ClassNotFoundException e) {
             log.error("Add new " + patient +  " to table was not possible");
@@ -89,7 +94,11 @@ public class PatientDAOH2 implements IDao<Patient> {
                 int niNumber = resultSet.getInt(5);
                 String registrationDate = resultSet.getString(6);
 
-                Patient patient = new Patient(id,name, surname, address, niNumber, registrationDate);
+
+                //  Domicilio <- listarPorIdDomicilio(id_PACIENTE)
+
+
+                Patient patient = new Patient(id,name, surname, Domicilio <- listarPorIdDomicilio(id_PACIENTE) , niNumber, registrationDate);
                 patients.add(patient);
             }
 
@@ -132,6 +141,10 @@ public class PatientDAOH2 implements IDao<Patient> {
                 int niNumber = resultSet.getInt(5);
                 String regDate = resultSet.getString(6);
 
+
+//               AddressDAOH2.selectById ?
+
+
                 patient = new Patient(tabId, name, surname, address, niNumber, regDate);
             }
 
@@ -167,7 +180,7 @@ public class PatientDAOH2 implements IDao<Patient> {
 
             preparedStatement.setString(1, patient.name());
             preparedStatement.setString(2, patient.surname());
-            preparedStatement.setString(3, patient.address());
+//            preparedStatement.setString(3, patient.address());
             preparedStatement.setInt(4, patient.niNumber());
             preparedStatement.setString(5, patient.registrationDate());
 
@@ -175,6 +188,8 @@ public class PatientDAOH2 implements IDao<Patient> {
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
+
+//            AddressDAOH2.updateById
 
             log.info("Patient id  " + "[" + patient.id() + "]" +" was UPDATED in table");
 
@@ -193,6 +208,9 @@ public class PatientDAOH2 implements IDao<Patient> {
     public Patient deleteByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
+
+        // primero borra address?
+        // AddressDAOH2.deleteByID
 
         try {
             Class.forName(DB.DRIVER);

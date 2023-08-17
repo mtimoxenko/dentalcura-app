@@ -1,9 +1,7 @@
 package com.dentalcura.bookingapp.dao.impl;
 
 import com.dentalcura.bookingapp.dao.IDao;
-import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Dentist;
-import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.util.DB;
 import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class AppointmentDAOH2 implements IDao<Appointment>{
+public class AddressDAOH2 implements IDao<Dentist>{
 
     public void createTable(){
         Connection connection;
@@ -24,43 +22,43 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             statement = connection.createStatement();
 
-            statement.execute(SQLQueries.APPOINTMENT.getCreateTable());
+            statement.execute(SQLQueries.DENTIST.getCreateTable());
 
             statement.close();
             connection.close();
 
-            log.info("APPOINTMENT table was created in DB");
+            log.info("DENTIST table was created in DB");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Creating APPOINTMENT table in DB was not possible");
+            log.error("Creating DENTIST table in DB was not possible");
             log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Appointment insert(Appointment appointment) {
+    public Dentist insert(Dentist dentist) {
         Connection connection;
         PreparedStatement preparedStatement;
 
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getInsertCustom());
+            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getInsertCustom());
 
-            preparedStatement.setLong(1, appointment.id());
-            preparedStatement.setString(2, appointment.date());
-            preparedStatement.setLong(3, appointment.patient().id());
-            preparedStatement.setLong(4, appointment.dentist().id());
+            preparedStatement.setLong(1, dentist.id());
+            preparedStatement.setString(2, dentist.name());
+            preparedStatement.setString(3, dentist.surname());
+            preparedStatement.setInt(4, dentist.licenseNumber());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
 
-            log.info("New reg ADDED to table [" + appointment + "]");
+            log.info("New reg ADDED to table [" + dentist + "]");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Add new " + appointment +  " to table was not possible");
+            log.error("Add new " + dentist +  " to table was not possible");
             log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
@@ -69,29 +67,26 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
     }
 
     @Override
-    public List<Appointment> selectAll() {
+    public List<Dentist> selectAll() {
 
         Connection connection;
         PreparedStatement preparedStatement;
-        List<Appointment> appointments = new ArrayList<>();
+        List<Dentist> dentists = new ArrayList<>();
 
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getSelectAll());
+            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getSelectAll());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
                 Long id = resultSet.getLong(1);
-                String date = resultSet.getString(2);
-                Long patient_id = resultSet.getLong(3);
-                Long dentist_id = resultSet.getLong(4);
+                String name = resultSet.getString(2);
+                String surname = resultSet.getString(3);
+                int licenseNumber = resultSet.getInt(4);
 
-                Patient patient = new Patient(patient_id, "patient_nameTest","patient_surnameTest","patient_addressTest",0,"patient_red_date_test" );
-                Dentist dentist = new Dentist(dentist_id, "dentist_nameTest", "dentist_surnameTest",0);
-
-                Appointment appointment = new Appointment(id, date, patient,dentist);
-                appointments.add(appointment);
+                Dentist dentist = new Dentist(id,name, surname,licenseNumber);
+                dentists.add(dentist);
             }
 
             resultSet.close();
@@ -106,97 +101,94 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             throw new RuntimeException(e);
         }
 
-        log.info("Rendering data for all Appointments in DB...");
-        appointments.forEach(appointment -> log.info("id [" + appointment.id() + "] " + appointment));
+        log.info("Rendering data for all Dentists in DB...");
+        dentists.forEach(dentist -> log.info("id [" + dentist.id() + "] " + dentist));
 
-        return appointments;
+        return dentists;
     }
 
     @Override
-    public Appointment selectByID(Long id) {
+    public Dentist selectByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
-        Appointment appointment = null;
+        Dentist dentist = null;
 
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getSelectById());
+            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getSelectById());
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                String date = resultSet.getString(2);
-                Long patient_id = resultSet.getLong(3);
-                Long dentist_id = resultSet.getLong(4);
-
-                Patient patient = new Patient(patient_id, "patient_nameTest","patient_surnameTest","patient_addressTest",0,"patient_red_date_test" );
-                Dentist dentist = new Dentist(dentist_id, "dentist_nameTest", "dentist_surnameTest",0);
-
-                appointment = new Appointment(id, date, patient,dentist);
+                Long tabId = resultSet.getLong(1);
+                String name = resultSet.getString(2);
+                String surname = resultSet.getString(3);
+                int licenseNumber = resultSet.getInt(4);
+                dentist = new Dentist(tabId, name, surname,licenseNumber);
             }
 
             resultSet.close();
             preparedStatement.close();
             connection.close();
 
-            log.info("Searching Appointment by ID in DB...");
+            log.info("Searching Dentist by ID in DB...");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Retrieve Appointment by ID from DB was not possible");
+            log.error("Retrieve Dentist by ID from DB was not possible");
             log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
         log.info("Register id " + "[" + id + "] was found.");
-        log.info(String.valueOf(appointment));
+        log.info(String.valueOf(dentist));
 
-        return appointment;
+        return dentist;
     }
 
     @Override
-    public Appointment updateByID(Appointment appointment) {
+    public Dentist updateByID(Dentist dentist) {
         Connection connection;
         PreparedStatement preparedStatement;
 
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getUpdateById());
+            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getUpdateById());
 
-            preparedStatement.setLong(4, appointment.id());
+            preparedStatement.setLong(4, dentist.id());
 
-            preparedStatement.setString(1, appointment.date());
-            preparedStatement.setLong(2, appointment.patient().id());
-            preparedStatement.setLong(3, appointment.dentist().id());
+            preparedStatement.setString(1, dentist.name());
+            preparedStatement.setString(2, dentist.surname());
+            preparedStatement.setInt(3, dentist.licenseNumber());
 
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
 
-            log.info("Appointment id  " + "[" + appointment.id() + "]" +" was UPDATED in table");
+            log.info("Dentist id " + "[" + dentist.id() + "]" +" was UPDATED in table");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Updating Appointment id "  +  "[" + appointment.id() + "]" + " was not possible");
+            log.error("Updating Dentist id "  +  "[" + dentist.id() + "]" + " was not possible");
             log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
-        log.info("UPDATED [" + appointment + "]");
+        log.info("UPDATED [" + dentist + "]");
 
-        return appointment;
+        return dentist;
     }
 
     @Override
-    public Appointment deleteByID(Long id) {
+    public Dentist deleteByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
 
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getDeleteById());
+            preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getDeleteById());
 
             preparedStatement.setLong(1, id);
 
@@ -204,10 +196,10 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             preparedStatement.close();
             connection.close();
 
-            log.info("Appointment id  " + "[" + id + "]" +" was deleted from table");
+            log.info("Dentist id " + "[" + id + "]" +" was DELETED from table");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Delete Appointment id "  +  "[" + id + "]" + " from table was not possible");
+            log.error("Delete Dentist id "  +  "[" + id + "]" + " from table was not possible");
             log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }

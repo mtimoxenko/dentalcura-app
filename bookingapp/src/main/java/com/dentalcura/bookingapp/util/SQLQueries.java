@@ -31,6 +31,14 @@ public enum SQLQueries {
             "SELECT * FROM appointment WHERE id=?",
             "UPDATE appointment SET date=?, patient_id=?, dentist_id=? WHERE id=?;",
             "DELETE FROM appointment WHERE id=?"
+    ),
+    ADDRESS(
+            "DROP TABLE IF EXISTS address; CREATE TABLE address(id BIGINT PRIMARY KEY, street_name VARCHAR(255), street_num INT, floor INT, department CHAR(1), patient_id BIGINT, CONSTRAINT fk_address_patient FOREIGN KEY (patient_id) REFERENCES patient(id));",
+            "INSERT INTO address VALUES(?,?,?,?,?,?);",
+            "SELECT * FROM address",
+            "SELECT * FROM address WHERE id=?",
+            "UPDATE address SET street_name=?, street_num=?, floor=?, department=?, patient_id=? WHERE id=?;",
+            "DELETE FROM address WHERE id=?"
     );
 
 
