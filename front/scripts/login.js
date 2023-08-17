@@ -5,6 +5,8 @@ window.addEventListener('load', function () {
     const endpointLogin = 'https://todo-api.ctd.academy/v1/users/login';
 
 
+
+
     /* ----------------------------------------------------------------------- */
     /*           [1] FUNCTION: Listen to submit & prepare to send data         */
     /* ----------------------------------------------------------------------- */
@@ -67,6 +69,43 @@ window.addEventListener('load', function () {
             console.log(err);      
         });
         
+
+        
     };
+
+
+
+
+    /* TEST API CUSTOM */
+    renderPacienteDentista();
+
+    function renderPacienteDentista() {
+        const pacienteNombre = document.querySelector('#pacienteNombre');
+        const pacienteApellido = document.querySelector('#pacienteApellido');
+
+        const endpointJson = './json/paciente.json';
+
+
+        fetch(endpointJson)
+          .then(response => response.json())
+          .then(data => {
+            pacienteNombre.innerText = "Paciente nombre: " + `${data.nombre}`;
+            pacienteApellido.innerText = "Paciente apellido: " + `${data.apellido}`;
+          })
+          .catch(error => console.log(error));
+      }
+
+
+
+
+
+
+
+            
+
+
+    
+
+          
 
 });
