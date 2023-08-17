@@ -5,11 +5,15 @@ import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.service.AppointmentService;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppointmentDAOMemoryTest {
+
+
+
     @Test
     void insert() {
         Patient patientA = new Patient(3L,"Bender", "Bot", "San Martin", 300, "15/11/2022");
@@ -43,5 +47,7 @@ class AppointmentDAOMemoryTest {
 
         assertEquals(3,appointmentService.selectAllAppointment().size());
     }
+
+
 
 }
