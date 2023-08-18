@@ -138,7 +138,7 @@ public class AddressDAOH2 implements IDao<Address>{
             preparedStatement.close();
             connection.close();
 
-            log.info("Searching Address by ID in DB...");
+//            log.info("Searching Address by ID in DB...");
 
         } catch (SQLException | ClassNotFoundException e) {
             log.error("Retrieve Address by ID from DB was not possible");
@@ -146,8 +146,8 @@ public class AddressDAOH2 implements IDao<Address>{
             throw new RuntimeException(e);
         }
 
-        log.info("Register id " + "[" + id + "] was found.");
-        log.info(String.valueOf(address));
+//        log.info("Register id " + "[" + id + "] was found.");
+//        log.info(String.valueOf(address));
 
         return address;
     }

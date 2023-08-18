@@ -1,6 +1,7 @@
 package com.dentalcura.bookingapp;
 
 import com.dentalcura.bookingapp.dao.impl.*;
+import com.dentalcura.bookingapp.model.Address;
 import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.model.Patient;
@@ -32,7 +33,10 @@ public class BookingAppApplication {
 		log.info("Sequence init...");
 
 		createDB();
+		// OK
+//		dentistH2();
 
+		patientH2();
 
 
 
@@ -85,56 +89,64 @@ public class BookingAppApplication {
 
 
 
+	// test all methods
+	private static void dentistH2(){
 
-//	private static void dentistH2(){
-//
-//		Dentist dentist = new Dentist(1L,"Ramiro","Ranalli", 123456);
-//		Dentist dentist2 = new Dentist(2L,"Javier","Mascherano", 654321);
-//
-//		DentistService dentistService = new DentistService();
-//		// seteamos la estrategia de persistencia
-//		dentistService.setDentistIDao(new DentistDAOH2());
-//		log.info("Persistence Layer: " + dentistService.getDentistIDao());
-//
-//		// insertamos objetos
-//		dentistService.insertDentist(dentist);
-//		dentistService.insertDentist(dentist2);
-//
-//		// listamos todos los registros
-//		dentistService.selectAllDentist();
-//
-//		// listamos un registro por ID
-//		dentistService.selectDentistByID(1L);
-//
-//		// eliminamos un registro por ID
-//		dentistService.deleteDentistByID(1L);
-//
-//		// actualizamos un registro por ID
-//		dentistService.updateDentistByID(new Dentist(2L,"Lionel","Messi",10));
-//	}
+		Dentist dentist1 = new Dentist(1L,"Jack","Ripper", 123456);
+		Dentist dentist2 = new Dentist(2L,"Ted","Bundy", 654321);
+		Dentist dentist3 = new Dentist(3L,"Jason","Voorhees", 987654);
 
 
+		DentistService dentistService = new DentistService();
+		// seteamos la estrategia de persistencia
+		dentistService.setDentistIDao(new DentistDAOH2());
+		log.info("Persistence Layer: " + dentistService.getDentistIDao());
 
-//	private static void patientH2(){
-//
-//		Patient patient = new Patient(1L,"Juan", "Perez", "Cuba 2628", 11223344, "01/01/2020");
-//		Patient patient2 = new Patient(2L,"Lola", "Rodriguez", "San Martin 1270", 93153234, "15/11/2022");
-//
-//		PatientService patientService = new PatientService();
-//
-//		// seteamos la estrategia de persistencia
-//		patientService.setPatientIDao(new PatientDAOH2());
-//		log.info("Persistence Layer: " + patientService.getPatientIDao());
-//
-//		// creamos la tabla en la DB
-//		patientService.createTablePatient();
-//
-//		// insertamos objetos
-//		patientService.insertPatient(patient);
-//		patientService.insertPatient(patient2);
-//
-//		// listamos todos los registros
-//		patientService.selectAllPatient();
+		// insertamos objetos
+		dentistService.insertDentist(dentist1);
+		dentistService.insertDentist(dentist2);
+		dentistService.insertDentist(dentist3);
+
+		// listamos todos los registros
+		dentistService.selectAllDentist();
+
+		// listamos un registro por ID
+		dentistService.selectDentistByID(1L);
+
+		// eliminamos un registro por ID
+		dentistService.deleteDentistByID(1L);
+
+		// actualizamos un registro por ID
+		dentistService.updateDentistByID(new Dentist(3L,"Norman","Bates",435698));
+	}
+
+
+
+	private static void patientH2(){
+
+		Address address1 = new Address(1L, "Hundred Acre Wood", 22,10,"A");
+		Patient patient1 = new Patient(1L,"Winnie", "Pooh", 1111, "12/01/1976", address1);
+
+		Address address2 = new Address(2L, "The Shire, Middle-Earth", 1252,1,"B");
+		Patient patient2 = new Patient(2L,"Frodo", "Baggins", 2222, "01/07/1985", address2);
+
+		Address address3 = new Address(3L, "Hill Valley, California", 73468,10,"A");
+		Patient patient3 = new Patient(3L,"Marty", "McFly", 542436, "12/01/1991", address3);
+
+
+
+		PatientService patientService = new PatientService();
+		// seteamos la estrategia de persistencia
+		patientService.setPatientIDao(new PatientDAOH2());
+		log.info("Persistence Layer: " + patientService.getPatientIDao());
+
+		// insertamos objetos
+		patientService.insertPatient(patient1);
+		patientService.insertPatient(patient2);
+		patientService.insertPatient(patient3);
+
+		// listamos todos los registros
+		patientService.selectAllPatient();
 //
 //		// listamos un registro por ID
 //		patientService.selectPatientByID(1L);
@@ -143,8 +155,12 @@ public class BookingAppApplication {
 //		patientService.deletePatientByID(1L);
 //
 //		// actualizamos un registro por ID
-//		patientService.updatePatientByID(new Patient(2L,"Juan","Carlos","Rivadavia 1050",93123654,"1/1/1980"));
-//	}
+//		Address address4 = new Address(4L, "Hogwarts School", 100,2,"Z");
+//		// y si quiero actualizar address sin modificar id ?
+//		patientService.updatePatientByID(new Patient(2L,"Harry","Potter",55555,"10/10/2023",address4));
+	}
+
+
 //	private static void appointmentH2(){
 //
 //		Patient patient2 = new Patient(2L,"Lola", "Rodriguez", "San Martin 1270", 93153234, "15/11/2022");

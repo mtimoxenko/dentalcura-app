@@ -6,8 +6,8 @@ public record Address (Long id, String streetName, int streetNumber, int floor, 
     @Override
     public String toString() {
         return "Address: " + streetName +
-                ", " + streetNumber + " " + floor +
-                " - " + department;
+                " " + streetNumber + ", " + floor +
+                "-" + department;
     }
 
 }

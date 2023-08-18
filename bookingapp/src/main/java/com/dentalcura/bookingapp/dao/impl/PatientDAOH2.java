@@ -47,12 +47,19 @@ public class PatientDAOH2 implements IDao<Patient> {
         }
     }
 
-    @Override
+    @Override // OK
     public Patient insert(Patient patient) {
         Connection connection;
         PreparedStatement preparedStatement;
 
         try {
+            //               TURBIOOOOOOO!!!
+            // aca llama al AddressDAOH2.insert primero
+            // para que no haya erro de inconsistencia por la FK
+            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+            addressDAOH2.insert(patient.address());
+            // -------------------------------------
+
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getInsertCustom());
@@ -70,17 +77,6 @@ public class PatientDAOH2 implements IDao<Patient> {
             connection.close();
 
             log.info("New reg ADDED to table [" + patient + "]");
-
-
-
-            //               TURBIOOOOOOO!!!
-            // aca llamaria al AddressDAOH2.insert
-            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
-            addressDAOH2.insert(patient.address());
-            // -------------------------------------
-
-
-
 
         } catch (SQLException | ClassNotFoundException e) {
             log.error("Add new " + patient +  " to table was not possible");
@@ -116,10 +112,9 @@ public class PatientDAOH2 implements IDao<Patient> {
 
 
 
-                // ---> 6
-                //  Domicilio <- listarPorIdDomicilio(id_PACIENTE)
+
                 //               TURBIOOOOOOO!!!
-                // aca llamaria al AddressDAOH2.insert
+                // condicional que matchee id del paciente con el de domicilio primero
                 AddressDAOH2 addressDAOH2 = new AddressDAOH2();
                 Address address = addressDAOH2.selectByID(id);
                 // -------------------------------------
