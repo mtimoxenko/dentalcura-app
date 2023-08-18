@@ -7,11 +7,18 @@ import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.service.AppointmentService;
 import com.dentalcura.bookingapp.service.DentistService;
 import com.dentalcura.bookingapp.service.PatientService;
+import com.dentalcura.bookingapp.util.DB;
+import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 @SpringBootApplication
@@ -24,17 +31,18 @@ public class BookingAppApplication {
 
 		log.info("Sequence init...");
 
-		// execute once
-//		 createTablesH2();
+		createDB();
+
+
+
 
 
 		log.info("Task execution finished");
-
 	}
 
 
-	private static void createTablesH2(){
-
+	private static void createDB(){
+		drops();
 		PatientService patientService = new PatientService();
 		DentistService dentistService = new DentistService();
 		AppointmentService appointmentService = new AppointmentService();
@@ -49,22 +57,44 @@ public class BookingAppApplication {
 		dentistService.createTableDentist();
 		appointmentService.createTableAppointment();
 
+		log.info("DB created");
+	}
+	private static void drops() {
+		try{
+			Connection connection;
+			Statement statement;
+
+			Class.forName(DB.DRIVER);
+			connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
+			statement = connection.createStatement();
+
+			statement.execute(SQLQueries.DROPS.getCreateTable());
+
+			statement.close();
+			connection.close();
+
+			log.info("DB cleared");
+
+		} catch (SQLException | ClassNotFoundException e) {
+			log.error("Clearing DB was NOT possible");
+			log.error(String.valueOf(e));
+			throw new RuntimeException(e);
+		}
+
 	}
 
-	// -----> H2
+
+
+
 //	private static void dentistH2(){
 //
 //		Dentist dentist = new Dentist(1L,"Ramiro","Ranalli", 123456);
 //		Dentist dentist2 = new Dentist(2L,"Javier","Mascherano", 654321);
 //
 //		DentistService dentistService = new DentistService();
-//
 //		// seteamos la estrategia de persistencia
 //		dentistService.setDentistIDao(new DentistDAOH2());
 //		log.info("Persistence Layer: " + dentistService.getDentistIDao());
-//
-//		// creamos la tabla en la DB
-//		dentistService.createTableDentist();
 //
 //		// insertamos objetos
 //		dentistService.insertDentist(dentist);
@@ -82,6 +112,9 @@ public class BookingAppApplication {
 //		// actualizamos un registro por ID
 //		dentistService.updateDentistByID(new Dentist(2L,"Lionel","Messi",10));
 //	}
+
+
+
 //	private static void patientH2(){
 //
 //		Patient patient = new Patient(1L,"Juan", "Perez", "Cuba 2628", 11223344, "01/01/2020");
