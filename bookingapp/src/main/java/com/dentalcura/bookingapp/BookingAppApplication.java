@@ -36,10 +36,7 @@ public class BookingAppApplication {
 		createDB();
 		dentistH2();
 		patientH2();
-
-		// REVISION
 		appointmentH2();
-
 
 		log.info("Task execution finished");
 	}
@@ -118,7 +115,6 @@ public class BookingAppApplication {
 		// actualizamos un registro por ID
 		dentistService.updateDentistByID(new Dentist(3L,"Norman","Bates",435698));
 	}
-
 	private static void patientH2(){
 
 		Address address1 = new Address(1L, "Hundred Acre Wood", 22,10,"A");
@@ -157,8 +153,6 @@ public class BookingAppApplication {
 		Address address4 = new Address(2L, "Hogwarts School", 100,2,"Z");
 		patientService.updatePatientByID(new Patient(2L,"Harry","Potter",55555,"10/10/2023", address4));
 	}
-
-
 	private static void appointmentH2(){
 
 		PatientService patientService = new PatientService();
@@ -201,7 +195,7 @@ public class BookingAppApplication {
 		// actualizamos un registro por ID
 		log.info("Searching for valid data to UPDATE an Appointment by ID...");
 		// Validar el ID
-		
+
 		// cambiar el paciente
 		Patient patient4 = patientService.selectPatientByID(3L);
 		// cambiar el dentista
