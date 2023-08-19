@@ -35,9 +35,7 @@ public class BookingAppApplication {
 		// OK
 		createDB();
 
-//		dentistH2();
-//		patientH2();
-//		appointmentH2();
+		
 
 		log.info("Task execution finished");
 	}
