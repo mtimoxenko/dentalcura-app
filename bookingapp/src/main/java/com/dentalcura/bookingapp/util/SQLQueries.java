@@ -21,7 +21,7 @@ public enum SQLQueries {
             "INSERT INTO patient VALUES(?,?,?,?,?,?);",
             "SELECT * FROM patient",
             "SELECT * FROM patient WHERE id=?",
-            "UPDATE patient SET name=?, surname=?, address=?, ni_num=?, reg_date=?, address_id=? WHERE id=?;",
+            "UPDATE patient SET name=?, surname=?, ni_num=?, reg_date=? WHERE id=?;",
             "DELETE FROM patient WHERE id=?"
     ),
     ADDRESS(

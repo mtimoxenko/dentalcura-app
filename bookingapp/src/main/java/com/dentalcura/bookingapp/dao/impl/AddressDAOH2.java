@@ -174,7 +174,7 @@ public class AddressDAOH2 implements IDao<Address>{
             preparedStatement.close();
             connection.close();
 
-            log.info("Address id " + "[" + address.id() + "]" +" was UPDATED in table");
+//            log.info("Address id " + "[" + address.id() + "]" +" was UPDATED in table");
 
         } catch (SQLException | ClassNotFoundException e) {
             log.error("Updating Address id "  +  "[" + address.id() + "]" + " was not possible");
@@ -182,7 +182,7 @@ public class AddressDAOH2 implements IDao<Address>{
             throw new RuntimeException(e);
         }
 
-        log.info("UPDATED [" + address + "]");
+//        log.info("UPDATED [" + address + "]");
 
         return address;
     }
@@ -203,7 +203,7 @@ public class AddressDAOH2 implements IDao<Address>{
             preparedStatement.close();
             connection.close();
 
-            log.info("Address id " + "[" + id + "]" +" was DELETED from table");
+//            log.info("Address id " + "[" + id + "]" +" was DELETED from table");
 
         } catch (SQLException | ClassNotFoundException e) {
             log.error("Delete Address id "  +  "[" + id + "]" + " from table was not possible");

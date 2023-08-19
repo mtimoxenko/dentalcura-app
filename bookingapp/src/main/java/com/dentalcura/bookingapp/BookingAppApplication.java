@@ -32,13 +32,13 @@ public class BookingAppApplication {
 
 		log.info("Sequence init...");
 
-		createDB();
 		// OK
-//		dentistH2();
-
+		createDB();
+		dentistH2();
 		patientH2();
 
-
+		// REVISION
+//		appointmentH2();
 
 
 		log.info("Task execution finished");
@@ -89,7 +89,6 @@ public class BookingAppApplication {
 
 
 
-	// test all methods
 	private static void dentistH2(){
 
 		Dentist dentist1 = new Dentist(1L,"Jack","Ripper", 123456);
@@ -120,8 +119,6 @@ public class BookingAppApplication {
 		dentistService.updateDentistByID(new Dentist(3L,"Norman","Bates",435698));
 	}
 
-
-
 	private static void patientH2(){
 
 		Address address1 = new Address(1L, "Hundred Acre Wood", 22,10,"A");
@@ -147,17 +144,18 @@ public class BookingAppApplication {
 
 		// listamos todos los registros
 		patientService.selectAllPatient();
-//
-//		// listamos un registro por ID
-//		patientService.selectPatientByID(1L);
-//
-//		// eliminamos un registro por ID
-//		patientService.deletePatientByID(1L);
-//
-//		// actualizamos un registro por ID
-//		Address address4 = new Address(4L, "Hogwarts School", 100,2,"Z");
-//		// y si quiero actualizar address sin modificar id ?
-//		patientService.updatePatientByID(new Patient(2L,"Harry","Potter",55555,"10/10/2023",address4));
+
+		// listamos un registro por ID
+		patientService.selectPatientByID(1L);
+
+		// eliminamos un registro por ID
+		patientService.deletePatientByID(1L);
+
+		// actualizamos un registro por ID
+		// y si quiero actualizar address sin modificar id ?
+		// aca meto un condicional de si o si coincidan los ID, sino arroja error exception.
+		Address address4 = new Address(2L, "Hogwarts School", 100,2,"Z");
+		patientService.updatePatientByID(new Patient(2L,"Harry","Potter",55555,"10/10/2023", address4));
 	}
 
 

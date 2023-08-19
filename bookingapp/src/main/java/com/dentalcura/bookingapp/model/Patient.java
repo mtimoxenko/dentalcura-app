@@ -6,6 +6,6 @@ public record Patient(Long id, String name, String surname, int niNumber, String
     @Override
     public String toString() {
         return "Patient: " + name + " " + surname +
-                ", ni_number: " + niNumber + ", " + address;
+                ", ni_number: " + niNumber;
     }
 }

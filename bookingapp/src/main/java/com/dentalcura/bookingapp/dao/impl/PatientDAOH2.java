@@ -140,7 +140,7 @@ public class PatientDAOH2 implements IDao<Patient> {
         }
 
         log.info("Rendering data for all Patients in DB...");
-        patients.forEach(patient -> log.info("id [" + patient.id() + "] " + patient));
+        patients.forEach(patient -> log.info("id [" + patient.id() + "] " + patient + " > " + patient.address()));
 
         return patients;
     }
@@ -150,6 +150,11 @@ public class PatientDAOH2 implements IDao<Patient> {
         Connection connection;
         PreparedStatement preparedStatement;
         Patient patient = null;
+
+        //               TURBIOOOOOOO!!!
+        AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+        Address address = addressDAOH2.selectByID(id);
+        // -------------------------------------
 
         try {
             Class.forName(DB.DRIVER);
@@ -162,24 +167,8 @@ public class PatientDAOH2 implements IDao<Patient> {
                 Long tabId = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
-//                String address = resultSet.getString(4);
                 int niNumber = resultSet.getInt(4);
                 String regDate = resultSet.getString(5);
-
-
-
-
-//               AddressDAOH2.selectById ?
-                // ---> 6
-                //  Domicilio <- listarPorIdDomicilio(id_PACIENTE)
-                //               TURBIOOOOOOO!!!
-                // aca llamaria al AddressDAOH2.insert
-                AddressDAOH2 addressDAOH2 = new AddressDAOH2();
-                Address address = addressDAOH2.selectByID(id);
-                // -------------------------------------
-
-
-
 
                 patient = new Patient(tabId, name, surname, niNumber, regDate, address);
             }
@@ -197,7 +186,8 @@ public class PatientDAOH2 implements IDao<Patient> {
         }
 
         log.info("Register id " + "[" + id + "] was found.");
-        log.info(String.valueOf(patient));
+        assert patient != null;
+        log.info(patient + " > " + patient.address());
 
         return patient;
     }
@@ -206,13 +196,14 @@ public class PatientDAOH2 implements IDao<Patient> {
     public Patient updateByID(Patient patient) {
         Connection connection;
         PreparedStatement preparedStatement;
+        log.info("Trying to UPDATE Patient by ID from DB...");
 
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getUpdateById());
 
-            preparedStatement.setLong(6, patient.id());
+            preparedStatement.setLong(5, patient.id());
 
             preparedStatement.setString(1, patient.name());
             preparedStatement.setString(2, patient.surname());
@@ -228,9 +219,6 @@ public class PatientDAOH2 implements IDao<Patient> {
 
 
 
-
-
-
             //               TURBIOOOOOOO!!!
             // aca llamaria al AddressDAOH2.insert
             AddressDAOH2 addressDAOH2 = new AddressDAOH2();
@@ -241,9 +229,7 @@ public class PatientDAOH2 implements IDao<Patient> {
 
 
 
-
-
-            log.info("Patient id  " + "[" + patient.id() + "]" +" was UPDATED in table");
+            log.info("Patient id " + "[" + patient.id() + "]" +" was UPDATED in table");
 
         } catch (SQLException | ClassNotFoundException e) {
             log.error("Updating Patient id "  +  "[" + patient.id() + "]" + " was not possible");
@@ -251,7 +237,7 @@ public class PatientDAOH2 implements IDao<Patient> {
             throw new RuntimeException(e);
         }
 
-        log.info("UPDATED [" + patient + "]");
+        log.info("UPDATED [" + patient + " > " + patient.address() +"]");
 
         return patient;
     }
@@ -260,19 +246,10 @@ public class PatientDAOH2 implements IDao<Patient> {
     public Patient deleteByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
-        Patient patient = null;
-
-        // primero borra address?
-        // AddressDAOH2.deleteByID
+//        Patient patient = selectByID(id);
+        log.info("Trying to DELETE Patient by ID from DB...");
 
         try {
-
-            patient = selectByID(id);
-            //               TURBIOOOOOOO!!!
-            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
-            addressDAOH2.deleteByID(patient.address().id());
-            // -------------------------------------
-
 
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
@@ -285,8 +262,13 @@ public class PatientDAOH2 implements IDao<Patient> {
             connection.close();
 
 
+            //               TURBIOOOOOOO!!!
+            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+            addressDAOH2.deleteByID(id);
+            // -------------------------------------
 
-            log.info("Patient id  " + "[" + id + "]" +" was deleted from table");
+
+            log.info("Patient id " + "[" + id + "]" +" was deleted from table");
 
         } catch (SQLException | ClassNotFoundException e) {
             log.error("Delete Patient id "  +  "[" + id + "]" + " from table was not possible");
@@ -294,7 +276,7 @@ public class PatientDAOH2 implements IDao<Patient> {
             throw new RuntimeException(e);
         }
 
-        return patient;
+        return null;
     }
 
     @Override
