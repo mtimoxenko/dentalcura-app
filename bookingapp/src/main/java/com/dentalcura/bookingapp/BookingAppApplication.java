@@ -38,7 +38,7 @@ public class BookingAppApplication {
 		patientH2();
 
 		// REVISION
-//		appointmentH2();
+		appointmentH2();
 
 
 		log.info("Task execution finished");
@@ -159,43 +159,59 @@ public class BookingAppApplication {
 	}
 
 
-//	private static void appointmentH2(){
-//
-//		Patient patient2 = new Patient(2L,"Lola", "Rodriguez", "San Martin 1270", 93153234, "15/11/2022");
-//		Patient patientX = new Patient(2L,"X", "X", "X", 0, "X/X/X");
-//
-//		Dentist dentist2 = new Dentist(2L,"Lionel","Messi",10);
-//		Dentist dentistX = new Dentist(2L,"Y","Y",100);
-//
-//
-//
-//		Appointment appointment = new Appointment(1L,"11/22/33", patient2, dentist2);
-//
-//		AppointmentService appointmentService = new AppointmentService();
-//
-//		// seteamos la estrategia de persistencia
-//		appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-//		log.info("Persistence Layer: " + appointmentService.getAppointmentIDao());
-//
-//		// creamos la tabla en la DB
-//		appointmentService.createTableAppointment();
-//
-//		// insertamos objetos
-//		appointmentService.insertAppointment(appointment);
-//
-//
-//		// listamos todos los registros
-//		appointmentService.selectAllAppointment();
-//
-//		// listamos un registro por ID
-//		appointmentService.selectAppointmentByID(1L);
-//
-//		// eliminamos un registro por ID
-////        appointmentService.deleteDAppointmentByID(1L);
-//
-//		// actualizamos un registro por ID
-//		appointmentService.updateAppointmentByID(new Appointment(1L,"00/00/00", patientX, dentistX));
-//	}
+	private static void appointmentH2(){
+
+		PatientService patientService = new PatientService();
+		patientService.setPatientIDao(new PatientDAOH2());
+
+		DentistService dentistService = new DentistService();
+		dentistService.setDentistIDao(new DentistDAOH2());
+
+		AppointmentService appointmentService = new AppointmentService();
+		appointmentService.setAppointmentIDao(new AppointmentDAOH2());
+
+
+		//	INSERT
+		log.info("Searching for valid Patient and Dentist to register an Appointment...");
+		Patient patient2 = patientService.selectPatientByID(2L);
+		Dentist dentist2 = dentistService.selectDentistByID(2L);
+		Patient patient3 = patientService.selectPatientByID(3L);
+		Dentist dentist3 = dentistService.selectDentistByID(3L);
+
+		Appointment appointment1 = new Appointment(1L,"01/10/2021", patient2, dentist2);
+		Appointment appointment2 = new Appointment(2L,"10/12/2050", patient3, dentist3);
+		// insertamos objetos
+		appointmentService.insertAppointment(appointment1);
+		appointmentService.insertAppointment(appointment2);
+
+		// listamos todos los registros
+		log.info("Searching for valid data to list all Appointments...");
+		appointmentService.selectAllAppointment();
+
+
+		// listamos un registro por ID
+		appointmentService.selectAppointmentByID(1L);
+
+		// eliminamos un registro por ID
+		log.info("Searching for Appointment by ID to delete from DB...");
+        appointmentService.deleteDAppointmentByID(1L);
+
+
+
+		// actualizamos un registro por ID
+		log.info("Searching for valid data to UPDATE an Appointment by ID...");
+		// Validar el ID
+		
+		// cambiar el paciente
+		Patient patient4 = patientService.selectPatientByID(3L);
+		// cambiar el dentista
+		Dentist dentist4 = dentistService.selectDentistByID(3L);
+		// cambiar la fecha
+		Appointment appointment4 = new Appointment(2L,"10/12/2051", patient4, dentist4);
+
+
+		appointmentService.updateAppointmentByID(appointment4);
+	}
 
 
 }

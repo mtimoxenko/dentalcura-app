@@ -5,6 +5,8 @@ import com.dentalcura.bookingapp.model.Address;
 import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.model.Patient;
+import com.dentalcura.bookingapp.service.DentistService;
+import com.dentalcura.bookingapp.service.PatientService;
 import com.dentalcura.bookingapp.util.DB;
 import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
@@ -76,11 +78,20 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
         PreparedStatement preparedStatement;
         List<Appointment> appointments = new ArrayList<>();
 
+        Patient patient;
+        Dentist dentist;
+
+        PatientService patientService = new PatientService();
+        patientService.setPatientIDao(new PatientDAOH2());
+        DentistService dentistService = new DentistService();
+        dentistService.setDentistIDao(new DentistDAOH2());
+
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getSelectAll());
             ResultSet resultSet = preparedStatement.executeQuery();
+
 
             while (resultSet.next()){
                 Long id = resultSet.getLong(1);
@@ -88,11 +99,10 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
                 Long patient_id = resultSet.getLong(3);
                 Long dentist_id = resultSet.getLong(4);
 
-                Address address = new Address(1L,"street_name_test",1,4,"B");
-                Patient patient = new Patient(patient_id, "patient_nameTest","patient_surnameTest",333,"test_date",address );
-                Dentist dentist = new Dentist(dentist_id, "dentist_nameTest", "dentist_surnameTest",0);
+                patient = patientService.selectPatientByID(patient_id);
+                dentist = dentistService.selectDentistByID(dentist_id);
 
-                Appointment appointment = new Appointment(id, date, patient,dentist);
+                Appointment appointment = new Appointment(id, date, patient, dentist);
                 appointments.add(appointment);
             }
 
@@ -118,8 +128,17 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
     public Appointment selectByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
+
+        Patient patient;
+        Dentist dentist;
         Appointment appointment = null;
 
+        PatientService patientService = new PatientService();
+        patientService.setPatientIDao(new PatientDAOH2());
+        DentistService dentistService = new DentistService();
+        dentistService.setDentistIDao(new DentistDAOH2());
+
+        log.info("Searching Appointment by ID in DB...");
         try {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
@@ -132,18 +151,17 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
                 Long patient_id = resultSet.getLong(3);
                 Long dentist_id = resultSet.getLong(4);
 
-                Address address = new Address(1L,"street_name_test",1,4,"B");
-                Patient patient = new Patient(patient_id, "patient_nameTest","patient_surnameTest",333,"test_date",address );
-                Dentist dentist = new Dentist(dentist_id, "dentist_nameTest", "dentist_surnameTest",0);
+                patient = patientService.selectPatientByID(patient_id);
+                dentist = dentistService.selectDentistByID(dentist_id);
 
-                appointment = new Appointment(id, date, patient,dentist);
+                appointment = new Appointment(id, date, patient, dentist);
             }
 
             resultSet.close();
             preparedStatement.close();
             connection.close();
 
-            log.info("Searching Appointment by ID in DB...");
+
 
         } catch (SQLException | ClassNotFoundException e) {
             log.error("Retrieve Appointment by ID from DB was not possible");
