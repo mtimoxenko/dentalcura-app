@@ -247,7 +247,6 @@ public class PatientDAOH2 implements IDao<Patient> {
         Connection connection;
         PreparedStatement preparedStatement;
 //        Patient patient = selectByID(id);
-        log.info("Trying to DELETE Patient by ID from DB...");
 
         try {
 
