@@ -1,4 +1,3 @@
-
 // if (!localStorage.jwt) {
 //   location.replace('./index.html');
 // }
@@ -9,18 +8,75 @@ window.addEventListener('load', function () {
   AOS.init();
 
   // https://todo-api.ctd.academy/#/tasks/getOneTask
-  const endpointTasks = 'https://todo-api.ctd.academy/v1/tasks';
+  // const enpointAppointment = 'https://todo-api.ctd.academy/v1/tasks';
   // https://todo-api.ctd.academy/#/users/getMe
-  const endpointGetUser = 'https://todo-api.ctd.academy/v1/users/getMe';
-  const token = JSON.parse(localStorage.jwt);
+  // const endpointGetUser = 'https://todo-api.ctd.academy/v1/users/getMe';
+  // const token = JSON.parse(localStorage.jwt);
 
-  const formAddTask = document.querySelector('.new-task');
-  const newTask = document.querySelector('#newTask');
+
+  const formAddAppointment = document.querySelector('.new-appointment');
   const btnCloseApp = document.querySelector('#closeApp');
 
-  getUserName();
-  getTasks();
+  // getUserName();
+  // getDentistList();
+  // getAppointment();
+  
 
+  // function getDentistList(){
+  //   const settings = {
+  //     method: 'GET',
+  //     headers: {
+  //       authorization: token
+  //     }
+  //   };
+
+  //   fetch(endpointDentist, settings)
+  //     .then(response => response.json())
+  //     .then(dentist => {
+
+  //       renderDentist(dentist);
+  //     })
+  //     .catch(error => console.log(error));
+  // }
+
+
+  function renderDentist(){
+    const selectDentist = document.getElementById('select-dentist')
+    const endpointDentist = './json/dentista.json'
+
+    fetch(endpointDentist)
+      .then(response=>response.json())
+      .then(data=>{
+        console.log(data);
+        data.forEach(dentist=>{
+          selectDentist.innerHTML+=`
+          <div><input type="radio" name="dentist" id="${dentist.licencia}">
+          <label for="${dentist.licencia}">${dentist.nombre} ${dentist.apellido}</label>
+          </div>`
+        })
+      })
+  }
+
+  renderDentist()
+
+  function renderTurno(){
+    const selectTurno = document.getElementById('select-turno')
+    const endpointTurno = './json/turno.json'
+
+    fetch(endpointTurno)
+      .then(response=>response.json())
+      .then(data=>{
+        console.log(data);
+        data.forEach(turno=>{
+          selectTurno.innerHTML+=`
+          <div><input type="radio" name="turno" id="${turno.fecha_hora}">
+          <label for="${turno.fecha_hora}">${turno.fecha_hora}</label>
+          </div>`
+        })
+      })
+  }
+
+  renderTurno()
 
     /* -------------------------------------- */
     /*           [1] FUNCTION: Logout         */
@@ -49,7 +105,29 @@ window.addEventListener('load', function () {
   /*                 [2] FUNCTION: Get user name [GET]                */
   /* ------------------------------------------------------------------ */
 
-  function getUserName() {
+  // function getUserName() {
+  //   const settings = {
+  //     method: 'GET',
+  //     headers: {
+  //       authorization: token
+  //     }
+  //   };
+
+  //   fetch(endpointGetUser, settings)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       const usrName = document.querySelector('.user-info p');
+  //       usrName.innerText = data.firstName;
+  //     })
+  //     .catch(error => console.log(error));
+  // }
+
+
+  /* ----------------------------------------------------------------- */
+  /*                 [3] FUNCTION: Get Appointment list [GET]                */
+  /* ----------------------------------------------------------------- */
+
+  function getAppointment() {
     const settings = {
       method: 'GET',
       headers: {
@@ -57,50 +135,49 @@ window.addEventListener('load', function () {
       }
     };
 
-    fetch(endpointGetUser, settings)
+    fetch(enpointAppointment, settings)
       .then(response => response.json())
-      .then(data => {
-        const usrName = document.querySelector('.user-info p');
-        usrName.innerText = data.firstName;
-      })
-      .catch(error => console.log(error));
-  }
+      .then(appointment => {
 
-
-  /* ----------------------------------------------------------------- */
-  /*                 [3] FUNCTION: Get Tasks list [GET]                */
-  /* ----------------------------------------------------------------- */
-
-  function getTasks() {
-    const settings = {
-      method: 'GET',
-      headers: {
-        authorization: token
-      }
-    };
-
-    fetch(endpointTasks, settings)
-      .then(response => response.json())
-      .then(task => {
-
-        renderTasks(task);
+        renderAppointment(appointment);
         btnChangeState();
-        btnDeleteTask();
+        btnDeleteAppointment();
       })
       .catch(error => console.log(error));
   };
 
 
   /* ------------------------------------------------------------------- */
-  /*                    [4] FUNCTION: Add Task [POST]                    */
+  /*                    [4] FUNCTION: Add Appointment [POST]                    */
   /* ------------------------------------------------------------------- */
 
-  formAddTask.addEventListener('submit', function (event) {
+  formAddAppointment.addEventListener('submit', function (event) {
     event.preventDefault();
 
+    const dentist = document.querySelectorAll('[name=dentist]');
+    const turno = document.querySelectorAll('[name=turno]');
+
     const payload = {
-      description: newTask.value.trim()
+      dentist: {},
+      patient: "user",
+      turno: ""
     };
+
+    dentist.forEach(dentist=>{
+      if(dentist.checked){
+        payload.dentist = dentist
+      }
+    })
+
+    turno.forEach(turno=>{
+      if(turno.checked){
+        payload.turno = turno
+      }
+    })
+
+    console.log(payload);
+
+
     const settings = {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -110,62 +187,62 @@ window.addEventListener('load', function () {
       }
     }
 
-    fetch(endpointTasks, settings)
+    fetch(enpointAppointment, settings)
       .then(response => response.json())
       .then(response => {
         // console.log(response.status);
-        getTasks();
+        getAppointment();
       })
       .catch(error => console.log(error));
 
-    formAddTask.reset();
+    formAddAppointment.reset();
   })
 
 
   /* ----------------------------------------------------------- */
-  /*                  [5] FUNCTION: Render Tasks                 */
+  /*                  [5] FUNCTION: Render Appointment                 */
   /* ----------------------------------------------------------- */
-  function renderTasks(listado) {
+  function renderAppointment(listado) {
 
-    // clear all tasks
-    const tasksToDo = document.querySelector('.tareas-pendientes');
-    const tasksCompleted = document.querySelector('.tareas-terminadas');
-    tasksToDo.innerHTML = "";
-    tasksCompleted.innerHTML = "";
+    // clear all Appointment
+    const appointmentToDo = document.querySelector('.tareas-pendientes');
+    const appointmentCompleted = document.querySelector('.tareas-terminadas');
+    appointmentToDo.innerHTML = "";
+    appointmentCompleted.innerHTML = "";
 
     const numComleted = document.querySelector('#cantidad-finalizadas');
     let i = 0;
     numComleted.innerText = i;
 
-    listado.forEach(task => {
+    listado.forEach(appointment => {
 
-      let date = new Date(task.createdAt);
+      let date = new Date(appointment.createdAt);
 
-      if (task.completed) {
+      if (appointment.completed) {
         i++;
 
-        tasksCompleted.innerHTML += `
+        appointmentCompleted.innerHTML += `
           <li class="tarea" data-aos="flip-up">
             <div class="hecha">
               <i class="fa-regular fa-circle-check"></i>
             </div>
             <div class="descripcion">
-              <p class="nombre">${task.description}</p>
+              <p class="nombre">${appointment.description}</p>
               <div class="cambios-estados">
-                <button class="change incompleta" id="${task.id}" ><i class="fa-solid fa-rotate-left"></i></button>
-                <button class="borrar" id="${task.id}"><i class="fa-regular fa-trash-can"></i></button>
+                <button class="change incompleta" id="${appointment.id}" ><i class="fa-solid fa-rotate-left"></i></button>
+                <button class="borrar" id="${appointment.id}"><i class="fa-regular fa-trash-can"></i></button>
               </div>
             </div>
           </li>
                         `
       } else {
 
-        tasksToDo.innerHTML += `
+        appointmentToDo.innerHTML += `
           <li class="tarea" data-aos="flip-up">
-            <button class="change" id="${task.id}"><i class="fa-regular fa-circle"></i></button>
+            <button class="change" id="${appointment.id}"><i class="fa-regular fa-circle"></i></button>
             <div class="descripcion">
-              <p class="nombre">${task.description}</p>
-              <p class="timestamp">${date.toLocaleDateString()}</p>
+              <p class="nombre">${appointment.description}</p>
+              <p class="timestamp">${appointment.toLocaleDateString()}</p>
             </div>
           </li>
                         `
@@ -176,7 +253,7 @@ window.addEventListener('load', function () {
   }
 
   /* ---------------------------------------------------------------------- */
-  /*                  [6] FUNCTION: Change task state [PUT]                 */
+  /*                  [6] FUNCTION: Change appointment state [PUT]                 */
   /* ---------------------------------------------------------------------- */
   function btnChangeState() {
     const btnCambioEstado = document.querySelectorAll('.change');
@@ -186,7 +263,7 @@ window.addEventListener('load', function () {
       btn.addEventListener('click', function (event) {
 
         const id = event.target.id;
-        const url = `${endpointTasks}/${id}`
+        const url = `${enpointAppointment}/${id}`
         const payload = {};
 
         if (event.target.classList.contains('incompleta')) {
@@ -206,7 +283,7 @@ window.addEventListener('load', function () {
         fetch(url, settings)
           .then(response => {
             console.log(response.status);
-            getTasks();
+            getAppointment();
           })
       })
     });
@@ -215,9 +292,9 @@ window.addEventListener('load', function () {
 
 
   /* -------------------------------------------------------------------------- */
-  /*                     [7] FUNCTION: Delete task [DELETE]                    */
+  /*                     [7] FUNCTION: Delete appointment [DELETE]                    */
   /* -------------------------------------------------------------------------- */
-  function btnDeleteTask() {
+  function btnDeleteAppointment() {
   
     const btnDelete = document.querySelectorAll('.borrar');
 
@@ -236,7 +313,7 @@ window.addEventListener('load', function () {
           if (result.isConfirmed) {
 
             const id = event.target.id;
-            const url = `${endpointTasks}/${id}`
+            const url = `${enpointAppointment}/${id}`
 
             const settings = {
               method: 'DELETE',
@@ -247,11 +324,11 @@ window.addEventListener('load', function () {
             fetch(url, settings)
               .then(response => {
                 console.log(response.status);
-                getTasks();
+                getAppointment();
               })
 
             Swal.fire(
-              'Task deleted.',
+              'Appointment deleted.',
             );
 
           }

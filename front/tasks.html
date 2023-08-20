@@ -44,18 +44,36 @@
       </div>
     </nav>
   </header>
+  
 
   <main class="container">
-    <!-- task creation -->
-    <form class="new-task">
-      <input id="newTask" type="text" placeholder="new task">
-      <button type="submit"><i class="fa-solid fa-pencil"></i> Add Task</button>
+
+
+    <form class="new-appointment">
+      <div>
+        <h2>Get Appointment</h2>        
+      </div>
+
+
+      <div class="select">
+        <fieldset id="select-dentist">
+          <legend>Select Dentist</legend>
+        </fieldset>
+
+        <fieldset id="select-turno">
+          <legend>Select Turno</legend>
+        </fieldset>
+
+        <button type="submit"><i class="fa-solid fa-pencil"></i> Add Appointment</button>
+      </div>
+
     </form>
 
-    <!-- void container - To-Do tasks  -->
-    <ul class="tareas-pendientes">
 
+
+    <ul class="tareas-pendientes">
     </ul>
+
 
     <h2>Completed tasks <span id="cantidad-finalizadas">0</span></h2>
     <!-- void container - completed tasks  -->

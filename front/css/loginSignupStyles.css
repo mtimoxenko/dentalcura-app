@@ -77,6 +77,19 @@ form input {
     border: 2px solid var(--app-grey);
 }
 
+Address{
+    margin-top: 5%;
+}
+
+.address{
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    text-align: end;
+    margin-bottom: 5%;
+}
+
+
 form input:focus {
     outline: none;
     border: 2px solid var(--lila);
@@ -100,8 +113,8 @@ form button:hover{
 }
 
 .ingresarA a {
-    color: var(--lila);
+    color: #ffffff;
 }
 .ingresarA a:hover{
-    color: var(--azul);
+    color: var(--lila);
 }

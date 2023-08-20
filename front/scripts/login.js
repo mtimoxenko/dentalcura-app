@@ -89,8 +89,8 @@ window.addEventListener('load', function () {
         fetch(endpointJson)
           .then(response => response.json())
           .then(data => {
-            pacienteNombre.innerText = "Paciente nombre: " + `${data.nombre}`;
-            pacienteApellido.innerText = "Paciente apellido: " + `${data.apellido}`;
+            pacienteNombre.innerText = "Paciente nombre: " + `${data[0].nombre}`;
+            pacienteApellido.innerText = "Paciente apellido: " + `${data[0].apellido}`;
           })
           .catch(error => console.log(error));
       }
