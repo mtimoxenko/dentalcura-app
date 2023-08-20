@@ -12,6 +12,8 @@ window.addEventListener('load', function () {
   // https://todo-api.ctd.academy/#/users/getMe
   // const endpointGetUser = 'https://todo-api.ctd.academy/v1/users/getMe';
   // const token = JSON.parse(localStorage.jwt);
+  const endpointDentist = './json/dentista.json'
+  const endpointTurno = './json/turno.json'
 
 
   const formAddAppointment = document.querySelector('.new-appointment');
@@ -42,7 +44,7 @@ window.addEventListener('load', function () {
 
   function renderDentist(){
     const selectDentist = document.getElementById('select-dentist')
-    const endpointDentist = './json/dentista.json'
+
 
     fetch(endpointDentist)
       .then(response=>response.json())
@@ -61,7 +63,7 @@ window.addEventListener('load', function () {
 
   function renderTurno(){
     const selectTurno = document.getElementById('select-turno')
-    const endpointTurno = './json/turno.json'
+
 
     fetch(endpointTurno)
       .then(response=>response.json())
