@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AppointmentDAOH2Test {
+class PatientDAOH2Test {
 
     @Test
     void createTable() {
@@ -29,11 +29,8 @@ class AppointmentDAOH2Test {
     @Test
     void deleteByID() {
     }
-<<<<<<< HEAD
-=======
 
     @Test
     void testToString() {
     }
->>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
 }

@@ -1,9 +1,10 @@
 package com.dentalcura.bookingapp.dao.impl;
 
-
 import com.dentalcura.bookingapp.dao.IDao;
+import com.dentalcura.bookingapp.model.Address;
 import com.dentalcura.bookingapp.model.Patient;
-import com.dentalcura.bookingapp.sql.SQLQueries;
+import com.dentalcura.bookingapp.util.DB;
+import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
@@ -12,54 +13,74 @@ import java.util.List;
 
 @Slf4j
 public class PatientDAOH2 implements IDao<Patient> {
-    private final static String DB_JDBC_DRIVER = "org.h2.Driver";
-    private final static String DB_URL = "jdbc:h2:~/test";
-    private final static String DB_USER = "sa";
-    private final static String DB_PASSWORD = "";
 
     public void createTable(){
         Connection connection;
         Statement statement;
 
+
+        // primero crea la tabla ADDRESS ?
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            //               TURBIOOOOOOO!!!
+            // aca llamaria al AddressDAOH2.insert
+            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+            addressDAOH2.createTable();
+            // -------------------------------------
+
+
+
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             statement = connection.createStatement();
 
             statement.execute(SQLQueries.PATIENT.getCreateTable());
 
             statement.close();
             connection.close();
+
             log.info("PATIENT table was created in DB");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Creating PATIENT table in DB was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
     }
 
-    @Override
+    @Override // OK
     public Patient insert(Patient patient) {
         Connection connection;
         PreparedStatement preparedStatement;
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            //               TURBIOOOOOOO!!!
+            // aca llama al AddressDAOH2.insert primero
+            // para que no haya erro de inconsistencia por la FK
+            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+            addressDAOH2.insert(patient.address());
+            // -------------------------------------
+
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getInsertCustom());
 
             preparedStatement.setLong(1, patient.id());
             preparedStatement.setString(2, patient.name());
             preparedStatement.setString(3, patient.surname());
-            preparedStatement.setString(4, patient.address());
-            preparedStatement.setInt(5, patient.niNumber());
-            preparedStatement.setString(6, patient.registrationDate());
+            preparedStatement.setInt(4, patient.niNumber());
+            preparedStatement.setString(5, patient.registrationDate());
+            // fk address_id
+            preparedStatement.setLong(6, patient.address().id());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
-            log.info("Data inserted in a table: " + patient.name() + " " + patient.surname());
+
+            log.info("New reg ADDED to table [" + patient + "]");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Add new " + patient +  " to table was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
@@ -74,8 +95,8 @@ public class PatientDAOH2 implements IDao<Patient> {
         List<Patient> patients = new ArrayList<>();
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getSelectAll());
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -83,11 +104,26 @@ public class PatientDAOH2 implements IDao<Patient> {
                 Long id = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
-                String address = resultSet.getString(4);
-                int niNumber = resultSet.getInt(5);
-                String registrationDate = resultSet.getString(6);
+                int niNumber = resultSet.getInt(4);
+                String registrationDate = resultSet.getString(5);
 
-                Patient patient = new Patient(id,name, surname, address, niNumber, registrationDate);
+
+
+
+
+
+
+                //               TURBIOOOOOOO!!!
+                // condicional que matchee id del paciente con el de domicilio primero
+                AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+                Address address = addressDAOH2.selectByID(id);
+                // -------------------------------------
+
+
+
+
+
+                Patient patient = new Patient(id, name, surname, niNumber, registrationDate, address);
                 patients.add(patient);
             }
 
@@ -95,13 +131,17 @@ public class PatientDAOH2 implements IDao<Patient> {
             preparedStatement.close();
             connection.close();
 
+            log.info("Reading data from DB...");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Read data from DB was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
-        log.info("Retrieving data from the database... ");
-        patients.forEach(patient -> log.info("Patient: " + patient));
+        log.info("Rendering data for all Patients in DB...");
+        patients.forEach(patient -> log.info("id [" + patient.id() + "] " + patient + " > " + patient.address()));
+
         return patients;
     }
 
@@ -111,9 +151,14 @@ public class PatientDAOH2 implements IDao<Patient> {
         PreparedStatement preparedStatement;
         Patient patient = null;
 
+        //               TURBIOOOOOOO!!!
+        AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+        Address address = addressDAOH2.selectByID(id);
+        // -------------------------------------
+
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getSelectById());
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -122,24 +167,28 @@ public class PatientDAOH2 implements IDao<Patient> {
                 Long tabId = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
-                String address = resultSet.getString(4);
-                int niNumber = resultSet.getInt(5);
-                String regDate = resultSet.getString(6);
+                int niNumber = resultSet.getInt(4);
+                String regDate = resultSet.getString(5);
 
-                patient = new Patient(tabId, name, surname, address, niNumber, regDate);
+                patient = new Patient(tabId, name, surname, niNumber, regDate, address);
             }
 
             resultSet.close();
             preparedStatement.close();
             connection.close();
 
+            log.info("Searching Patient by ID in DB...");
 
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Retrieve Patient by ID from DB was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 
-        log.info("Selecting by id " + "(" + id + ") " + patient);
+        log.info("Register id " + "[" + id + "] was found.");
+        assert patient != null;
+        log.info(patient + " > " + patient.address());
+
         return patient;
     }
 
@@ -147,30 +196,48 @@ public class PatientDAOH2 implements IDao<Patient> {
     public Patient updateByID(Patient patient) {
         Connection connection;
         PreparedStatement preparedStatement;
+        log.info("Trying to UPDATE Patient by ID from DB...");
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getUpdateById());
 
-            preparedStatement.setLong(6, patient.id());
+            preparedStatement.setLong(5, patient.id());
 
             preparedStatement.setString(1, patient.name());
             preparedStatement.setString(2, patient.surname());
-            preparedStatement.setString(3, patient.address());
-            preparedStatement.setInt(4, patient.niNumber());
-            preparedStatement.setString(5, patient.registrationDate());
+//            preparedStatement.setString(3, patient.address());
+            preparedStatement.setInt(3, patient.niNumber());
+            preparedStatement.setString(4, patient.registrationDate());
 
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
 
-            log.info("Data UPDATED in table by id " + "(" + patient.id() + ")");
+
+
+
+            //               TURBIOOOOOOO!!!
+            // aca llamaria al AddressDAOH2.insert
+            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+            addressDAOH2.updateByID(patient.address());
+            // -------------------------------------
+
+
+
+
+
+            log.info("Patient id " + "[" + patient.id() + "]" +" was UPDATED in table");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Updating Patient id "  +  "[" + patient.id() + "]" + " was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
+
+        log.info("UPDATED [" + patient + " > " + patient.address() +"]");
 
         return patient;
     }
@@ -179,10 +246,13 @@ public class PatientDAOH2 implements IDao<Patient> {
     public Patient deleteByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
+//        Patient patient = selectByID(id);
+        log.info("Trying to DELETE Patient by ID from DB...");
 
         try {
-            Class.forName(DB_JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+
+            Class.forName(DB.DRIVER);
+            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getDeleteById());
 
             preparedStatement.setLong(1, id);
@@ -191,9 +261,18 @@ public class PatientDAOH2 implements IDao<Patient> {
             preparedStatement.close();
             connection.close();
 
-            log.info("Data DELETED from table by id " + "(" + id + ")");
+
+            //               TURBIOOOOOOO!!!
+            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
+            addressDAOH2.deleteByID(id);
+            // -------------------------------------
+
+
+            log.info("Patient id " + "[" + id + "]" +" was deleted from table");
+
         } catch (SQLException | ClassNotFoundException e) {
-            log.error("Something went wrong... :( " + e);
+            log.error("Delete Patient id "  +  "[" + id + "]" + " from table was not possible");
+            log.error(String.valueOf(e));
             throw new RuntimeException(e);
         }
 

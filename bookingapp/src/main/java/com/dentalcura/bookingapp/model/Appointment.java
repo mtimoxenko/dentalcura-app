@@ -1,18 +1,6 @@
 package com.dentalcura.bookingapp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-public class Appointment{
-
-       @Getter
-       private final Long id;
-       private final String date;
-       private final Patient patient;
-       private final Dentist dentist;
-
+public record Appointment(Long id, String date, Patient patient, Dentist dentist) {
 
     @Override
     public String toString() {

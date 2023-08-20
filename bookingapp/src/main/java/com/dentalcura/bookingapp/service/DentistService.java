@@ -2,20 +2,15 @@ package com.dentalcura.bookingapp.service;
 
 import com.dentalcura.bookingapp.dao.IDao;
 import com.dentalcura.bookingapp.model.Dentist;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 public class DentistService {
     private IDao<Dentist> dentistIDao;
-
-    public IDao<Dentist> getDentistIDao() {
-        return dentistIDao;
-    }
-
-    public void setDentistIDao(IDao<Dentist> dentistIDao) {
-        this.dentistIDao = dentistIDao;
-    }
-
 
 
     public void createTableDentist(){
