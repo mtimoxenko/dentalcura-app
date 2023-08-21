@@ -20,3 +20,19 @@
 ###### POST $~~~$ &emsp; /patient $~~~~~~~$ &emsp; Create new patient
 ###### PUT $~~~~~~$ &emsp; /patient/{id} &emsp; Update patient by id
 ###### DELETE &emsp; /patient/{id} &emsp; Delete patient by id
+<br/>
+
+#### DENTIST:
+###### GET $~~~~~~$ &emsp; /dentist $~~~~~~~$ &emsp; Get all dentists
+###### GET $~~~~~~$ &emsp; /dentist/{id} &emsp; Get dentist by id
+###### POST $~~~$ &emsp; /dentist $~~~~~~~$ &emsp; Create new dentist
+###### PUT $~~~~~~$ &emsp; /dentist/{id} &emsp; Update dentist by id
+###### DELETE &emsp; /dentist/{id} &emsp; Delete dentist by id
+<br/>
+
+#### APPOINTMENT:
+###### GET $~~~~~~$ &emsp; /appointment $~~~~~~~$ &emsp; Get all appointments
+###### GET $~~~~~~$ &emsp; /appointment/{id} &emsp; Get appointment by id
+###### POST $~~~$ &emsp; /appointment $~~~~~~~$ &emsp; Create new appointment
+###### PUT $~~~~~~$ &emsp; /appointment/{id} &emsp; Update appointment by id
+###### DELETE &emsp; /appointment/{id} &emsp; Delete appointment by id
