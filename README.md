@@ -15,7 +15,7 @@
 <br/>
 
 #### PATIENT:
-###### GET  &emsp; /patient $~~~~$ &emsp; Get all patients
+###### GET  &emsp; /patient $~~~~~~~~~~~~~~~~$ &emsp; Get all patients
 ###### GET  &emsp; /patient/{id} &emsp; Get patient by id
 ###### POST &emsp; /patient &emsp; Create new patient
 ###### PUT &emsp; /patient/{id} &emsp; Update patient by id
