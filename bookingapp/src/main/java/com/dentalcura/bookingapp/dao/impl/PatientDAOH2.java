@@ -6,12 +6,14 @@ import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.util.DB;
 import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@Repository
 public class PatientDAOH2 implements IDao<Patient> {
 
     public void createTable(){
@@ -247,7 +249,6 @@ public class PatientDAOH2 implements IDao<Patient> {
         Connection connection;
         PreparedStatement preparedStatement;
 //        Patient patient = selectByID(id);
-        log.info("Trying to DELETE Patient by ID from DB...");
 
         try {
 
