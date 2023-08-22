@@ -175,7 +175,7 @@ public class BookingAppApplication {
 	}
 
 
-	
+
 	// PATIENT
 	public static void patientAdd(Long id, String name, String surname, int niNumber, String regDate, String streetName, int streetNumber, int floor, String department){
 		log.info("[ Executing patientAdd() ]");
