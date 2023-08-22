@@ -40,12 +40,21 @@ public enum SQLQueries {
             "UPDATE appointment SET date=?, patient_id=?, dentist_id=? WHERE id=?;",
             "DELETE FROM appointment WHERE id=?"
     ),
+    USERS(
+            "DROP TABLE IF EXISTS usr; CREATE TABLE usr(id INT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), email VARCHAR(255), password VARCHAR(255), admin TINYINT);",
+            "INSERT INTO usr VALUES(?,?,?,?,?,?);",
+            "SELECT * FROM usr",
+            "SELECT * FROM usr WHERE id=?",
+            "UPDATE usr SET name=?, surname=?, email=?, admin=? WHERE id=?;",
+            "DELETE FROM usr WHERE id=?"
+    ),
     DROPS(
 
             "DROP TABLE IF EXISTS appointment;" +
             "DROP TABLE IF EXISTS patient;" +
             "DROP TABLE IF EXISTS dentist;" +
-            "DROP TABLE IF EXISTS address;",
+            "DROP TABLE IF EXISTS address;" +
+            "DROP TABLE IF EXISTS usr;",
             "",
             "",
             "",
