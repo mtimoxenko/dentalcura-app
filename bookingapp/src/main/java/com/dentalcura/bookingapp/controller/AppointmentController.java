@@ -1,39 +1,50 @@
 package com.dentalcura.bookingapp.controller;
 
-import com.dentalcura.bookingapp.model.Appointment;
+import com.dentalcura.bookingapp.dao.impl.PatientDAOH2;
 import com.dentalcura.bookingapp.model.Patient;
+import com.dentalcura.bookingapp.service.PatientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
-@RequestMapping("/appointment")
+@RequestMapping("/patient")
 public class AppointmentController {
 
+    @Autowired
+    private PatientService patientService;
 
 
     @GetMapping()
-    public String getAppointmentAll() {
-        return "get all appointment";
+    public List<Patient> getPatientAll() {
+        patientService.setPatientIDao(new PatientDAOH2());
+        return patientService.selectAllPatient();
     }
 
     @GetMapping("/{id}")
-    public String getAppointment(@PathVariable Long id) {
-        return "get appointment id: " + id;
+    public Patient getPatient(@PathVariable Long id) {
+        patientService.setPatientIDao(new PatientDAOH2());
+        return patientService.selectPatientByID(id);
     }
 
     @PostMapping
-    public Appointment createAppointment(@RequestBody Appointment appointment) {
-        return appointment;
+    public Patient createPatient(@RequestBody Patient patient) {
+        patientService.setPatientIDao(new PatientDAOH2());
+        return patientService.insertPatient(patient);
     }
 
     @PutMapping("/{id}")
-    public String updateAppointment(@PathVariable Long id) {
-        return "update appointment: " + id;
+    public Patient updatePatient(@RequestBody Patient patient) {
+        patientService.setPatientIDao(new PatientDAOH2());
+        return patientService.updatePatientByID(patient);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteAppointment(@PathVariable Long id) {
-        return "delete appointment: " + id;
+    public Patient deletePatient(@PathVariable Long id) {
+        patientService.setPatientIDao(new PatientDAOH2());
+        return patientService.deletePatientByID(id);
     }
 
 }
