@@ -36,3 +36,11 @@
 ###### POST $~~~$ &emsp; http://localhost:8080/appointment $~~~~~~~$ &emsp; Create new appointment
 ###### PUT $~~~~~~$ &emsp; http://localhost:8080/appointment/{id} &emsp; Update appointment by id
 ###### DELETE &emsp; http://localhost:8080/appointment/{id} &emsp; Delete appointment by id
+<br/>
+
+#### USERs:
+###### GET $~~~~~~$ &emsp; http://localhost:8080/user $~~~~~~~$ &emsp; Get all users
+###### GET $~~~~~~$ &emsp; http://localhost:8080/user/{id} &emsp; Get user by id
+###### POST $~~~$ &emsp; http://localhost:8080/user $~~~~~~~$ &emsp; Create new user
+###### PUT $~~~~~~$ &emsp; http://localhost:8080/user/{id} &emsp; Update user by id
+###### DELETE &emsp; http://localhost:8080/user/{id} &emsp; Delete user by id
