@@ -1,7 +1,10 @@
 package com.dentalcura.bookingapp.controller;
 
+import com.dentalcura.bookingapp.dao.impl.AppointmentDAOH2;
 import com.dentalcura.bookingapp.dao.impl.PatientDAOH2;
+import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Patient;
+import com.dentalcura.bookingapp.service.AppointmentService;
 import com.dentalcura.bookingapp.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,41 +13,41 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/appointment")
 public class AppointmentController {
 
     @Autowired
-    private PatientService patientService;
+    private AppointmentService appointmentService;
 
 
     @GetMapping()
-    public List<Patient> getPatientAll() {
-        patientService.setPatientIDao(new PatientDAOH2());
-        return patientService.selectAllPatient();
+    public List<Appointment> getAppointmentAll() {
+        appointmentService.setAppointmentIDao(new AppointmentDAOH2());
+        return appointmentService.selectAllAppointment();
     }
 
     @GetMapping("/{id}")
-    public Patient getPatient(@PathVariable Long id) {
-        patientService.setPatientIDao(new PatientDAOH2());
-        return patientService.selectPatientByID(id);
+    public Appointment getAppointment(@PathVariable Long id) {
+        appointmentService.setAppointmentIDao(new AppointmentDAOH2());
+        return appointmentService.selectAppointmentByID(id);
     }
 
     @PostMapping
-    public Patient createPatient(@RequestBody Patient patient) {
-        patientService.setPatientIDao(new PatientDAOH2());
-        return patientService.insertPatient(patient);
+    public Appointment createAppointment(@RequestBody Appointment appointment) {
+        appointmentService.setAppointmentIDao(new AppointmentDAOH2());
+        return appointmentService.insertAppointment(appointment);
     }
 
     @PutMapping("/{id}")
-    public Patient updatePatient(@RequestBody Patient patient) {
-        patientService.setPatientIDao(new PatientDAOH2());
-        return patientService.updatePatientByID(patient);
+    public Appointment updateAppointment(@RequestBody Appointment appointment) {
+        appointmentService.setAppointmentIDao(new AppointmentDAOH2());
+        return appointmentService.updateAppointmentByID(appointment);
     }
 
     @DeleteMapping("/{id}")
-    public Patient deletePatient(@PathVariable Long id) {
-        patientService.setPatientIDao(new PatientDAOH2());
-        return patientService.deletePatientByID(id);
+    public Appointment deleteAppointment(@PathVariable Long id) {
+        appointmentService.setAppointmentIDao(new AppointmentDAOH2());
+        return appointmentService.deleteDAppointmentByID(id);
     }
 
 }
