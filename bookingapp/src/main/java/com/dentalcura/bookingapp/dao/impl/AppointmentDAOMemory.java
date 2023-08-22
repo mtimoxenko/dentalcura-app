@@ -25,7 +25,7 @@ public class AppointmentDAOMemory implements IDao<Appointment>{
         log.info("Insert appointment, running");
 
         for (Appointment appointment1 : appointmentsList) {
-            if (Objects.equals(appointment1.getId(),appointment.getId())) {
+            if (Objects.equals(appointment1.id(),appointment.id())) {
                 log.info("Appointment not added, appointment id already exists");
                 return null;
             }
@@ -47,7 +47,7 @@ public class AppointmentDAOMemory implements IDao<Appointment>{
         log.info("Search appointment by id");
 
         for (Appointment appointment : appointmentsList) {
-            if(Objects.equals(id,appointment.getId())){
+            if(Objects.equals(id,appointment.id())){
                 log.info("Appointment selected from memory by ID: " + id + ". " + appointment);
                 return appointment;
             }
@@ -61,10 +61,10 @@ public class AppointmentDAOMemory implements IDao<Appointment>{
         log.info("Update appointment internal memory, running");
 
         for (Appointment appointment1 : appointmentsList) {
-            if(Objects.equals(appointment1.getId(),appointment.getId())){
+            if(Objects.equals(appointment.id(),appointment.id())){
                 appointmentsList.add(appointment);
                 appointmentsList.remove(appointment1);
-                log.info("Appointment ID: " + appointment1.getId() + ", successfully updated. " + appointment);
+                log.info("Appointment ID: " + appointment1.id() + ", successfully updated. " + appointment);
                 return appointment;
             }
         }
@@ -77,7 +77,7 @@ public class AppointmentDAOMemory implements IDao<Appointment>{
         log.info("Delete appointment internal memory, running");
 
         for (Appointment appointment : appointmentsList) {
-            if(Objects.equals(id,appointment.getId())){
+            if(Objects.equals(id,appointment.id())){
                 appointmentsList.remove(appointment);
                 log.info("Appointment deleted by ID: " + id + ". " + appointment);
                 return appointment;

@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,31 +29,64 @@ public class BookingAppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BookingAppApplication.class, args);
 
-		log.info("Sequence init...");
+//		log.info("Sequence init...");
+//
+//		createDB();
+//
+//
+//		dentistAdd(1L,"Jack", "Ripper",123456);
+//		dentistAdd(2L,"Ted", "Bundy",654321);
+//		dentistAdd(3L,"Jason", "Voorhees",323232);
+//		dentistAdd(4L,"Dr.", "Who",51515151);
+//
+//		patientAdd(1L,"Winnie","Pooh",93175123,"21/01/1983","Hundred Acre Wood",2023,8,"D");
+//		patientAdd(2L,"Donnie","Darko",121212,"10/01/2020","Av. Belgrano",1122,10,"A");
+//		patientAdd(3L,"Frodo","Baggins",93175123,"21/01/1983","he Shire, Middle-Earth",2023,1,"B");
+//		patientAdd(4L,"Marty","McFly",93175123,"12/02/2000","Hill Valley, California",2626,35,"H");
+//
+//		appointmentAdd(1L,"12/12/2023",1L,4L);
+//		appointmentAdd(2L,"01/12/2023",4L,2L);
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
+//<<<<<<< HEAD
 		// separar mas las funciones
 		// crearTablas se ejecuta una sola vez
 
 
 		// -----> H2
-        dentistH2();
+//        dentistH2();
 //        patientH2();
 //        appointmentH2();
 
 		// -----> In-Memory
-        dentistMemory();
-        patientMemory();
+//        dentistMemory();
+//        patientMemory();
 //		appointmentMemory();     //  <--- facus_branch
 
-=======
+//=======
 		// OK
 		createDB();
->>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
+//>>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
+//=======
+//		dentistListById(1L);
+//		patientListById(1L);
+//		appointmentById(1L);
+//
+//		dentistListAll();
+//		patientListAll();
+//		appointmentListAll();
+//
+//
+//		dentistUpdateById(1L,"Max", "Timo", 11223344);
+//		patientUpdateById(1L,"Michael","Jackson",929292,"02/12/1850","Smooth Criminal", 1010,2,"Y");
+//		appointmentUpdateById(1L,"11/11/2011");
+//
+//		dentistDeleteById(1L);
+//		patientDeleteById(2L);
+//		appointmentDeleteById(2L);
+//>>>>>>> f97ae1b319ce055037fb5ca1bde56cea0579193e
 
-		
-
-		log.info("Task execution finished");
+//		log.info("Task execution finished");
 	}
 
 
@@ -104,6 +136,7 @@ public class BookingAppApplication {
 
 
 
+//<<<<<<< HEAD
 
 
 
@@ -118,11 +151,11 @@ public class BookingAppApplication {
 
 		Dentist dentist = new Dentist(id, name, surname, licenseNumber);
 		dentistService.insertDentist(dentist);
-<<<<<<< HEAD
-		dentistService.insertDentist(dentist2);
-		dentistService.insertDentist(dentist3);
-		dentistService.updateDentistByID(dentist3);
-=======
+//<<<<<<< HEAD
+//		dentistService.insertDentist(dentist2);
+//		dentistService.insertDentist(dentist3);
+//		dentistService.updateDentistByID(dentist3);
+//=======
 		log.info("[ dentistAdd() finished ]");
 	}
 	private static void dentistListAll(){
@@ -130,14 +163,14 @@ public class BookingAppApplication {
 		DentistService dentistService = new DentistService();
 		// Persistence strategy
 		dentistService.setDentistIDao(new DentistDAOH2());
->>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
+//>>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
 
 		dentistService.selectAllDentist();
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
-=======
+//=======
 		log.info("[ dentistListAll() finished ]");
->>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
+//>>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
 	}
 	private static void denistListById(Long id){
 		log.info("[ Executing denistListById() ]");
@@ -202,8 +235,10 @@ public class BookingAppApplication {
 
 
 
+//=======
+//>>>>>>> f97ae1b319ce055037fb5ca1bde56cea0579193e
 	// PATIENT
-	private static void patientAdd(Long id, String name, String surname, int niNumber, String regDate, String streetName, int streetNumber, int floor, String department){
+	public static void patientAdd(Long id, String name, String surname, int niNumber, String regDate, String streetName, int streetNumber, int floor, String department){
 		log.info("[ Executing patientAdd() ]");
 		PatientService patientService = new PatientService();
 		// Persistence strategy
@@ -215,38 +250,18 @@ public class BookingAppApplication {
 		patientService.insertPatient(patient);
 		log.info("[ patientAdd() finished ]");
 	}
+
+
 	private static void patientListAll(){
 		log.info("[ Executing patientListAll() ]");
 		PatientService patientService = new PatientService();
 		// Persistence strategy
 		patientService.setPatientIDao(new PatientDAOH2());
 
-<<<<<<< HEAD
-		Patient patientA = new Patient(3L,"Bender", "Bot", "San Martin", 300, "15/11/2022");
-		Patient patientB = new Patient(3L,"Leela", "Up", "B", 10, "X/X/X");
-
-		Dentist dentistA = new Dentist(3L,"Dr","Test",200);
-		Dentist dentistB = new Dentist(3L,"Doctor","Fry",100);
-
-		Appointment appointment = new Appointment(1L,"11/22/33", patientA, dentistA);
-		Appointment appointment2 = new Appointment(2L,"12/22/33", patientA, dentistA);
-		Appointment appointment3 = new Appointment(3L,"12/22/33", patientB, dentistA);
-		Appointment appointment4 = new Appointment(4L,"12/22/33", patientB, dentistB);
-
-		Appointment appointment5 = new Appointment(2L,"15/22/33", patientA, dentistB);
-		Appointment appointment6 = new Appointment(22L,"15/22/33", patientA, dentistA);
-
-		AppointmentService appointmentService = new AppointmentService();
-		appointmentService.setAppointmentIDao(new AppointmentDAOMemory());
-
-		appointmentService.insertAppointment(appointment);
-		appointmentService.insertAppointment(appointment2);
-		appointmentService.insertAppointment(appointment3);
-		appointmentService.insertAppointment(appointment4);
-		appointmentService.insertAppointment(appointment5);
+//<<<<<<< HEAD
 
 		// listamos todos los registros
-		appointmentService.selectAllAppointment();
+//		appointmentService.selectAllAppointment();
 
 		// listamos un registro por ID
 //		appointmentService.selectAppointmentByID(1L);
@@ -256,7 +271,7 @@ public class BookingAppApplication {
 
 		// actualizamos un registro por ID
 //		appointmentService.updateAppointmentByID(new Appointment(1L,"00/00/00", patientB, dentistB));
-=======
+//=======
 		patientService.selectAllPatient();
 		log.info("[ patientListAll() finished ]");
 	}
@@ -291,53 +306,45 @@ public class BookingAppApplication {
 		patientService.updatePatientByID(newPatient);
 		log.info("[ patientUpdateById() finished ]");
 	}
-//	private static void patientH2(){
-//
-//		Address address1 = new Address(1L, "Hundred Acre Wood", 22,10,"A");
-//		Patient patient1 = new Patient(1L,"Winnie", "Pooh", 1111, "12/01/1976", address1);
-//
-//		Address address2 = new Address(2L, "The Shire, Middle-Earth", 1252,1,"B");
-//		Patient patient2 = new Patient(2L,"Frodo", "Baggins", 2222, "01/07/1985", address2);
-//
-//		Address address3 = new Address(3L, "Hill Valley, California", 73468,10,"A");
-//		Patient patient3 = new Patient(3L,"Marty", "McFly", 542436, "12/01/1991", address3);
-//
-//
-//
-//		PatientService patientService = new PatientService();
-//		// seteamos la estrategia de persistencia
-//		patientService.setPatientIDao(new PatientDAOH2());
-//		log.info("Persistence Layer: " + patientService.getPatientIDao());
-//
-//		// insertamos objetos
-//		patientService.insertPatient(patient1);
-//		patientService.insertPatient(patient2);
-//		patientService.insertPatient(patient3);
-//
-//		// listamos todos los registros
-//		patientService.selectAllPatient();
-//
-//		// listamos un registro por ID
-//		patientService.selectPatientByID(1L);
-//
-//		// eliminamos un registro por ID
-//		patientService.deletePatientByID(1L);
-//
-//		// actualizamos un registro por ID
-//		// y si quiero actualizar address sin modificar id ?
-//		// aca meto un condicional de si o si coincidan los ID, sino arroja error exception.
-//		Address address4 = new Address(2L, "Hogwarts School", 100,2,"Z");
-//		patientService.updatePatientByID(new Patient(2L,"Harry","Potter",55555,"10/10/2023", address4));
-//	}
 
 
 
+	// DENTIST
+
+	private static void dentistListById(Long id){
+		log.info("[ Executing denistListById() ]");
+		DentistService dentistService = new DentistService();
+		// Persistence strategy
+		dentistService.setDentistIDao(new DentistDAOH2());
+
+		dentistService.selectDentistByID(id);
+		log.info("[ denistListById() finished ]");
+	}
+	private static void dentistDeleteById(Long id){
+		log.info("[ Executing denistDeleteById() ]");
+		DentistService dentistService = new DentistService();
+		// Persistence strategy
+		dentistService.setDentistIDao(new DentistDAOH2());
+
+		dentistService.deleteDentistByID(id);
+		log.info("[ denistDeleteById() finished ]");
+	}
+	private static void dentistUpdateById(Long id, String name, String surname, int licenseNumber){
+		log.info("[ Executing dentistUpdateById() ]");
+		DentistService dentistService = new DentistService();
+		// Persistence strategy
+		dentistService.setDentistIDao(new DentistDAOH2());
+
+		Dentist dentist = new Dentist(id,name,surname,licenseNumber);
+		dentistService.updateDentistByID(dentist);
+		log.info("[ dentistUpdateById() finished ]");
+	}
 
 
 
 
 	// APPOINTMENT
-	private static void apointmentAdd(Long id, String date, Long patientID, Long dentistID){
+	private static void appointmentAdd(Long id, String date, Long patientID, Long dentistID){
 		log.info("[ Executing apointmentAdd() ]");
 		PatientService patientService = new PatientService();
 		DentistService dentistService = new DentistService();
@@ -354,9 +361,9 @@ public class BookingAppApplication {
 		Appointment appointment = new Appointment(id,date, patient, dentist);
 		appointmentService.insertAppointment(appointment);
 		log.info("[ apointmentAdd() finished ]");
->>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
+//>>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
 	}
-	private static void apointmentListAll(){
+	private static void appointmentListAll(){
 		log.info("[ Executing apointmentListAll() ]");
 		AppointmentService appointmentService = new AppointmentService();
 		// Persistence strategy
@@ -365,7 +372,7 @@ public class BookingAppApplication {
 		appointmentService.selectAllAppointment();
 		log.info("[ apointmentListAll() finished ]");
 	}
-	private static void apointmentById(Long id){
+	private static void appointmentById(Long id){
 		log.info("[ Executing apointmentById() ]");
 		AppointmentService appointmentService = new AppointmentService();
 		// Persistence strategy
@@ -374,7 +381,7 @@ public class BookingAppApplication {
 		appointmentService.selectAppointmentByID(id);
 		log.info("[ apointmentById() finished ]");
 	}
-	private static void apointmentDeleteById(Long id){
+	private static void appointmentDeleteById(Long id){
 		log.info("[ Executing apointmentDeleteById() ]");
 		AppointmentService appointmentService = new AppointmentService();
 		// Persistence strategy
@@ -383,7 +390,7 @@ public class BookingAppApplication {
 		appointmentService.deleteDAppointmentByID(id);
 		log.info("[ apointmentDeleteById() finished ]");
 	}
-	private static void apointmentUpdateById(Long id, String date){
+	private static void appointmentUpdateById(Long id, String date){
 		log.info("[ Executing apointmentUpdateById() ]");
 		AppointmentService appointmentService = new AppointmentService();
 		// Persistence strategy
@@ -394,63 +401,6 @@ public class BookingAppApplication {
 		appointmentService.updateAppointmentByID(newAppointment);
 		log.info("[ apointmentUpdateById() finished ]");
 	}
-//	private static void appointmentH2(){
-//
-//		PatientService patientService = new PatientService();
-//		patientService.setPatientIDao(new PatientDAOH2());
-//
-//		DentistService dentistService = new DentistService();
-//		dentistService.setDentistIDao(new DentistDAOH2());
-//
-//		AppointmentService appointmentService = new AppointmentService();
-//		appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-//
-//
-//		//	INSERT
-//		log.info("Searching for valid Patient and Dentist to register an Appointment...");
-//		Patient patient2 = patientService.selectPatientByID(2L);
-//		Dentist dentist2 = dentistService.selectDentistByID(2L);
-//		Patient patient3 = patientService.selectPatientByID(3L);
-//		Dentist dentist3 = dentistService.selectDentistByID(3L);
-//
-//		Appointment appointment1 = new Appointment(1L,"01/10/2021", patient2, dentist2);
-//		Appointment appointment2 = new Appointment(2L,"10/12/2050", patient3, dentist3);
-//		// insertamos objetos
-//		appointmentService.insertAppointment(appointment1);
-//		appointmentService.insertAppointment(appointment2);
-//
-//
-//
-//
-//
-//		// listamos todos los registros
-//		log.info("Searching for valid data to list all Appointments...");
-//		appointmentService.selectAllAppointment();
-//
-//
-//		// listamos un registro por ID
-//		appointmentService.selectAppointmentByID(1L);
-//
-//		// eliminamos un registro por ID
-//		log.info("Searching for Appointment by ID to delete from DB...");
-//        appointmentService.deleteDAppointmentByID(1L);
-//
-//
-//
-//		// actualizamos un registro por ID
-//		log.info("Searching for valid data to UPDATE an Appointment by ID...");
-//		// Validar el ID
-//
-//		// cambiar el paciente
-//		Patient patient4 = patientService.selectPatientByID(3L);
-//		// cambiar el dentista
-//		Dentist dentist4 = dentistService.selectDentistByID(3L);
-//		// cambiar la fecha
-//		Appointment appointment4 = new Appointment(2L,"10/12/2051", patient4, dentist4);
-//
-//
-//		appointmentService.updateAppointmentByID(appointment4);
-//	}
 
 
 }

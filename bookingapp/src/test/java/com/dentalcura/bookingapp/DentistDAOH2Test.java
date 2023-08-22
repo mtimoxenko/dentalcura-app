@@ -1,6 +1,6 @@
 package com.dentalcura.bookingapp;
 
-import com.dentalcura.bookingapp.sql.SQLQueries;
+import com.dentalcura.bookingapp.util.SQLQueries;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -29,11 +29,11 @@ class AppointmentDAOH2Test {
     @Test
     void deleteByID() {
     }
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 
     @Test
     void testToString() {
     }
->>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
+//>>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
 }

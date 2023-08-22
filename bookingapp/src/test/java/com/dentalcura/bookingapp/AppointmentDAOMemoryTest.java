@@ -1,6 +1,7 @@
 package com.dentalcura.bookingapp;
 
 import com.dentalcura.bookingapp.dao.impl.AppointmentDAOMemory;
+import com.dentalcura.bookingapp.model.Address;
 import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.model.Patient;
@@ -16,8 +17,10 @@ class AppointmentDAOMemoryTest {
 
     @Test
     void insert() {
-        Patient patientA = new Patient(3L,"Bender", "Bot", "San Martin", 300, "15/11/2022");
-        Patient patientB = new Patient(3L,"Leela", "Up", "B", 10, "X/X/X");
+        Address wildAddress = new Address(1L,"x",13,7,"A");
+
+        Patient patientA = new Patient(3L,"Bender", "Bot", 1561, "300",wildAddress);
+        Patient patientB = new Patient(3L,"Leela", "Up", 565, "10", wildAddress);
 
         Dentist dentistA = new Dentist(3L,"Dr","Test",200);
         Dentist dentistB = new Dentist(3L,"Doctor","Fry",100);

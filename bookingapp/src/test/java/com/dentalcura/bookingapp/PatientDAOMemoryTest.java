@@ -1,5 +1,6 @@
 package com.dentalcura.bookingapp;
 
+import com.dentalcura.bookingapp.model.Address;
 import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.dao.impl.PatientDAOMemory;
 import com.dentalcura.bookingapp.service.PatientService;
@@ -16,9 +17,11 @@ class PatientDAOMemoryTest {
     void insert() {
         LOGGER.info("initializing insert TEST (patient)");
 
-        Patient patient = new Patient(4L,"Max","Check","Lake 123",555,"05/05/2023");
-        Patient patient2 = new Patient(4L,"Max","Check","New York 2020",555,"05/05/2023");
-        Patient patient3 = new Patient(5L,"Test","Update","Tokio 44",30,"30/05/2023");
+        Address wildAddress = new Address(1L,"x",13,7,"A");
+
+        Patient patient = new Patient(4L,"Max","Check",23,"555",wildAddress);
+        Patient patient2 = new Patient(4L,"Max","Check",22,"555",wildAddress);
+        Patient patient3 = new Patient(5L,"Test","Update",20,"30",wildAddress);
 
         PatientService patientService = new PatientService();
         patientService.setPatientIDao(new PatientDAOMemory());

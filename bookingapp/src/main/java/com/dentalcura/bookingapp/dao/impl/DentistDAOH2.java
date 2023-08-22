@@ -5,12 +5,14 @@ import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.util.DB;
 import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@Repository
 public class DentistDAOH2 implements IDao<Dentist>{
 
     public void createTable(){

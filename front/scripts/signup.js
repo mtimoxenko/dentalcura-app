@@ -31,11 +31,6 @@ window.addEventListener('load', function () {
     function getData() {
         const name = document.querySelector('#inputName');
         const surname = document.querySelector('#inputSurname');
-        const niNumber = document.querySelector('#inputNiNumber');
-        const addressName = document.querySelector('#inputStreetName');
-        const addressNumber = document.querySelector('#inputStreetNumber');
-        const addressFloor = document.querySelector('#inputFloor');
-        const addressDepartment = document.querySelector('#inputDepartment');
         const email = document.querySelector('#inputEmail');
         const pass = document.querySelector('#inputPassword');
         const passrepeat = document.querySelector('#inputPasswordRepeat');
@@ -43,11 +38,6 @@ window.addEventListener('load', function () {
         let object = {
             firstName: name.value,
             lastName: surname.value,
-            niNumber: niNumber.value,
-            streetName: addressName.value,
-            streetNumber: addressNumber.value,
-            floor: addressFloor.value,
-            department: addressDepartment.value,
             email: email.value,
             password: pass.value
         }

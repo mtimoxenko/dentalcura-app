@@ -82,7 +82,6 @@ nav .user-info button {
     margin-top: 5%;
 }
 
-
 form {
     background-color: var(--negro);
     max-width: 24rem;
@@ -95,6 +94,7 @@ form {
 
 form label {
     margin-bottom: .3rem;
+    text-align: start;
 }
 
 form input {
@@ -154,6 +154,14 @@ form button:hover{
 
 .dentist-search button, .patient-search button{
     margin: 0%;
+}
+
+.patient-update .delete-button, .dentist-update .delete-button{
+    background-color: rgb(202, 0, 0);
+}
+
+.patient-update .delete-button:hover, .dentist-update .delete-button:hover{
+    background-color: rgb(159, 0, 0);
 }
 
 footer {
