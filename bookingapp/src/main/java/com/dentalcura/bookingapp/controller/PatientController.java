@@ -31,16 +31,19 @@ public class PatientController {
 
     @PostMapping
     public Patient createPatient(@RequestBody Patient patient) {
+        patientService.setPatientIDao(new PatientDAOH2());
         return patientService.insertPatient(patient);
     }
 
     @PutMapping("/{id}")
     public Patient updatePatient(@RequestBody Patient patient) {
+        patientService.setPatientIDao(new PatientDAOH2());
         return patientService.updatePatientByID(patient);
     }
 
     @DeleteMapping("/{id}")
     public Patient deletePatient(@PathVariable Long id) {
+        patientService.setPatientIDao(new PatientDAOH2());
         return patientService.deletePatientByID(id);
     }
 
