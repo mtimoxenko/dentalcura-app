@@ -12,7 +12,9 @@ window.addEventListener('load', function () {
   // https://todo-api.ctd.academy/#/users/getMe
   // const endpointGetUser = 'https://todo-api.ctd.academy/v1/users/getMe';
   // const token = JSON.parse(localStorage.jwt);
-
+  const endpointDentist = './json/dentista.json'
+  const endpointTurno = './json/turno.json'
+  const endpointPatient = './json/paciente.json'
 
   const formAddAppointment = document.querySelector('.new-appointment');
   const btnCloseApp = document.querySelector('#closeApp');
@@ -39,10 +41,28 @@ window.addEventListener('load', function () {
   //     .catch(error => console.log(error));
   // }
 
+  function renderPatient(){
+    const selectPatient = document.getElementById('select-patient')
+
+    fetch(endpointPatient)
+      .then(response=>response.json())
+      .then(data=>{
+        console.log(data);
+        data.forEach(patient=>{
+          selectPatient.innerHTML+=`
+          <div><input type="radio" name="patient" id="${patient.documennto}">
+          <label for="${patient.documento}">${patient.nombre} ${patient.apellido}</label>
+          </div>`
+        })
+      })
+  }
+
+  renderPatient()
+
 
   function renderDentist(){
     const selectDentist = document.getElementById('select-dentist')
-    const endpointDentist = './json/dentista.json'
+
 
     fetch(endpointDentist)
       .then(response=>response.json())
@@ -61,7 +81,7 @@ window.addEventListener('load', function () {
 
   function renderTurno(){
     const selectTurno = document.getElementById('select-turno')
-    const endpointTurno = './json/turno.json'
+
 
     fetch(endpointTurno)
       .then(response=>response.json())
@@ -140,7 +160,6 @@ window.addEventListener('load', function () {
       .then(appointment => {
 
         renderAppointment(appointment);
-        btnChangeState();
         btnDeleteAppointment();
       })
       .catch(error => console.log(error));
@@ -200,99 +219,34 @@ window.addEventListener('load', function () {
 
 
   /* ----------------------------------------------------------- */
-  /*                  [5] FUNCTION: Render Appointment                 */
+  /*                  [5] FUNCTION: Render Appointment           */
   /* ----------------------------------------------------------- */
   function renderAppointment(listado) {
 
     // clear all Appointment
-    const appointmentToDo = document.querySelector('.tareas-pendientes');
-    const appointmentCompleted = document.querySelector('.tareas-terminadas');
+    const appointmentToDo = document.querySelector('.appointment-pendientes');
     appointmentToDo.innerHTML = "";
-    appointmentCompleted.innerHTML = "";
 
-    const numComleted = document.querySelector('#cantidad-finalizadas');
-    let i = 0;
-    numComleted.innerText = i;
 
     listado.forEach(appointment => {
 
-      let date = new Date(appointment.createdAt);
-
-      if (appointment.completed) {
-        i++;
-
-        appointmentCompleted.innerHTML += `
-          <li class="tarea" data-aos="flip-up">
-            <div class="hecha">
-              <i class="fa-regular fa-circle-check"></i>
-            </div>
-            <div class="descripcion">
-              <p class="nombre">${appointment.description}</p>
-              <div class="cambios-estados">
-                <button class="change incompleta" id="${appointment.id}" ><i class="fa-solid fa-rotate-left"></i></button>
-                <button class="borrar" id="${appointment.id}"><i class="fa-regular fa-trash-can"></i></button>
-              </div>
-            </div>
-          </li>
-                        `
-      } else {
+      // let date = new Date(appointment.createdAt);
 
         appointmentToDo.innerHTML += `
           <li class="tarea" data-aos="flip-up">
-            <button class="change" id="${appointment.id}"><i class="fa-regular fa-circle"></i></button>
+            <button class="borrar" id="${appointment.id}"><i class="fa-regular fa-trash-can"></i></button>
             <div class="descripcion">
               <p class="nombre">${appointment.description}</p>
               <p class="timestamp">${appointment.toLocaleDateString()}</p>
             </div>
-          </li>
-                        `
-      }
-
-      numComleted.innerText = i;
+          </li>`
     })
   }
 
-  /* ---------------------------------------------------------------------- */
-  /*                  [6] FUNCTION: Change appointment state [PUT]                 */
-  /* ---------------------------------------------------------------------- */
-  function btnChangeState() {
-    const btnCambioEstado = document.querySelectorAll('.change');
-
-    btnCambioEstado.forEach(btn => {
-
-      btn.addEventListener('click', function (event) {
-
-        const id = event.target.id;
-        const url = `${enpointAppointment}/${id}`
-        const payload = {};
-
-        if (event.target.classList.contains('incompleta')) {
-          payload.completed = false;
-        } else {
-          payload.completed = true;
-        }
-
-        const settings = {
-          method: 'PUT',
-          headers: {
-            "Authorization": token,
-            "Content-type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        }
-        fetch(url, settings)
-          .then(response => {
-            console.log(response.status);
-            getAppointment();
-          })
-      })
-    });
-
-  }
 
 
   /* -------------------------------------------------------------------------- */
-  /*                     [7] FUNCTION: Delete appointment [DELETE]                    */
+  /*                     [6] FUNCTION: Delete appointment [DELETE]                    */
   /* -------------------------------------------------------------------------- */
   function btnDeleteAppointment() {
   

@@ -105,8 +105,8 @@ main h2 {
     margin: 1.5rem 0 .5rem 0;
 }
 
-/* ------------Tareas pendientes */
-.tareas-pendientes .tarea {
+/* ------------appointment pendientes */
+.appointment-pendientes .tarea {
     background-color: var(--app-grey);
     margin-bottom: .7rem;
     border-radius: .5rem;
@@ -117,108 +117,43 @@ main h2 {
     align-items: center;
 }
 
-.tareas-pendientes .tarea i {
+.appointment-pendientes .tarea i {
     pointer-events: none;
     color: grey;
     font-size: 1.4rem;
     border-radius: 50vh;
 }
 
-.tareas-pendientes .tarea button {
+.appointment-pendientes .tarea button {
     border-radius: 50vh;
 }
 
-.tareas-pendientes .tarea button:hover i {
+.appointment-pendientes .tarea button:hover i {
     color: var(--verde);
 }
 
-.tareas-pendientes .tarea button:active {
+.appointment-pendientes .tarea button:active {
     background-color: var(--verde);
 }
 
-.tareas-pendientes .tarea .descripcion {
+.appointment-pendientes .tarea .descripcion {
     padding: .3rem .5rem;
     flex-grow: 1;
     display: flex;
     align-items: center;
 }
 
-.tareas-pendientes .tarea .descripcion .nombre {
+.appointment-pendientes .tarea .descripcion .nombre {
     flex-grow: 1;
 }
 
-.tareas-pendientes .tarea .descripcion .timestamp {
+.appointment-pendientes .tarea .descripcion .timestamp {
     margin-left: 1rem;
     padding: .3rem .8rem;
     border-radius: 50vh;
     background-color: white;
     color: grey;
     font-size: .9rem;
-}
-
-/* ------------Tareas terminadas */
-#cantidad-finalizadas {
-    background-color: var(--verde);
-    border-radius: 50vh;
-    padding: .1rem .5rem;
-}
-
-.tareas-terminadas .tarea {
-    background-color: var(--app-grey);
-    margin-bottom: .7rem;
-    border-radius: .5rem;
-    border-left: .6rem solid var(--verde);
-    padding: .5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.tareas-terminadas .tarea .hecha i {
-    font-size: 1.4rem;
-    border-radius: 50vh;
-    color: var(--verde);
-}
-
-.cambios-estados i {
-    pointer-events: none;
-}
-
-.tareas-terminadas .tarea .descripcion {
-    padding: .3rem .5rem;
-    color: grey;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-}
-
-.tareas-terminadas .tarea .descripcion .nombre {
-    text-decoration: line-through;
-    flex-grow: 1;
-}
-
-.tareas-terminadas .tarea .descripcion button {
-    font-size: .9rem;
-    color: white;
-    margin-left: .6rem;
-    padding: .4rem;
-    border-radius: .3rem;
-}
-
-.tareas-terminadas .tarea .cambios-estados button:hover {
-    color: var(--negro);
-}
-
-.tareas-terminadas .tarea .cambios-estados button:active {
-    color: white;
-}
-
-.tareas-terminadas .tarea .descripcion .incompleta {
-    background-color: var(--azul);
-}
-
-.tareas-terminadas .tarea .descripcion .borrar {
-    background-color: var(--laranja);
 }
 
 footer {

@@ -49,7 +49,6 @@ form {
     flex-direction: column;
 }
 
-
 .form-header {
     display: flex;
     flex-direction: column;
@@ -88,7 +87,6 @@ Address{
     text-align: end;
     margin-bottom: 5%;
 }
-
 
 form input:focus {
     outline: none;

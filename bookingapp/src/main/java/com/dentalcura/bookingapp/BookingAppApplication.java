@@ -29,38 +29,38 @@ public class BookingAppApplication {
 
 //		log.info("Sequence init...");
 
-//		createDB();
+		createDB();
 
-//		userAdd(1L, "Maximo", "Timochenko", "mtimochenko@test.com", "123456", true);
-//		userAdd(2L, "UserComun", "UserApellido", "user@test.com", "111111", false);
+		userAdd(1L, "Maximo", "Timochenko", "mtimochenko@test.com", "123456", true);
+		userAdd(2L, "UserComun", "UserApellido", "user@test.com", "111111", false);
 
-//		userListById(1L);
-//		userListAll();
-//		userDeleteById(2L);
-//		userListAll();
-//		userUpdateById(1L,"MaxPower","Timochenko","maxpower@test.com","MaxPower12345",false);
-//		userListById(1L);
-//
-//		dentistAdd(1L,"Jack", "Ripper",123456);
-//		dentistAdd(2L,"Ted", "Bundy",654321);
-//		dentistAdd(3L,"Jason", "Voorhees",323232);
-//		dentistAdd(4L,"Dr.", "Who",51515151);
-//
-//		patientAdd(1L,"Winnie","Pooh",93175123,"21/01/1983","Hundred Acre Wood",2023,8,"D");
-//		patientAdd(2L,"Donnie","Darko",121212,"10/01/2020","Av. Belgrano",1122,10,"A");
-//		patientAdd(3L,"Frodo","Baggins",93175123,"21/01/1983","he Shire, Middle-Earth",2023,1,"B");
-//		patientAdd(4L,"Marty","McFly",93175123,"12/02/2000","Hill Valley, California",2626,35,"H");
-//
-//		appointmentAdd(1L,"12/12/2023",1L,4L);
-//		appointmentAdd(2L,"01/12/2023",4L,2L);
-//
-//		dentistListById(1L);
-//		patientListById(1L);
-//		appointmentById(1L);
-//
-//		dentistListAll();
-//		patientListAll();
-//		appointmentListAll();
+		userListById(1L);
+		userListAll();
+		userDeleteById(2L);
+		userListAll();
+		userUpdateById(1L,"MaxPower","Timochenko","maxpower@test.com","MaxPower12345",false);
+		userListById(1L);
+
+		dentistAdd(1L,"Jack", "Ripper",123456);
+		dentistAdd(2L,"Ted", "Bundy",654321);
+		dentistAdd(3L,"Jason", "Voorhees",323232);
+		dentistAdd(4L,"Dr.", "Who",51515151);
+
+		patientAdd(1L,"Winnie","Pooh",93175123,"21/01/1983","Hundred Acre Wood",2023,8,"D");
+		patientAdd(2L,"Donnie","Darko",121212,"10/01/2020","Av. Belgrano",1122,10,"A");
+		patientAdd(3L,"Frodo","Baggins",93175123,"21/01/1983","he Shire, Middle-Earth",2023,1,"B");
+		patientAdd(4L,"Marty","McFly",93175123,"12/02/2000","Hill Valley, California",2626,35,"H");
+
+		appointmentAdd(1L,"12/12/2023",1L,4L);
+		appointmentAdd(2L,"01/12/2023",4L,2L);
+
+		dentistListById(1L);
+		patientListById(1L);
+		appointmentById(1L);
+
+		dentistListAll();
+		patientListAll();
+		appointmentListAll();
 //
 //
 //		dentistUpdateById(1L,"Max", "Timo", 11223344);
