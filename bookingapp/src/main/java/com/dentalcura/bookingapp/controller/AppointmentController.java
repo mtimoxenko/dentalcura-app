@@ -1,39 +1,39 @@
 package com.dentalcura.bookingapp.controller;
 
+import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Patient;
 import org.springframework.web.bind.annotation.*;
 
 
-
 @RestController
-@RequestMapping("/patient")
-public class PatientController {
+@RequestMapping("/appointment")
+public class AppointmentController {
 
 
 
     @GetMapping()
-    public String getPatientAll() {
-        return "get all patients";
+    public String getAppointmentAll() {
+        return "get all appointment";
     }
 
     @GetMapping("/{id}")
-    public String getPatient(@PathVariable Long id) {
-        return "get patient id: " + id;
+    public String getAppointment(@PathVariable Long id) {
+        return "get appointment id: " + id;
     }
 
     @PostMapping
-    public Patient createPatient(@RequestBody Patient patient) {
-        return patient;
+    public Appointment createAppointment(@RequestBody Appointment appointment) {
+        return appointment;
     }
 
     @PutMapping("/{id}")
-    public String updatePatient(@PathVariable Long id) {
-        return "update patient: " + id;
+    public String updateAppointment(@PathVariable Long id) {
+        return "update appointment: " + id;
     }
 
     @DeleteMapping("/{id}")
-    public String deletePatient(@PathVariable Long id) {
-        return "delete patient: " + id;
+    public String deleteAppointment(@PathVariable Long id) {
+        return "delete appointment: " + id;
     }
 
 }

@@ -4,10 +4,11 @@ import com.dentalcura.bookingapp.dao.IDao;
 import com.dentalcura.bookingapp.model.Appointment;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Getter
-@Setter
+@Getter @Setter
+@Service
 public class AppointmentService {
     private IDao<Appointment> appointmentIDao;
 
