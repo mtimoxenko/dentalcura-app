@@ -15,24 +15,24 @@
 <br/>
 
 #### PATIENT:
-###### GET $~~~~~~$ &emsp; /patient $~~~~~~~$ &emsp; Get all patients
-###### GET $~~~~~~$ &emsp; /patient/{id} &emsp; Get patient by id
-###### POST $~~~$ &emsp; /patient $~~~~~~~$ &emsp; Create new patient
-###### PUT $~~~~~~$ &emsp; /patient/{id} &emsp; Update patient by id
-###### DELETE &emsp; /patient/{id} &emsp; Delete patient by id
+###### GET $~~~~~~$ &emsp; http://localhost:8080/patient $~~~~~~~$ &emsp; Get all patients
+###### GET $~~~~~~$ &emsp; http://localhost:8080/patient/{id} &emsp; Get patient by id
+###### POST $~~~$ &emsp; http://localhost:8080/patient $~~~~~~~$ &emsp; Create new patient
+###### PUT $~~~~~~$ &emsp; http://localhost:8080patient/{id} &emsp; Update patient by id
+###### DELETE &emsp; http://localhost:8080/patient/{id} &emsp; Delete patient by id
 <br/>
 
 #### DENTIST:
-###### GET $~~~~~~$ &emsp; /dentist $~~~~~~~$ &emsp; Get all dentists
-###### GET $~~~~~~$ &emsp; /dentist/{id} &emsp; Get dentist by id
-###### POST $~~~$ &emsp; /dentist $~~~~~~~$ &emsp; Create new dentist
-###### PUT $~~~~~~$ &emsp; /dentist/{id} &emsp; Update dentist by id
-###### DELETE &emsp; /dentist/{id} &emsp; Delete dentist by id
+###### GET $~~~~~~$ &emsp; http://localhost:8080/dentist $~~~~~~~$ &emsp; Get all dentists
+###### GET $~~~~~~$ &emsp; http://localhost:8080/dentist/{id} &emsp; Get dentist by id
+###### POST $~~~$ &emsp; http://localhost:8080/dentist $~~~~~~~$ &emsp; Create new dentist
+###### PUT $~~~~~~$ &emsp; http://localhost:8080/dentist/{id} &emsp; Update dentist by id
+###### DELETE &emsp; http://localhost:8080/dentist/{id} &emsp; Delete dentist by id
 <br/>
 
 #### APPOINTMENT:
-###### GET $~~~~~~$ &emsp; /appointment $~~~~~~~$ &emsp; Get all appointments
-###### GET $~~~~~~$ &emsp; /appointment/{id} &emsp; Get appointment by id
-###### POST $~~~$ &emsp; /appointment $~~~~~~~$ &emsp; Create new appointment
-###### PUT $~~~~~~$ &emsp; /appointment/{id} &emsp; Update appointment by id
-###### DELETE &emsp; /appointment/{id} &emsp; Delete appointment by id
+###### GET $~~~~~~$ &emsp; http://localhost:8080/appointment $~~~~~~~$ &emsp; Get all appointments
+###### GET $~~~~~~$ &emsp; http://localhost:8080/appointment/{id} &emsp; Get appointment by id
+###### POST $~~~$ &emsp; http://localhost:8080/appointment $~~~~~~~$ &emsp; Create new appointment
+###### PUT $~~~~~~$ &emsp; http://localhost:8080/appointment/{id} &emsp; Update appointment by id
+###### DELETE &emsp; http://localhost:8080/appointment/{id} &emsp; Delete appointment by id
