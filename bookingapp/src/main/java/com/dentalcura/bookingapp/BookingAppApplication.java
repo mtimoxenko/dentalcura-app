@@ -53,7 +53,7 @@ public class BookingAppApplication {
 //
 //		appointmentAdd(1L,"12/12/2023",1L,4L);
 //		appointmentAdd(2L,"01/12/2023",4L,2L);
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
 //<<<<<<< HEAD
 //<<<<<<< HEAD
@@ -76,9 +76,9 @@ public class BookingAppApplication {
 		createDB();
 //>>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
 //=======
-=======
+//=======
 //
->>>>>>> 79fd6f2fe1d2d0d5f9aea385534b8dd6868718bf
+//>>>>>>> 79fd6f2fe1d2d0d5f9aea385534b8dd6868718bf
 //		dentistListById(1L);
 //		patientListById(1L);
 //		appointmentById(1L);
@@ -95,11 +95,11 @@ public class BookingAppApplication {
 //		dentistDeleteById(1L);
 //		patientDeleteById(2L);
 //		appointmentDeleteById(2L);
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //>>>>>>> f97ae1b319ce055037fb5ca1bde56cea0579193e
 
-=======
->>>>>>> 79fd6f2fe1d2d0d5f9aea385534b8dd6868718bf
+//=======
+//>>>>>>> 79fd6f2fe1d2d0d5f9aea385534b8dd6868718bf
 //		log.info("Task execution finished");
 	}
 
@@ -155,7 +155,7 @@ public class BookingAppApplication {
 
 
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //<<<<<<< HEAD
 
 
@@ -257,7 +257,7 @@ public class BookingAppApplication {
 
 //=======
 //>>>>>>> f97ae1b319ce055037fb5ca1bde56cea0579193e
-=======
+//=======
 	// USER
 	private static void userAdd(int id, String name, String surname, String email, String password, Boolean admin){
 		log.info("[ Executing userAdd() ]");
@@ -309,7 +309,7 @@ public class BookingAppApplication {
 
 
 
->>>>>>> 79fd6f2fe1d2d0d5f9aea385534b8dd6868718bf
+//>>>>>>> 79fd6f2fe1d2d0d5f9aea385534b8dd6868718bf
 	// PATIENT
 	public static void patientAdd(int id, String name, String surname, int niNumber, String regDate, String streetName, int streetNumber, int floor, String department){
 		log.info("[ Executing patientAdd() ]");
@@ -383,10 +383,10 @@ public class BookingAppApplication {
 
 
 	// DENTIST
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
 	private static void dentistListById(Long id){
-=======
+//=======
 	private static void dentistAdd(int id, String name, String surname, int licenseNumber){
 		log.info("[ Executing dentistAdd() ]");
 		DentistService dentistService = new DentistService();
@@ -407,7 +407,7 @@ public class BookingAppApplication {
 		log.info("[ dentistListAll() finished ]");
 	}
 	private static void dentistListById(int id){
->>>>>>> 3cace599ce9495007b1b122e41e41292a0c473ad
+//>>>>>>> 3cace599ce9495007b1b122e41e41292a0c473ad
 		log.info("[ Executing dentistListById() ]");
 		DentistService dentistService = new DentistService();
 		// Persistence strategy

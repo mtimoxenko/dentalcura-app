@@ -92,7 +92,7 @@
 			<artifactId>jackson-core</artifactId>
 			<version>2.15.2</version>
 		</dependency>
-	</dependencies>
+	</project>
 >>>>>>> 3cace599ce9495007b1b122e41e41292a0c473ad
 
 	<build>
