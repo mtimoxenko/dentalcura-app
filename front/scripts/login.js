@@ -86,19 +86,30 @@ window.addEventListener('load', function () {
 
         const endpointJson = './json/paciente.json';
         const endpointPacienteJava = 'http://localhost:8080/patient';
+<<<<<<< HEAD
 
 >>>>>>> 3cace599ce9495007b1b122e41e41292a0c473ad
 
 
+=======
+
+
+
+>>>>>>> 4588f004ee96bc8a2c6acaab2caed74899fa30a0
         fetch(endpointPacienteJava)
           .then(response => response.json())
           .then(data => {
             console.log(data);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             pacienteNombre.innerText = "Paciente nombre: " + `${data[0].name}`;
             pacienteApellido.innerText = "Paciente apellido: " + `${data[0].surname}`;
 >>>>>>> 3cace599ce9495007b1b122e41e41292a0c473ad
+=======
+            pacienteNombre.innerText = "Paciente nombre: " + `${data[0].name}`;
+            pacienteApellido.innerText = "Paciente apellido: " + `${data[0].surname}`;
+>>>>>>> 4588f004ee96bc8a2c6acaab2caed74899fa30a0
           })
           .catch(error => console.log(error));
       }

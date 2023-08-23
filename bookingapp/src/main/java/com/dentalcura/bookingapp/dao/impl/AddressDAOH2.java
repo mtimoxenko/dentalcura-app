@@ -87,8 +87,8 @@ public class AddressDAOH2 implements IDao<Address>{
             while (resultSet.next()){
                 int id = resultSet.getInt(1);
                 String streetName = resultSet.getString(2);
-                int streetNumber = resultSet.getInt(3);
-                int floor = resultSet.getInt(4);
+                Integer streetNumber = resultSet.getInt(3);
+                Integer floor = resultSet.getInt(4);
                 String department = resultSet.getString(5);
 
 
@@ -129,8 +129,8 @@ public class AddressDAOH2 implements IDao<Address>{
 
             while (resultSet.next()){
                 String streetName = resultSet.getString(2);
-                int streetNumber = resultSet.getInt(3);
-                int floor = resultSet.getInt(4);
+                Integer streetNumber = resultSet.getInt(3);
+                Integer floor = resultSet.getInt(4);
                 String department = resultSet.getString(5);
 
                 address = new Address(id, streetName, streetNumber, floor, department);
