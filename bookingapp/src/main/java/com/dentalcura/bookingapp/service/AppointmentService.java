@@ -25,7 +25,7 @@ public class AppointmentService {
         return appointmentIDao.selectAll();
     }
 
-    public Appointment selectAppointmentByID(Long id){
+    public Appointment selectAppointmentByID(int id){
         return appointmentIDao.selectByID(id);
     }
 
@@ -33,7 +33,7 @@ public class AppointmentService {
         return appointmentIDao.updateByID(appointment);
     }
 
-    public Appointment deleteDAppointmentByID(Long id){
+    public Appointment deleteDAppointmentByID(int id){
         return appointmentIDao.deleteByID(id);
     }
 }

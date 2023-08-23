@@ -1,6 +1,6 @@
 package com.dentalcura.bookingapp.model;
 
-public record Dentist(Long id, String name, String surname, int licenseNumber) {
+public record Dentist(int id, String name, String surname, int licenseNumber) {
 
     @Override
     public String toString() {

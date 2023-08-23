@@ -27,7 +27,7 @@ public class UserService {
         return userIDao.selectAll();
     }
 
-    public User selectUserByID(Long id){
+    public User selectUserByID(int id){
         return userIDao.selectByID(id);
     }
 
@@ -35,7 +35,7 @@ public class UserService {
         return userIDao.updateByID(user);
     }
 
-    public User deleteUserByID(Long id){
+    public User deleteUserByID(int id){
         return userIDao.deleteByID(id);
     }
 }

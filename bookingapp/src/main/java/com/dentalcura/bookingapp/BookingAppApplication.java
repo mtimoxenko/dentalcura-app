@@ -126,7 +126,7 @@ public class BookingAppApplication {
 
 
 	// USER
-	private static void userAdd(Long id, String name, String surname, String email, String password, Boolean admin){
+	private static void userAdd(int id, String name, String surname, String email, String password, Boolean admin){
 		log.info("[ Executing userAdd() ]");
 		UserService userService = new UserService();
 		// Persistence strategy
@@ -145,7 +145,7 @@ public class BookingAppApplication {
 		userService.selectAllUser();
 		log.info("[ userListAll() finished ]");
 	}
-	private static void userListById(Long id){
+	private static void userListById(int id){
 		log.info("[ Executing userListById() ]");
 		UserService userService = new UserService();
 		// Persistence strategy
@@ -154,7 +154,7 @@ public class BookingAppApplication {
 		userService.selectUserByID(id);
 		log.info("[ userListById() finished ]");
 	}
-	private static void userDeleteById(Long id){
+	private static void userDeleteById(int id){
 		log.info("[ Executing userDeleteById() ]");
 		UserService userService = new UserService();
 		// Persistence strategy
@@ -163,7 +163,7 @@ public class BookingAppApplication {
 		userService.deleteUserByID(id);
 		log.info("[ userDeleteById() finished ]");
 	}
-	private static void userUpdateById(Long id, String name, String surname, String email, String password, Boolean admin){
+	private static void userUpdateById(int id, String name, String surname, String email, String password, Boolean admin){
 		log.info("[ Executing userUpdateById() ]");
 		UserService userService = new UserService();
 		// Persistence strategy
@@ -177,7 +177,7 @@ public class BookingAppApplication {
 
 
 	// PATIENT
-	public static void patientAdd(Long id, String name, String surname, int niNumber, String regDate, String streetName, int streetNumber, int floor, String department){
+	public static void patientAdd(int id, String name, String surname, int niNumber, String regDate, String streetName, int streetNumber, int floor, String department){
 		log.info("[ Executing patientAdd() ]");
 		PatientService patientService = new PatientService();
 		// Persistence strategy
@@ -198,7 +198,7 @@ public class BookingAppApplication {
 		patientService.selectAllPatient();
 		log.info("[ patientListAll() finished ]");
 	}
-	private static void patientListById(Long id){
+	private static void patientListById(int id){
 		log.info("[ Executing patientListById() ]");
 		PatientService patientService = new PatientService();
 		// Persistence strategy
@@ -207,7 +207,7 @@ public class BookingAppApplication {
 		patientService.selectPatientByID(id);
 		log.info("[ patientListById() finished ]");
 	}
-	private static void patientDeleteById(Long id){
+	private static void patientDeleteById(int id){
 		log.info("[ Executing patientDeleteById() ]");
 		PatientService patientService = new PatientService();
 		// Persistence strategy
@@ -216,7 +216,7 @@ public class BookingAppApplication {
 		patientService.deletePatientByID(id);
 		log.info("[ patientDeleteById() finished ]");
 	}
-	private static void patientUpdateById(Long id, String name, String surname, int niNumber, String regDate, String streetName, int streetNumber, int floor, String department){
+	private static void patientUpdateById(int id, String name, String surname, int niNumber, String regDate, String streetName, int streetNumber, int floor, String department){
 		log.info("[ Executing patientUpdateById() ]");
 		PatientService patientService = new PatientService();
 		// Persistence strategy
@@ -233,7 +233,7 @@ public class BookingAppApplication {
 
 
 	// DENTIST
-	private static void dentistAdd(Long id, String name, String surname, int licenseNumber){
+	private static void dentistAdd(int id, String name, String surname, int licenseNumber){
 		log.info("[ Executing dentistAdd() ]");
 		DentistService dentistService = new DentistService();
 		// Persistence strategy
@@ -252,7 +252,7 @@ public class BookingAppApplication {
 		dentistService.selectAllDentist();
 		log.info("[ dentistListAll() finished ]");
 	}
-	private static void dentistListById(Long id){
+	private static void dentistListById(int id){
 		log.info("[ Executing dentistListById() ]");
 		DentistService dentistService = new DentistService();
 		// Persistence strategy
@@ -261,7 +261,7 @@ public class BookingAppApplication {
 		dentistService.selectDentistByID(id);
 		log.info("[ dentistListById() finished ]");
 	}
-	private static void dentistDeleteById(Long id){
+	private static void dentistDeleteById(int id){
 		log.info("[ Executing dentistDeleteById() ]");
 		DentistService dentistService = new DentistService();
 		// Persistence strategy
@@ -270,7 +270,7 @@ public class BookingAppApplication {
 		dentistService.deleteDentistByID(id);
 		log.info("[ dentistDeleteById() finished ]");
 	}
-	private static void dentistUpdateById(Long id, String name, String surname, int licenseNumber){
+	private static void dentistUpdateById(int id, String name, String surname, int licenseNumber){
 		log.info("[ Executing dentistUpdateById() ]");
 		DentistService dentistService = new DentistService();
 		// Persistence strategy
@@ -284,7 +284,7 @@ public class BookingAppApplication {
 
 
 	// APPOINTMENT
-	private static void appointmentAdd(Long id, String date, Long patientID, Long dentistID){
+	private static void appointmentAdd(int id, String date, int patientID, int dentistID){
 		log.info("[ Executing apointmentAdd() ]");
 		PatientService patientService = new PatientService();
 		DentistService dentistService = new DentistService();
@@ -311,7 +311,7 @@ public class BookingAppApplication {
 		appointmentService.selectAllAppointment();
 		log.info("[ apointmentListAll() finished ]");
 	}
-	private static void appointmentById(Long id){
+	private static void appointmentById(int id){
 		log.info("[ Executing apointmentById() ]");
 		AppointmentService appointmentService = new AppointmentService();
 		// Persistence strategy
@@ -320,7 +320,7 @@ public class BookingAppApplication {
 		appointmentService.selectAppointmentByID(id);
 		log.info("[ apointmentById() finished ]");
 	}
-	private static void appointmentDeleteById(Long id){
+	private static void appointmentDeleteById(int id){
 		log.info("[ Executing apointmentDeleteById() ]");
 		AppointmentService appointmentService = new AppointmentService();
 		// Persistence strategy
@@ -329,7 +329,7 @@ public class BookingAppApplication {
 		appointmentService.deleteDAppointmentByID(id);
 		log.info("[ apointmentDeleteById() finished ]");
 	}
-	private static void appointmentUpdateById(Long id, String date){
+	private static void appointmentUpdateById(int id, String date){
 		log.info("[ Executing apointmentUpdateById() ]");
 		AppointmentService appointmentService = new AppointmentService();
 		// Persistence strategy
