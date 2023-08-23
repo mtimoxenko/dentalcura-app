@@ -1,8 +1,8 @@
 window.addEventListener('load', function () {
 
     const form = this.document.querySelector('form')
-    // https://todo-api.ctd.academy/#/users/registerUser
-    const endpointSingUp = 'https://todo-api.ctd.academy/v1/users';
+
+    const endpointSingUp = 'http://localhost:8080/user'
 
 
     /* ----------------------------------------------------------------------- */
@@ -33,15 +33,21 @@ window.addEventListener('load', function () {
         const surname = document.querySelector('#inputSurname');
         const email = document.querySelector('#inputEmail');
         const pass = document.querySelector('#inputPassword');
-        const passrepeat = document.querySelector('#inputPasswordRepeat');
+        const role = document.querySelector('[name=role]')
 
         let object = {
             firstName: name.value,
             lastName: surname.value,
             email: email.value,
-            password: pass.value
+            password: pass.value,
+            role: false
         }
 
+        if(role.checked){
+            object.role = true
+        }
+
+        console.log(object);
         return object;
     }
 
@@ -56,13 +62,13 @@ window.addEventListener('load', function () {
                 console.log("Promise OK!");
                 console.log(data);
 
-                if (data.jwt) {
+                //if (data.jwt) {
                     // saving jwt to localstorage
-                    localStorage.setItem('jwt', JSON.stringify(data.jwt));
+                    // localStorage.setItem('jwt', JSON.stringify(data.jwt));
 
                     // redirecting to the page
                     location.replace('./tasks.html');
-                };
+                //};
                 
             }).catch(err => {
                 console.log("Promise rejected...");

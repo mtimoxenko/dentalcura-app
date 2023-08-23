@@ -75,36 +75,18 @@ window.addEventListener('load', function () {
 
 
 
-
     /* TEST API CUSTOM */
     renderPacienteDentista();
 
     function renderPacienteDentista() {
-        const pacienteNombre = document.querySelector('#pacienteNombre');
-        const pacienteApellido = document.querySelector('#pacienteApellido');
-
-        const endpointJson = './json/paciente.json';
-
 
         fetch(endpointJson)
           .then(response => response.json())
           .then(data => {
-            pacienteNombre.innerText = "Paciente nombre: " + `${data[0].nombre}`;
-            pacienteApellido.innerText = "Paciente apellido: " + `${data[0].apellido}`;
+            console.log(data);
           })
           .catch(error => console.log(error));
       }
-
-
-
-
-
-
-
-            
-
-
-    
 
           
 
