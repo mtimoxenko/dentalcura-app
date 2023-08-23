@@ -24,7 +24,7 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public Patient getPatient(@PathVariable int id) {
+    public Patient getPatient(@PathVariable Long id) {
         patientService.setPatientIDao(new PatientDAOH2());
         return patientService.selectPatientByID(id);
     }
@@ -42,7 +42,7 @@ public class PatientController {
     }
 
     @DeleteMapping("/{id}")
-    public Patient deletePatient(@PathVariable int id) {
+    public Patient deletePatient(@PathVariable Long id) {
         patientService.setPatientIDao(new PatientDAOH2());
         return patientService.deletePatientByID(id);
     }

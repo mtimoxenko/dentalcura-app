@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable int id) {
+    public User getUser(@PathVariable Long id) {
         userService.setUserIDao(new UserDAOH2());
         return userService.selectUserByID(id);
     }
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public User deleteUser(@PathVariable int id) {
+    public User deleteUser(@PathVariable Long id) {
         userService.setUserIDao(new UserDAOH2());
         return userService.deleteUserByID(id);
     }

@@ -26,7 +26,7 @@ public class DentistService {
         return dentistIDao.selectAll();
     }
 
-    public Dentist selectDentistByID(int id){
+    public Dentist selectDentistByID(Long id){
         return dentistIDao.selectByID(id);
     }
 
@@ -34,7 +34,7 @@ public class DentistService {
         return dentistIDao.updateByID(dentist);
     }
 
-    public Dentist deleteDentistByID(int id){
+    public Dentist deleteDentistByID(Long id){
         return dentistIDao.deleteByID(id);
     }
 }

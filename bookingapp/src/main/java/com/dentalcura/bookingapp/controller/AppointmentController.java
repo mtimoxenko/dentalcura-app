@@ -27,7 +27,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/{id}")
-    public Appointment getAppointment(@PathVariable int id) {
+    public Appointment getAppointment(@PathVariable Long id) {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
         return appointmentService.selectAppointmentByID(id);
     }
@@ -45,7 +45,7 @@ public class AppointmentController {
     }
 
     @DeleteMapping("/{id}")
-    public Appointment deleteAppointment(@PathVariable int id) {
+    public Appointment deleteAppointment(@PathVariable Long id) {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
         return appointmentService.deleteDAppointmentByID(id);
     }

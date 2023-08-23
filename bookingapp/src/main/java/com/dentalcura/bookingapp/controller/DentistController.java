@@ -27,7 +27,7 @@ public class DentistController {
     }
 
     @GetMapping("/{id}")
-    public Dentist getDentist(@PathVariable int id) {
+    public Dentist getDentist(@PathVariable Long id) {
         dentistService.setDentistIDao(new DentistDAOH2());
         return dentistService.selectDentistByID(id);
     }
@@ -45,7 +45,7 @@ public class DentistController {
     }
 
     @DeleteMapping("/{id}")
-    public Dentist deleteDentist(@PathVariable int id) {
+    public Dentist deleteDentist(@PathVariable Long id) {
         dentistService.setDentistIDao(new DentistDAOH2());
         return dentistService.deleteDentistByID(id);
     }

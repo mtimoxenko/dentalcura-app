@@ -66,13 +66,13 @@ public class PatientDAOH2 implements IDao<Patient> {
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getInsertCustom());
 
-            preparedStatement.setInt(1, patient.id());
+            preparedStatement.setLong(1, patient.id());
             preparedStatement.setString(2, patient.name());
             preparedStatement.setString(3, patient.surname());
             preparedStatement.setInt(4, patient.niNumber());
             preparedStatement.setString(5, patient.registrationDate());
             // fk address_id
-            preparedStatement.setInt(6, patient.address().id());
+            preparedStatement.setLong(6, patient.address().id());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -103,10 +103,10 @@ public class PatientDAOH2 implements IDao<Patient> {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                int id = resultSet.getInt(1);
+                Long id = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
-                int niNumber = resultSet.getInt(4);
+                Integer niNumber = resultSet.getInt(4);
                 String registrationDate = resultSet.getString(5);
 
 
@@ -148,7 +148,7 @@ public class PatientDAOH2 implements IDao<Patient> {
     }
 
     @Override
-    public Patient selectByID(int id) {
+    public Patient selectByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
         Patient patient = null;
@@ -162,14 +162,14 @@ public class PatientDAOH2 implements IDao<Patient> {
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getSelectById());
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                int tabId = resultSet.getInt(1);
+                Long tabId = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
-                int niNumber = resultSet.getInt(4);
+                Integer niNumber = resultSet.getInt(4);
                 String regDate = resultSet.getString(5);
 
                 patient = new Patient(tabId, name, surname, niNumber, regDate, address);
@@ -205,7 +205,7 @@ public class PatientDAOH2 implements IDao<Patient> {
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getUpdateById());
 
-            preparedStatement.setInt(5, patient.id());
+            preparedStatement.setLong(5, patient.id());
 
             preparedStatement.setString(1, patient.name());
             preparedStatement.setString(2, patient.surname());
@@ -245,7 +245,7 @@ public class PatientDAOH2 implements IDao<Patient> {
     }
 
     @Override
-    public Patient deleteByID(int id) {
+    public Patient deleteByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
 //        Patient patient = selectByID(id);
@@ -256,7 +256,7 @@ public class PatientDAOH2 implements IDao<Patient> {
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getDeleteById());
 
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
