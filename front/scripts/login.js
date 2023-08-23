@@ -79,11 +79,26 @@ window.addEventListener('load', function () {
     renderPacienteDentista();
 
     function renderPacienteDentista() {
+<<<<<<< HEAD
+=======
+        const pacienteNombre = document.querySelector('#pacienteNombre');
+        const pacienteApellido = document.querySelector('#pacienteApellido');
 
-        fetch(endpointJson)
+        const endpointJson = './json/paciente.json';
+        const endpointPacienteJava = 'http://localhost:8080/patient';
+
+>>>>>>> 3cace599ce9495007b1b122e41e41292a0c473ad
+
+
+        fetch(endpointPacienteJava)
           .then(response => response.json())
           .then(data => {
             console.log(data);
+<<<<<<< HEAD
+=======
+            pacienteNombre.innerText = "Paciente nombre: " + `${data[0].name}`;
+            pacienteApellido.innerText = "Paciente apellido: " + `${data[0].surname}`;
+>>>>>>> 3cace599ce9495007b1b122e41e41292a0c473ad
           })
           .catch(error => console.log(error));
       }
