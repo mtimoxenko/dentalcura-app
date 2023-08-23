@@ -84,13 +84,21 @@ window.addEventListener('load', function () {
         const pacienteApellido = document.querySelector('#pacienteApellido');
 
         const endpointJson = './json/paciente.json';
+        const endpointPacienteJava = 'http://localhost:8080/patient';
 
 
-        fetch(endpointJson)
+
+        fetch(endpointPacienteJava)
           .then(response => response.json())
           .then(data => {
+<<<<<<< HEAD
             pacienteNombre.innerText = "Paciente nombre: " + `${data[0].nombre}`;
             pacienteApellido.innerText = "Paciente apellido: " + `${data[0].apellido}`;
+=======
+            console.log(data);
+            pacienteNombre.innerText = "Paciente nombre: " + `${data[0].name}`;
+            pacienteApellido.innerText = "Paciente apellido: " + `${data[0].surname}`;
+>>>>>>> 4588f004ee96bc8a2c6acaab2caed74899fa30a0
           })
           .catch(error => console.log(error));
       }

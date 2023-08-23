@@ -24,7 +24,7 @@ public class DentistDAOH2 implements IDao<Dentist>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             statement = connection.createStatement();
 
-            statement.execute(SQLQueries.DENTIST.getCreateTable());
+            statement.execute(SQLQueries.DENTIST    .getCreateTable());
 
             statement.close();
             connection.close();
@@ -85,7 +85,7 @@ public class DentistDAOH2 implements IDao<Dentist>{
                 Long id = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
-                int licenseNumber = resultSet.getInt(4);
+                Integer licenseNumber = resultSet.getInt(4);
 
                 Dentist dentist = new Dentist(id,name, surname,licenseNumber);
                 dentists.add(dentist);
@@ -126,7 +126,7 @@ public class DentistDAOH2 implements IDao<Dentist>{
                 Long tabId = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
-                int licenseNumber = resultSet.getInt(4);
+                Integer licenseNumber = resultSet.getInt(4);
                 dentist = new Dentist(tabId, name, surname,licenseNumber);
             }
 

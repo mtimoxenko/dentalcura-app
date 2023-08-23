@@ -106,7 +106,7 @@ public class PatientDAOH2 implements IDao<Patient> {
                 Long id = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
-                int niNumber = resultSet.getInt(4);
+                Integer niNumber = resultSet.getInt(4);
                 String registrationDate = resultSet.getString(5);
 
 
@@ -169,7 +169,7 @@ public class PatientDAOH2 implements IDao<Patient> {
                 Long tabId = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
-                int niNumber = resultSet.getInt(4);
+                Integer niNumber = resultSet.getInt(4);
                 String regDate = resultSet.getString(5);
 
                 patient = new Patient(tabId, name, surname, niNumber, regDate, address);
