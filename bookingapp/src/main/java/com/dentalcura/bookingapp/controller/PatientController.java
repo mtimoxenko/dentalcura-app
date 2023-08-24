@@ -1,6 +1,13 @@
 package com.dentalcura.bookingapp.controller;
 
 import com.dentalcura.bookingapp.dao.impl.PatientDAOH2;
+import com.dentalcura.bookingapp.dto.DentistMapper;
+import com.dentalcura.bookingapp.dto.PatientMapper;
+import com.dentalcura.bookingapp.dto.dentist.CreateDentistRequest;
+import com.dentalcura.bookingapp.dto.dentist.UpdateDentistRequest;
+import com.dentalcura.bookingapp.dto.patient.CreatePatientRequest;
+import com.dentalcura.bookingapp.dto.patient.PatientResponse;
+import com.dentalcura.bookingapp.dto.patient.UpdatePatientRequest;
 import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,27 +25,31 @@ public class PatientController {
 
 
     @GetMapping()
-    public List<Patient> getPatientAll() {
+    public List<PatientResponse> getPatientAll() {
         patientService.setPatientIDao(new PatientDAOH2());
-        return patientService.selectAllPatient();
+        return PatientMapper.patientsToDtoResponse(patientService.selectAllPatient());
+//        return patientService.selectAllPatient();
     }
 
     @GetMapping("/{id}")
-    public Patient getPatient(@PathVariable Long id) {
+    public PatientResponse getPatient(@PathVariable Long id) {
         patientService.setPatientIDao(new PatientDAOH2());
-        return patientService.selectPatientByID(id);
+        return PatientMapper.patientToDtoResponse(patientService.selectPatientByID(id));
+//        return patientService.selectPatientByID(id);
     }
 
     @PostMapping
-    public Patient createPatient(@RequestBody Patient patient) {
+    public Patient createPatient(@RequestBody CreatePatientRequest createPatientRequest) {
         patientService.setPatientIDao(new PatientDAOH2());
-        return patientService.insertPatient(patient);
+        return patientService.insertPatient(PatientMapper.dtoPostRequestToPatient(createPatientRequest));
+//        return patientService.insertPatient(patient);
     }
 
     @PutMapping("/{id}")
-    public Patient updatePatient(@RequestBody Patient patient) {
+    public Patient updatePatient(@RequestBody UpdatePatientRequest updatePatientRequest) {
         patientService.setPatientIDao(new PatientDAOH2());
-        return patientService.updatePatientByID(patient);
+        return patientService.updatePatientByID(PatientMapper.dtoPutRequestToPatient(updatePatientRequest));
+//        return patientService.updatePatientByID(patient);
     }
 
     @DeleteMapping("/{id}")
