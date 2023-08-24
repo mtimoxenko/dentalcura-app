@@ -1,6 +1,4 @@
 package com.dentalcura.bookingapp.model;
-
-
 public record Patient(
         Long id,
         String name,

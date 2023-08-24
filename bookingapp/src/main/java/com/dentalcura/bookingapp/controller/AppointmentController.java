@@ -2,6 +2,13 @@ package com.dentalcura.bookingapp.controller;
 
 import com.dentalcura.bookingapp.dao.impl.AppointmentDAOH2;
 import com.dentalcura.bookingapp.dao.impl.PatientDAOH2;
+import com.dentalcura.bookingapp.dto.AppointmentMapper;
+import com.dentalcura.bookingapp.dto.DentistMapper;
+import com.dentalcura.bookingapp.dto.appointment.AppointmentResponse;
+import com.dentalcura.bookingapp.dto.appointment.CreateAppointmentRequest;
+import com.dentalcura.bookingapp.dto.appointment.UpdateAppointmentRequest;
+import com.dentalcura.bookingapp.dto.dentist.CreateDentistRequest;
+import com.dentalcura.bookingapp.dto.dentist.UpdateDentistRequest;
 import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.service.AppointmentService;
@@ -21,27 +28,31 @@ public class AppointmentController {
 
 
     @GetMapping()
-    public List<Appointment> getAppointmentAll() {
+    public List<AppointmentResponse> getAppointmentAll() {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-        return appointmentService.selectAllAppointment();
+        return AppointmentMapper.appointmentsToDtoResponse(appointmentService.selectAllAppointment());
+//        return appointmentService.selectAllAppointment();
     }
 
     @GetMapping("/{id}")
-    public Appointment getAppointment(@PathVariable Long id) {
+    public AppointmentResponse getAppointment(@PathVariable Long id) {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-        return appointmentService.selectAppointmentByID(id);
+        return AppointmentMapper.appointmentToDtoResponse(appointmentService.selectAppointmentByID(id));
+//        return appointmentService.selectAppointmentByID(id);
     }
 
     @PostMapping
-    public Appointment createAppointment(@RequestBody Appointment appointment) {
+    public Appointment createAppointment(@RequestBody CreateAppointmentRequest createAppointmentRequest) {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-        return appointmentService.insertAppointment(appointment);
+        return appointmentService.insertAppointment(AppointmentMapper.dtoPostRequestToAppointment(createAppointmentRequest));
+//        return appointmentService.insertAppointment(appointment);
     }
 
     @PutMapping("/{id}")
-    public Appointment updateAppointment(@RequestBody Appointment appointment) {
+    public Appointment updateAppointment(@RequestBody UpdateAppointmentRequest updateAppointmentRequest) {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-        return appointmentService.updateAppointmentByID(appointment);
+        return appointmentService.updateAppointmentByID(AppointmentMapper.dtoPutRequestToAppointment(updateAppointmentRequest));
+//        return appointmentService.updateAppointmentByID(appointment);
     }
 
     @DeleteMapping("/{id}")
