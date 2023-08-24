@@ -18,7 +18,7 @@
 ###### GET $~~~~~~$ &emsp; http://localhost:8080/patient $~~~~~~~$ &emsp; Get all patients
 ###### GET $~~~~~~$ &emsp; http://localhost:8080/patient/{id} &emsp; Get patient by id
 ###### POST $~~~$ &emsp; http://localhost:8080/patient $~~~~~~~$ &emsp; Create new patient
-###### PUT $~~~~~~$ &emsp; http://localhost:8080patient/{id} &emsp; Update patient by id
+###### PUT $~~~~~~$ &emsp; http://localhost:8080/patient/{id} &emsp; Update patient by id
 ###### DELETE &emsp; http://localhost:8080/patient/{id} &emsp; Delete patient by id
 <br/>
 
