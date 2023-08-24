@@ -14,8 +14,9 @@
 ## &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; REST API
 <br/>
 
-[View Swagger Documentation](swagger.yaml)
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; [Interactive Swagger UI](https://app.swaggerhub.com/apis/fr3m3n/DentalCura/1.0.0) 
 
+<br/>
 
 
 #### PATIENT:
