@@ -14,6 +14,9 @@
 ## &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; REST API
 <br/>
 
+<iframe title="Swagger UI" frameborder="0" style="width: 100%; height: 800px;" src="https://app.swaggerhub.com/apis-docs/fr3m3n/DentalCura/1.0.0#/"></iframe>
+
+
 #### PATIENT:
 ###### GET $~~~~~~$ &emsp; http://localhost:8080/patient $~~~~~~~$ &emsp; Get all patients
 ###### GET $~~~~~~$ &emsp; http://localhost:8080/patient/{id} &emsp; Get patient by id
