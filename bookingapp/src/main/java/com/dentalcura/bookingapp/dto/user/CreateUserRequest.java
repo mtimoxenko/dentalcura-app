@@ -1,4 +1,4 @@
-package com.dentalcura.bookingapp.dto.patient;
+package com.dentalcura.bookingapp.dto.user;
 
-public record CreatePatientRequest(Long id, String name, String surname, Integer licenseNumber) {
+public record CreateUserRequest(Long id, String name, String surname, String email, String password, Boolean admin) {
 }

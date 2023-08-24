@@ -46,7 +46,7 @@ public class DentistController {
     @PutMapping("/{id}")
     public Dentist updateDentist(@RequestBody UpdateDentistRequest updateDentistRequest) {
         dentistService.setDentistIDao(new DentistDAOH2());
-        return DentistMapper.dtoPutRequestToDentist(updateDentistRequest);
+        return dentistService.updateDentistByID(DentistMapper.dtoPutRequestToDentist(updateDentistRequest));
 //        return dentistService.updateDentistByID(dentist);
     }
 

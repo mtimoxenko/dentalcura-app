@@ -1,5 +1,5 @@
 package com.dentalcura.bookingapp.dto.dentist;
 
-public record UpdateDentistRequest(String name, String surname) {
+public record UpdateDentistRequest(Long id, String name, String surname, Integer licenseNumber) {
 
 }

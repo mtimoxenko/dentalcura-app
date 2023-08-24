@@ -1,4 +1,4 @@
-package com.dentalcura.bookingapp.dto.user;
+package com.dentalcura.bookingapp.dto.appointment;
 
-public record UserResponse(String name, String surname) {
+public record AppointmentResponse(String name, String surname) {
 }

@@ -1,48 +1,53 @@
 package com.dentalcura.bookingapp.dto;
 
-import com.dentalcura.bookingapp.dto.dentist.CreateDentistRequest;
-import com.dentalcura.bookingapp.dto.dentist.DentistResponse;
-import com.dentalcura.bookingapp.dto.dentist.UpdateDentistRequest;
-import com.dentalcura.bookingapp.model.Dentist;
+import com.dentalcura.bookingapp.dto.user.CreateUserRequest;
+import com.dentalcura.bookingapp.dto.user.UserResponse;
+import com.dentalcura.bookingapp.dto.user.UpdateUserRequest;
+import com.dentalcura.bookingapp.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DentistMapper {
-//    private static final List<DentistResponse> dentistResponses = new ArrayList<>();
+public class UserMapper {
 
-    // Response DTO for @GetMapping (Retrieving a Dentist)
-    public static DentistResponse dentistToDtoResponse(Dentist dentist) {
-        return new DentistResponse(
-                dentist.name(),
-                dentist.surname()
+    // Response DTO for @GetMapping (Retrieving a User)
+    public static UserResponse userToDtoResponse(User user) {
+        return new UserResponse(
+                user.name(),
+                user.surname(),
+                user.email(),
+                user.admin()
         );
     }
-    // Response DTO for @GetMapping (Retrieving a List<Dentist>)
-    public static List<DentistResponse> dentistsToDtoResponse(List<Dentist> dentists) {
-        List<DentistResponse> dentistResponses = new ArrayList<>();
-        dentists.forEach(dentist -> dentistResponses.add(dentistToDtoResponse(dentist)));
+    // Response DTO for @GetMapping (Retrieving a List<User>)
+    public static List<UserResponse> usersToDtoResponse(List<User> users) {
+        List<UserResponse> userResponses = new ArrayList<>();
+        users.forEach(user -> userResponses.add(userToDtoResponse(user)));
 
-        return dentistResponses;
+        return userResponses;
     }
 
-    // Request DTO for @PostMapping (Creating a Dentist)
-    public static Dentist dtoPostRequestToDentist(CreateDentistRequest createDentistRequest) {
-        return new Dentist(
-                createDentistRequest.id(),
-                createDentistRequest.name(),
-                createDentistRequest.surname(),
-                createDentistRequest.licenseNumber()
+    // Request DTO for @PostMapping (Creating a User)
+    public static User dtoPostRequestToUser(CreateUserRequest createUserRequest) {
+        return new User(
+                createUserRequest.id(),
+                createUserRequest.name(),
+                createUserRequest.surname(),
+                createUserRequest.email(),
+                createUserRequest.password(),
+                createUserRequest.admin()
         );
     }
 
-    // Request DTO for @PutMapping (Updating a Dentist)
-    public static Dentist dtoPutRequestToDentist(UpdateDentistRequest updateDentistRequest) {
-        return new Dentist(
-                null,
-                updateDentistRequest.name(),
-                updateDentistRequest.surname(),
-                null
+    // Request DTO for @PutMapping (Updating a User)
+    public static User dtoPutRequestToUser(UpdateUserRequest updateUserRequest) {
+        return new User(
+                updateUserRequest.id(),
+                updateUserRequest.name(),
+                updateUserRequest.surname(),
+                updateUserRequest.email(),
+                updateUserRequest.password(),
+                updateUserRequest.admin()
         );
     }
 

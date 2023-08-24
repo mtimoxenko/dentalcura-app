@@ -39,10 +39,10 @@ public class DentistMapper {
     // Request DTO for @PutMapping (Updating a Dentist)
     public static Dentist dtoPutRequestToDentist(UpdateDentistRequest updateDentistRequest) {
         return new Dentist(
-                null,
+                updateDentistRequest.id(),
                 updateDentistRequest.name(),
                 updateDentistRequest.surname(),
-                null
+                updateDentistRequest.licenseNumber()
         );
     }
 

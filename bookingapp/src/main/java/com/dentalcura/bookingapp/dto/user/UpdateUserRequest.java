@@ -1,5 +1,5 @@
-package com.dentalcura.bookingapp.dto.patient;
+package com.dentalcura.bookingapp.dto.user;
 
-public record UpdatePatientRequest(String name, String surname) {
+public record UpdateUserRequest(Long id, String name, String surname, String email, String password, Boolean admin) {
 
 }
