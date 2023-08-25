@@ -251,21 +251,8 @@ window.addEventListener('load', function () {
       })
     }
 
-
     dentistLoad()
 
-
-    function registerNewPatient(config) {
-
-      fetch(endpointPatient, config)
-          .then((response) => response.json())
-          .then(data=>{
-              console.log(data)
-              renderPatient()
-          }).catch(err => {
-              console.log(err)   
-          })
-    }
 
     function patientLoad(){
 
@@ -286,10 +273,14 @@ window.addEventListener('load', function () {
           name: name.value,
           surname: surname.value,
           niNumber: niNumber.value,
-          streetName: streetName.value,
-          streetNumber: streetNumber.value,
-          floor: floor.value,
-          department: department.value
+          registrationDate: "Origin of the Universe",
+          addres: {
+            id: 5,
+            streetName: streetName.value,
+            streetNumber: streetNumber.value,
+            floor: floor.value,
+            department: department.value
+          }
         }
 
         const config = {
@@ -299,10 +290,17 @@ window.addEventListener('load', function () {
           },
           body: JSON.stringify(payload),
         }
-          console.log(payload)
-          registerNewPatient(config)
 
-          form.reset()
+        fetch(endpointPatient, config)
+          .then((response) => response.json())
+          .then(data=>{
+            console.log(data);
+            renderPatient()  
+          }).catch(err => {
+            console.log(err);      
+          })
+
+        form.reset()
       })
     }
 

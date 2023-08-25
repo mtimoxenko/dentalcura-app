@@ -73,7 +73,7 @@ public class BookingAppApplication {
 
 //=======
 		// OK
-		createDB();
+/*		createDB();
 //>>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
 //=======
 //=======
