@@ -105,6 +105,9 @@ public class BookingAppApplication {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 	// DB
 	private static void createDB(){
 		drops();
@@ -156,6 +159,7 @@ public class BookingAppApplication {
 
 
 
+<<<<<<< HEAD
 //<<<<<<< HEAD
 //<<<<<<< HEAD
 
@@ -261,6 +265,10 @@ public class BookingAppApplication {
 //=======
 	// USER
 	private static void userAdd(int id, String name, String surname, String email, String password, Boolean admin){
+=======
+	// USER
+	private static void userAdd(Long id, String name, String surname, String email, String password, Boolean admin){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing userAdd() ]");
 		UserService userService = new UserService();
 		// Persistence strategy
@@ -279,7 +287,11 @@ public class BookingAppApplication {
 		userService.selectAllUser();
 		log.info("[ userListAll() finished ]");
 	}
+<<<<<<< HEAD
 	private static void userListById(int id){
+=======
+	private static void userListById(Long id){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing userListById() ]");
 		UserService userService = new UserService();
 		// Persistence strategy
@@ -288,7 +300,11 @@ public class BookingAppApplication {
 		userService.selectUserByID(id);
 		log.info("[ userListById() finished ]");
 	}
+<<<<<<< HEAD
 	private static void userDeleteById(int id){
+=======
+	private static void userDeleteById(Long id){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing userDeleteById() ]");
 		UserService userService = new UserService();
 		// Persistence strategy
@@ -297,7 +313,11 @@ public class BookingAppApplication {
 		userService.deleteUserByID(id);
 		log.info("[ userDeleteById() finished ]");
 	}
+<<<<<<< HEAD
 	private static void userUpdateById(int id, String name, String surname, String email, String password, Boolean admin){
+=======
+	private static void userUpdateById(Long id, String name, String surname, String email, String password, Boolean admin){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing userUpdateById() ]");
 		UserService userService = new UserService();
 		// Persistence strategy
@@ -310,9 +330,14 @@ public class BookingAppApplication {
 
 
 
+<<<<<<< HEAD
 //>>>>>>> 79fd6f2fe1d2d0d5f9aea385534b8dd6868718bf
 	// PATIENT
 	public static void patientAdd(int id, String name, String surname, int niNumber, String regDate, String streetName, int streetNumber, int floor, String department){
+=======
+	// PATIENT
+	public static void patientAdd(Long id, String name, String surname, Integer niNumber, String regDate, String streetName, Integer streetNumber, Integer floor, String department){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing patientAdd() ]");
 		PatientService patientService = new PatientService();
 		// Persistence strategy
@@ -324,14 +349,18 @@ public class BookingAppApplication {
 		patientService.insertPatient(patient);
 		log.info("[ patientAdd() finished ]");
 	}
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 	private static void patientListAll(){
 		log.info("[ Executing patientListAll() ]");
 		PatientService patientService = new PatientService();
 		// Persistence strategy
 		patientService.setPatientIDao(new PatientDAOH2());
 
+<<<<<<< HEAD
 //<<<<<<< HEAD
 
 		// listamos todos los registros
@@ -350,6 +379,12 @@ public class BookingAppApplication {
 		log.info("[ patientListAll() finished ]");
 	}
 	private static void patientListById(int id){
+=======
+		patientService.selectAllPatient();
+		log.info("[ patientListAll() finished ]");
+	}
+	private static void patientListById(Long id){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing patientListById() ]");
 		PatientService patientService = new PatientService();
 		// Persistence strategy
@@ -358,7 +393,11 @@ public class BookingAppApplication {
 		patientService.selectPatientByID(id);
 		log.info("[ patientListById() finished ]");
 	}
+<<<<<<< HEAD
 	private static void patientDeleteById(int id){
+=======
+	private static void patientDeleteById(Long id){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing patientDeleteById() ]");
 		PatientService patientService = new PatientService();
 		// Persistence strategy
@@ -367,7 +406,11 @@ public class BookingAppApplication {
 		patientService.deletePatientByID(id);
 		log.info("[ patientDeleteById() finished ]");
 	}
+<<<<<<< HEAD
 	private static void patientUpdateById(int id, String name, String surname, int niNumber, String regDate, String streetName, int streetNumber, int floor, String department){
+=======
+	private static void patientUpdateById(Long id, String name, String surname, Integer niNumber, String regDate, String streetName, Integer streetNumber, Integer floor, String department){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing patientUpdateById() ]");
 		PatientService patientService = new PatientService();
 		// Persistence strategy
@@ -384,11 +427,15 @@ public class BookingAppApplication {
 
 
 	// DENTIST
+<<<<<<< HEAD
 //<<<<<<< HEAD
 
 	private static void dentistListById(Long id){
 //=======
 	private static void dentistAdd(int id, String name, String surname, int licenseNumber){
+=======
+	private static void dentistAdd(Long id, String name, String surname, Integer licenseNumber){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing dentistAdd() ]");
 		DentistService dentistService = new DentistService();
 		// Persistence strategy
@@ -407,8 +454,12 @@ public class BookingAppApplication {
 		dentistService.selectAllDentist();
 		log.info("[ dentistListAll() finished ]");
 	}
+<<<<<<< HEAD
 	private static void dentistListById(int id){
 //>>>>>>> 3cace599ce9495007b1b122e41e41292a0c473ad
+=======
+	private static void dentistListById(Long id){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing dentistListById() ]");
 		DentistService dentistService = new DentistService();
 		// Persistence strategy
@@ -417,7 +468,11 @@ public class BookingAppApplication {
 		dentistService.selectDentistByID(id);
 		log.info("[ dentistListById() finished ]");
 	}
+<<<<<<< HEAD
 	private static void dentistDeleteById(int id){
+=======
+	private static void dentistDeleteById(Long id){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing dentistDeleteById() ]");
 		DentistService dentistService = new DentistService();
 		// Persistence strategy
@@ -426,7 +481,11 @@ public class BookingAppApplication {
 		dentistService.deleteDentistByID(id);
 		log.info("[ dentistDeleteById() finished ]");
 	}
+<<<<<<< HEAD
 	private static void dentistUpdateById(int id, String name, String surname, int licenseNumber){
+=======
+	private static void dentistUpdateById(Long id, String name, String surname, Integer licenseNumber){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing dentistUpdateById() ]");
 		DentistService dentistService = new DentistService();
 		// Persistence strategy
@@ -440,7 +499,11 @@ public class BookingAppApplication {
 
 
 	// APPOINTMENT
+<<<<<<< HEAD
 	private static void appointmentAdd(int id, String date, int patientID, int dentistID){
+=======
+	private static void appointmentAdd(Long id, String date, Long patientID, Long dentistID){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing apointmentAdd() ]");
 		PatientService patientService = new PatientService();
 		DentistService dentistService = new DentistService();
@@ -457,7 +520,10 @@ public class BookingAppApplication {
 		Appointment appointment = new Appointment(id,date, patient, dentist);
 		appointmentService.insertAppointment(appointment);
 		log.info("[ apointmentAdd() finished ]");
+<<<<<<< HEAD
 //>>>>>>> 111619187663af961c4d9fb34d0c6d64adaddcde
+=======
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 	}
 	private static void appointmentListAll(){
 		log.info("[ Executing apointmentListAll() ]");
@@ -468,7 +534,11 @@ public class BookingAppApplication {
 		appointmentService.selectAllAppointment();
 		log.info("[ apointmentListAll() finished ]");
 	}
+<<<<<<< HEAD
 	private static void appointmentById(int id){
+=======
+	private static void appointmentById(Long id){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing apointmentById() ]");
 		AppointmentService appointmentService = new AppointmentService();
 		// Persistence strategy
@@ -477,7 +547,11 @@ public class BookingAppApplication {
 		appointmentService.selectAppointmentByID(id);
 		log.info("[ apointmentById() finished ]");
 	}
+<<<<<<< HEAD
 	private static void appointmentDeleteById(int id){
+=======
+	private static void appointmentDeleteById(Long id){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing apointmentDeleteById() ]");
 		AppointmentService appointmentService = new AppointmentService();
 		// Persistence strategy
@@ -486,7 +560,11 @@ public class BookingAppApplication {
 		appointmentService.deleteDAppointmentByID(id);
 		log.info("[ apointmentDeleteById() finished ]");
 	}
+<<<<<<< HEAD
 	private static void appointmentUpdateById(int id, String date){
+=======
+	private static void appointmentUpdateById(Long id, String date){
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 		log.info("[ Executing apointmentUpdateById() ]");
 		AppointmentService appointmentService = new AppointmentService();
 		// Persistence strategy
@@ -497,6 +575,7 @@ public class BookingAppApplication {
 		appointmentService.updateAppointmentByID(newAppointment);
 		log.info("[ apointmentUpdateById() finished ]");
 	}
+<<<<<<< HEAD
 =======
 //	// DB
 //	private static void createDB(){
@@ -765,6 +844,8 @@ public class BookingAppApplication {
 //		log.info("[ apointmentUpdateById() finished ]");
 //	}
 >>>>>>> 4588f004ee96bc8a2c6acaab2caed74899fa30a0
+=======
+>>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
 
 
 }

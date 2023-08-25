@@ -1,4 +1,4 @@
-# &emsp;&emsp;&emsp;&emsp; :hospital: &emsp;DentalCura App &emsp;:hospital:
+# &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; :hospital: &emsp;DentalCura App &emsp;:hospital:
 <br/><br/><br/><br/><br/><br/>
 
 
@@ -9,16 +9,21 @@
 ## &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Enhanced Entity-Relationship Model
 ![Enhanced entity-relationship model](eer_diagram.png)
 
-
+<br/><br/>
 
 ## &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; REST API
 <br/>
+
+### &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; [Interactive Swagger UI](https://app.swaggerhub.com/apis-docs/fr3m3n/DentalCura/1.0.0#/) 
+
+<br/>
+
 
 #### PATIENT:
 ###### GET $~~~~~~$ &emsp; http://localhost:8080/patient $~~~~~~~$ &emsp; Get all patients
 ###### GET $~~~~~~$ &emsp; http://localhost:8080/patient/{id} &emsp; Get patient by id
 ###### POST $~~~$ &emsp; http://localhost:8080/patient $~~~~~~~$ &emsp; Create new patient
-###### PUT $~~~~~~$ &emsp; http://localhost:8080patient/{id} &emsp; Update patient by id
+###### PUT $~~~~~~$ &emsp; http://localhost:8080/patient/{id} &emsp; Update patient by id
 ###### DELETE &emsp; http://localhost:8080/patient/{id} &emsp; Delete patient by id
 <br/>
 
