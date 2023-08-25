@@ -33,16 +33,24 @@ public class UserController {
 
 
     @GetMapping()
-    public List<UserResponse> getUserAll() {
+    public ResponseEntity<List<UserResponse>> getUserAll() {
         userService.setUserIDao(new UserDAOH2());
-        return UserMapper.usersToDtoResponse(userService.selectAllUser());
+        return new ResponseEntity<>(
+                UserMapper.usersToDtoResponse(userService.selectAllUser()),
+                HttpStatus.OK
+        );
+//        return UserMapper.usersToDtoResponse(userService.selectAllUser());
 //        return userService.selectAllUser();
     }
 
     @GetMapping("/{id}")
-    public UserResponse getUser(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> getUser(@PathVariable Long id) {
         userService.setUserIDao(new UserDAOH2());
-        return UserMapper.userToDtoResponse(userService.selectUserByID(id));
+        return new ResponseEntity<>(
+                UserMapper.userToDtoResponse(userService.selectUserByID(id)),
+                HttpStatus.OK
+        );
+//        return UserMapper.userToDtoResponse(userService.selectUserByID(id));
 //        return userService.selectUserByID(id);
     }
 
