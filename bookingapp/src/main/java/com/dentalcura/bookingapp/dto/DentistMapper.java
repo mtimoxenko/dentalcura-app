@@ -15,7 +15,8 @@ public class DentistMapper {
     public static DentistResponse dentistToDtoResponse(Dentist dentist) {
         return new DentistResponse(
                 dentist.name(),
-                dentist.surname()
+                dentist.surname(),
+                dentist.licenseNumber()
         );
     }
     // Response DTO for @GetMapping (Retrieving a List<Dentist>)

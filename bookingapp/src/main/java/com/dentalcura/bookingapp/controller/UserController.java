@@ -7,6 +7,7 @@ import com.dentalcura.bookingapp.dto.UserMapper;
 import com.dentalcura.bookingapp.dto.dentist.CreateDentistRequest;
 import com.dentalcura.bookingapp.dto.dentist.UpdateDentistRequest;
 import com.dentalcura.bookingapp.dto.user.CreateUserRequest;
+import com.dentalcura.bookingapp.dto.user.LoginUserRequest;
 import com.dentalcura.bookingapp.dto.user.UpdateUserRequest;
 import com.dentalcura.bookingapp.dto.user.UserResponse;
 import com.dentalcura.bookingapp.model.Dentist;
@@ -47,6 +48,17 @@ public class UserController {
         return userService.insertUser(UserMapper.dtoPostRequestToUser(createUserRequest));
 //        return userService.insertUser(user);
     }
+
+
+    // QUE HAGO CON ESTE USER?
+//    @PostMapping("/login")
+//    public User loginUser(@RequestBody LoginUserRequest loginUserRequest) {
+//        userService.setUserIDao(new UserDAOH2());
+//        return userService.insertUser(UserMapper.dtoPostRequestToUser(createUserRequest));
+//    }
+
+
+
 
     @PutMapping("/{id}")
     public User updateUser(@RequestBody UpdateUserRequest updateUserRequest) {
