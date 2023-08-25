@@ -44,18 +44,23 @@ nav .user-info .user-image {
     margin-left: .5rem;
 }
 
+fieldset{
+    border: none;
+}
+
 nav .user-info button {
     background-color: var(--laranja);
     color: white;
     padding: .5rem 1rem;
     margin-left: 2rem;
-    border-radius: .3rem;
+    border-radius: .2rem;
     font-size: .8rem;
     font-weight: 400;
 }
 
-
 .container {
+    display: flex;
+    flex-direction: column;
     padding: 0 5%;
 }
 
@@ -68,6 +73,8 @@ form {
     flex-direction: column;
     align-items: flex-start;
     padding-top: 0%;
+    width: 70%;
+    align-self: center;
 }
 
 .select{
@@ -89,21 +96,21 @@ form button {
     padding: .8rem 1.5rem;
     border-radius: .3rem;
     font-size: 1rem;
-    margin-left: 1rem;
+    margin-top: 2rem;
     font-weight: 400;
+    height: 3rem;
+    align-self: center;
 }
 
 form button:hover {
     background-color: var(--azul-hover);
 }
 
-main ul {
-    color: black;
-}
-
 main h2 {
     margin: 1.5rem 0 .5rem 0;
 }
+
+.new-appointment div
 
 /* ------------appointment pendientes */
 .appointment-pendientes .tarea {

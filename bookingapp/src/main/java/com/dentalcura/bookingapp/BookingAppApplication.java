@@ -28,15 +28,15 @@ public class BookingAppApplication {
 		SpringApplication.run(BookingAppApplication.class, args);
 
 //		log.info("Sequence init...");
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
-		createDB();
+//		createDB();
 
-		userAdd(1L, "Maximo", "Timochenko", "mtimochenko@test.com", "123456", true);
-		userAdd(2L, "UserComun", "UserApellido", "user@test.com", "111111", false);
+//		userAdd(1L, "Maximo", "Timochenko", "mtimochenko@test.com", "123456", true);
+//		userAdd(2L, "UserComun", "UserApellido", "user@test.com", "111111", false);
 
-		userListById(1L);
-		userListAll();
+//		userListById(1L);
+/*		userListAll();
 		userDeleteById(2L);
 		userListAll();
 		userUpdateById(1L,"MaxPower","Timochenko","maxpower@test.com","MaxPower12345",false);
@@ -61,8 +61,8 @@ public class BookingAppApplication {
 
 		dentistListAll();
 		patientListAll();
-		appointmentListAll();
-=======
+		appointmentListAll(); */
+//=======
 //
 //		createDB();
 //
@@ -96,7 +96,7 @@ public class BookingAppApplication {
 //		dentistListAll();
 //		patientListAll();
 //		appointmentListAll();
->>>>>>> 4588f004ee96bc8a2c6acaab2caed74899fa30a0
+//>>>>>>> 4588f004ee96bc8a2c6acaab2caed74899fa30a0
 //
 //
 //		dentistUpdateById(1L,"Max", "Timo", 11223344);

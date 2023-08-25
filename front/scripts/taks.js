@@ -12,9 +12,11 @@ window.addEventListener('load', function () {
   // https://todo-api.ctd.academy/#/users/getMe
   // const endpointGetUser = 'https://todo-api.ctd.academy/v1/users/getMe';
   // const token = JSON.parse(localStorage.jwt);
-  const endpointDentist = './json/dentista.json'
+  const endpointDentist = 'http://localhost:8080/dentist'
   const endpointTurno = './json/turno.json'
-  const endpointPatient = './json/paciente.json'
+  const endpointPatient = 'http://localhost:8080/patient'
+  const endpointAppointment = 'http://localhost:8080/appointment'
+
 
   const formAddAppointment = document.querySelector('.new-appointment');
   const btnCloseApp = document.querySelector('#closeApp');
@@ -44,14 +46,15 @@ window.addEventListener('load', function () {
   function renderPatient(){
     const selectPatient = document.getElementById('select-patient')
 
+
     fetch(endpointPatient)
       .then(response=>response.json())
       .then(data=>{
         console.log(data);
         data.forEach(patient=>{
           selectPatient.innerHTML+=`
-          <div><input type="radio" name="patient" id="${patient.documennto}">
-          <label for="${patient.documento}">${patient.nombre} ${patient.apellido}</label>
+          <div><input type="radio" name="patient" id="${patient.niNumber}">
+          <label for="${patient.niNumber}">${patient.name} ${patient.surname}</label>
           </div>`
         })
       })
@@ -70,8 +73,8 @@ window.addEventListener('load', function () {
         console.log(data);
         data.forEach(dentist=>{
           selectDentist.innerHTML+=`
-          <div><input type="radio" name="dentist" id="${dentist.licencia}">
-          <label for="${dentist.licencia}">${dentist.nombre} ${dentist.apellido}</label>
+          <div><input type="radio" name="dentist" id="${dentist.licenceNumber}">
+          <label for="${dentist.licenceNumber}">${dentist.name} ${dentist.surname}</label>
           </div>`
         })
       })
@@ -159,7 +162,6 @@ window.addEventListener('load', function () {
       .then(response => response.json())
       .then(appointment => {
 
-        renderAppointment(appointment);
         btnDeleteAppointment();
       })
       .catch(error => console.log(error));
@@ -221,29 +223,26 @@ window.addEventListener('load', function () {
   /* ----------------------------------------------------------- */
   /*                  [5] FUNCTION: Render Appointment           */
   /* ----------------------------------------------------------- */
-  function renderAppointment(listado) {
+  function renderAppointment() {
 
     // clear all Appointment
-    const appointmentToDo = document.querySelector('.appointment-pendientes');
+    const appointmentToDo = document.querySelector('#test');
     appointmentToDo.innerHTML = "";
 
 
-    listado.forEach(appointment => {
-
-      // let date = new Date(appointment.createdAt);
-
-        appointmentToDo.innerHTML += `
-          <li class="tarea" data-aos="flip-up">
-            <button class="borrar" id="${appointment.id}"><i class="fa-regular fa-trash-can"></i></button>
-            <div class="descripcion">
-              <p class="nombre">${appointment.description}</p>
-              <p class="timestamp">${appointment.toLocaleDateString()}</p>
-            </div>
-          </li>`
+    fetch(endpointAppointment)
+    .then(response=>response.json())
+    .then(data=>{
+      console.log(data)
+      data.forEach(appointment=>{
+        appointmentToDo.innerHTML+=`
+        <li>Date: ${appointment.date} Dentist: ${appointment.dentist.name} ${appointment.dentist.surname}, Patient: ${appointment.patient.name} ${appointment.patient.surname}
+        </li>`
+      })
     })
   }
 
-
+renderAppointment()
 
   /* -------------------------------------------------------------------------- */
   /*                     [6] FUNCTION: Delete appointment [DELETE]                    */
