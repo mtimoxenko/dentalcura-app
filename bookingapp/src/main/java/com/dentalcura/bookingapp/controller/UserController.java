@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.dentalcura.bookingapp.BookingAppApplication.userListAll;
+
 
 @RestController
 @RequestMapping("/user")
@@ -55,8 +57,16 @@ public class UserController {
     // QUE HAGO CON ESTE USER?
     @PostMapping("/login")
     public ResponseEntity<Integer> loginUser(@RequestBody LoginUserRequest loginUserRequest) {
-//        userService.setUserIDao(new UserDAOH2());
-        return new ResponseEntity <>(33, HttpStatus.OK) ;
+        List<User> userList = userListAll();
+        int login = 0;
+        HttpStatus httpStatus = HttpStatus.NO_CONTENT;
+        for (User user: userList) {
+            if(user.email().equals(loginUserRequest.email()) && user.password().equals(loginUserRequest.password())){
+                login = user.admin() ? 33 : 1;
+                httpStatus=HttpStatus.OK;
+            }
+        }
+        return new ResponseEntity <>(login, httpStatus);
     }
 
 

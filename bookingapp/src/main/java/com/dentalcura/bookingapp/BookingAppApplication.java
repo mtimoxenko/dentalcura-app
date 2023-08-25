@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 
 @SpringBootApplication
@@ -136,14 +137,13 @@ public class BookingAppApplication {
 		userService.insertUser(user);
 		log.info("[ userAdd() finished ]");
 	}
-	private static void userListAll(){
+	public static List<User> userListAll(){
 		log.info("[ Executing userListAll() ]");
 		UserService userService = new UserService();
 		// Persistence strategy
 		userService.setUserIDao(new UserDAOH2());
-
-		userService.selectAllUser();
 		log.info("[ userListAll() finished ]");
+		return userService.selectAllUser();
 	}
 	private static void userListById(Long id){
 		log.info("[ Executing userListById() ]");

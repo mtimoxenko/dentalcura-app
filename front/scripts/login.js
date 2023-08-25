@@ -58,10 +58,15 @@ window.addEventListener('load', function () {
             console.log("Promise OK!");
             console.log(data);
 
-            if (data == 33) {
+            if (data == 1) {
                 // redirecting to the page
                 location.replace('./tasks.html');
-            };
+            }else if(data == 33) {
+                // redirecting to the page
+                location.replace('./root.html');
+            }else{
+                console.log("Datos incorrectos");
+            }
 
         }).catch(err => {
             console.log("Promise rejected...");
