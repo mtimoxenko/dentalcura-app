@@ -291,6 +291,8 @@ window.addEventListener('load', function () {
           body: JSON.stringify(payload),
         }
 
+        console.log(payload);
+
         fetch(endpointPatient, config)
           .then((response) => response.json())
           .then(data=>{
