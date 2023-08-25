@@ -257,30 +257,28 @@ window.addEventListener('load', function () {
     function patientLoad(){
 
       const form = document.querySelector('.patient-load')
-      const name = document.querySelector('.patient-load, #inputName')
-      const surname = document.querySelector('.patient-load, #inputSurname')
-      const niNumber = document.querySelector('.patient-load, #inputNiNumber')
-      const streetName = document.querySelector('.patient-load, #inputStreetName')
-      const streetNumber = document.querySelector('.patient-load, #inputStreetNumber')
-      const floor = document.querySelector('.patient-load, #inputFloor')
-      const department = document.querySelector('.patient-load, #inputDepartment')
+      const name = document.querySelector('.patient-load #inputName')
+      const surname = document.querySelector('.patient-load #inputSurname')
+      const niNumber = document.querySelector('.patient-load #inputNiNumber')
+      const streetName = document.querySelector('.patient-load #inputStreetName')
+      const streetNumber = document.querySelector('.patient-load #inputStreetNumber')
+      const floor = document.querySelector('.patient-load #inputFloor')
+      const department = document.querySelector('.patient-load #inputDepartment')
 
 
       form.addEventListener('submit', function(e){
         e.preventDefault()      
 
         const payload = {
+          id: 7,
           name: name.value,
           surname: surname.value,
           niNumber: niNumber.value,
           registrationDate: "Origin of the Universe",
-          addres: {
-            id: 5,
-            streetName: streetName.value,
-            streetNumber: streetNumber.value,
-            floor: floor.value,
-            department: department.value
-          }
+          streetName: streetName.value,
+          streetNumber: streetNumber.value,
+          floor: floor.value,
+          department: department.value
         }
 
         const config = {
@@ -347,14 +345,64 @@ window.addEventListener('load', function () {
 
         fetch(url, settings)
         .then(response => {
-          console.log(response.status);
-          renderDentist();
+          console.log(response.status)
+          renderDentist()
         })
       })
     }
 
 
+    function updatePatient(){
 
+      const form = document.querySelector('.patient-update')
+      const searchPatientId = document.getElementById('inputPatientId')
+
+      const name = document.querySelector('.patient-update #inputName')
+      const surname = document.querySelector('.patient-update #inputSurname')
+      const niNumber = document.querySelector('.patient-update #inputNiNumber')
+      const streetName = document.querySelector('.patient-update #inputStreetName')
+      const streetNumber = document.querySelector('.patient-update #inputStreetNumber')
+      const floor = document.querySelector('.patient-update #inputFloor')
+      const department = document.querySelector('.patient-update #inputDepartment')
+
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault()
+
+        const id = searchPatientId.value
+        const url = `${endpointPatient}/${id}`
+
+        const payload = {
+          id: id,
+          name: name.value,
+          surname: surname.value,
+          niNumber: niNumber.value,
+          registrationDate: "Origin of the Universe",
+          streetName: streetName.value,
+          streetNumber: streetNumber.value,
+          floor: floor.value,
+          department: department.value
+        }
+
+        const settings = {
+          method: 'PUT',
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        }
+
+        console.log(payload);
+
+        fetch(url, settings)
+        .then(response => {
+          console.log(response.status);
+          renderPatient();
+        })
+      })
+    }
+
+    updatePatient()
 
 
 
@@ -380,7 +428,6 @@ window.addEventListener('load', function () {
 
             fetch(url, settings)
             .then(response => {
-              console.log("Borrando tarea...");
               console.log(response.status);
               renderDentist() 
             })
