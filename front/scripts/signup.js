@@ -1,17 +1,33 @@
 window.addEventListener('load', function () {
 
-    const form = this.document.querySelector('form')
+    const form = document.querySelector('form')
+    const endpoint = 'http://localhost:8080/user'
 
-    const endpointSingUp = 'http://localhost:8080/user'
+    const name = document.querySelector('#inputName')
+    const surname = document.querySelector('#inputSurname')
+    const email = document.querySelector('#inputEmail')
+    const pass = document.querySelector('#inputPassword')
+    const admin = document.querySelector('[name=role]')
 
 
-    /* ----------------------------------------------------------------------- */
-    /*           [1] FUNCTION: Listen to submit & prepare to send data         */
-    /* ----------------------------------------------------------------------- */
     form.addEventListener('submit', function (event) {
-        event.preventDefault();
+        event.preventDefault()
 
-        const payload = getData();
+        const payload = {
+            id: 3,
+            name: name.value,
+            surname: surname.value,
+            email: email.value,
+            password: pass.value,
+            admin: false
+        }
+
+        if(admin.checked){
+            payload.admin = true
+        }
+
+        console.log(payload)
+
         const config = {
             method: 'POST',
             headers: {
@@ -20,61 +36,21 @@ window.addEventListener('load', function () {
             body: JSON.stringify(payload),   
         }
 
-        registerNewUser(config);
-        form.reset();
-    });
-
-
-    /* ------------------------------------------------------------- */
-    /*                 [2] FUNCTION: Get form data                   */
-    /* ------------------------------------------------------------- */
-    function getData() {
-        const name = document.querySelector('#inputName');
-        const surname = document.querySelector('#inputSurname');
-        const email = document.querySelector('#inputEmail');
-        const pass = document.querySelector('#inputPassword');
-        const role = document.querySelector('[name=role]')
-
-        let object = {
-            firstName: name.value,
-            lastName: surname.value,
-            email: email.value,
-            password: pass.value,
-            role: false
-        }
-
-        if(role.checked){
-            object.role = true
-        }
-
-        console.log(object);
-        return object;
-    }
-
-    /* --------------------------------------------------------------- */
-    /*                   [3] FUNCTION: Signup [POST]                   */
-    /* --------------------------------------------------------------- */
-    function registerNewUser(config) {
-        
-        fetch(endpointSingUp, config)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Promise OK!");
-                console.log(data);
-
-                //if (data.jwt) {
-                    // saving jwt to localstorage
-                    // localStorage.setItem('jwt', JSON.stringify(data.jwt));
-
-                    // redirecting to the page
-                    location.replace('./tasks.html');
-                //};
+        fetch(endpoint, config)
+            .then((response) => {
+                console.log(response);
+                response.json()})
+            .then(data => {
+                console.log(data)
+                if (data.admin) {
+                    location.replace('./admin.html')
+                }
                 
             }).catch(err => {
-                console.log("Promise rejected...");
                 console.log(err);      
-            });
+            })
+        form.reset()
+    })
 
-    };
 
-});
+})

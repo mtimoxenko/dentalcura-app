@@ -1,20 +1,19 @@
 window.addEventListener('load', function () {
 
-    const form = this.document.querySelector('form')
-    // https://todo-api.ctd.academy/#/users/loginUser
-    const endpointLogin = 'https://todo-api.ctd.academy/v1/users/login';
+    const form = document.querySelector('form')
+    const email = document.querySelector('#inputEmail')
+    const password = document.querySelector('#inputPassword')
+    const endpointLogin = 'http://localhost:8080/user'
 
 
-
-
-    /* ----------------------------------------------------------------------- */
-    /*           [1] FUNCTION: Listen to submit & prepare to send data         */
-    /* ----------------------------------------------------------------------- */
     form.addEventListener('submit', function (event) {
-       
-        event.preventDefault();
+        event.preventDefault()
 
-        const payload = getData();
+        const payload = {
+            email: email.value,
+            password: password.value
+        }
+
         const config = {
             method: 'POST',
             headers: {
@@ -23,31 +22,12 @@ window.addEventListener('load', function () {
             body: JSON.stringify(payload),   
         }
 
-        loginUser(config);
-        form.reset();
+        loginUser(config)
+        form.reset()
 
-    });
-
-
-    /* ------------------------------------------------------------- */
-    /*                 [2] FUNCTION: Get form data                   */
-    /* ------------------------------------------------------------- */
-    function getData() {
-        const email = document.querySelector('#inputEmail');
-        const pass = document.querySelector('#inputPassword');
-        
-        let object = {
-            email: email.value,
-            password: pass.value,
-        }
-
-        return object;
-    }
+    })
 
 
-    /* ---------------------------------------------------------------------- */
-    /*                     [3] FUNCTION: User login [POST]                    */
-    /* ---------------------------------------------------------------------- */
     function loginUser(config) {
 
         fetch(endpointLogin, config)
@@ -56,64 +36,21 @@ window.addEventListener('load', function () {
             console.log("Promise OK!");
             console.log(data);
 
-            if (data.jwt) {
-                // saving jwt to localstorage
-                localStorage.setItem('jwt', JSON.stringify(data.jwt));
+            //if (data.jwt) {
+            //    localStorage.setItem('jwt', JSON.stringify(data.jwt));
 
-                // redirecting to the page
-                location.replace('./tasks.html');
-            };
+                if (data.admin) {
+                    location.replace('./admin.html')
+                }
+                location.replace('./tasks.html')
+            //}
 
         }).catch(err => {
             console.log("Promise rejected...");
             console.log(err);      
-        });
-        
+        })
+    }
 
-        
-    };
-
-
-
-    /* TEST API CUSTOM */
-    renderPacienteDentista();
-
-    function renderPacienteDentista() {
-<<<<<<< HEAD
-=======
-        const pacienteNombre = document.querySelector('#pacienteNombre');
-        const pacienteApellido = document.querySelector('#pacienteApellido');
-
-        const endpointJson = './json/paciente.json';
-        const endpointPacienteJava = 'http://localhost:8080/patient';
-<<<<<<< HEAD
-
->>>>>>> 3cace599ce9495007b1b122e41e41292a0c473ad
-
-
-=======
-
-
-
->>>>>>> 4588f004ee96bc8a2c6acaab2caed74899fa30a0
-        fetch(endpointPacienteJava)
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            pacienteNombre.innerText = "Paciente nombre: " + `${data[0].name}`;
-            pacienteApellido.innerText = "Paciente apellido: " + `${data[0].surname}`;
->>>>>>> 3cace599ce9495007b1b122e41e41292a0c473ad
-=======
-            pacienteNombre.innerText = "Paciente nombre: " + `${data[0].name}`;
-            pacienteApellido.innerText = "Paciente apellido: " + `${data[0].surname}`;
->>>>>>> 4588f004ee96bc8a2c6acaab2caed74899fa30a0
-          })
-          .catch(error => console.log(error));
-      }
-
-          
+    
 
 });
