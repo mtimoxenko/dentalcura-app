@@ -42,7 +42,7 @@ window.addEventListener('load', function () {
           console.log(data)
           data.forEach(dentist=>{
             selectDentist.innerHTML+=`
-            <li>${dentist.name} ${dentist.surname} Lic. ${dentist.licenseNumber}
+            <li>${dentist.name} ${dentist.surname}, Lic: ${dentist.licenseNumber}
             <div></div>
             </li>`
           })
@@ -66,7 +66,7 @@ window.addEventListener('load', function () {
             console.log(data);
             data.forEach(patient=>{
               selectPatient.innerHTML+=`
-              <li>${patient.name} ${patient.surname} NI Number ${patient.niNumber}
+              <li>${patient.name} ${patient.surname}, NI Number: ${patient.niNumber}
               <div></div>
               </li>`
             })
@@ -200,6 +200,8 @@ window.addEventListener('load', function () {
             streetNumber.setAttribute('placeholder', data.streetNumber)
             floor.setAttribute('placeholder', data.floor)
             department.setAttribute('placeholder', data.department)
+            patientDelete()
+            updatePatient()
         })
       })
     }
@@ -264,13 +266,13 @@ window.addEventListener('load', function () {
       const streetNumber = document.querySelector('.patient-load #inputStreetNumber')
       const floor = document.querySelector('.patient-load #inputFloor')
       const department = document.querySelector('.patient-load #inputDepartment')
-
+      const id = document.querySelector('.patient-load #inputId')
 
       form.addEventListener('submit', function(e){
         e.preventDefault()      
 
         const payload = {
-          id: 7,
+          id: id.value,
           name: name.value,
           surname: surname.value,
           niNumber: niNumber.value,
@@ -300,7 +302,7 @@ window.addEventListener('load', function () {
             console.log(err);      
           })
 
-        form.reset()
+//        form.reset()
       })
     }
 
@@ -314,7 +316,7 @@ window.addEventListener('load', function () {
 
     function updateDentist(){
 
-      const dentistUpdateButton = document.querySelector('.update-button')
+      const updateButton = document.querySelector('.dentist-update, .update-button')
       const searchDentistId = document.getElementById('inputDentistId')
 
       const name = document.querySelector('.dentist-update #inputName')
@@ -322,7 +324,7 @@ window.addEventListener('load', function () {
       const licenseNumber = document.querySelector('.dentist-update #inputLicenseNumber')
 
 
-      dentistUpdateButton.addEventListener('click', function(e){
+      updateButton.addEventListener('click', function(e){
         e.preventDefault()
 
         const id = searchDentistId.value
@@ -354,7 +356,7 @@ window.addEventListener('load', function () {
 
     function updatePatient(){
 
-      const form = document.querySelector('.patient-update')
+      const updateButton = document.querySelector('.patient-update, .update-button')
       const searchPatientId = document.getElementById('inputPatientId')
 
       const name = document.querySelector('.patient-update #inputName')
@@ -366,7 +368,7 @@ window.addEventListener('load', function () {
       const department = document.querySelector('.patient-update #inputDepartment')
 
 
-      form.addEventListener('submit', function(e){
+      updateButton.addEventListener('click', function(e){
         e.preventDefault()
 
         const id = searchPatientId.value
@@ -402,18 +404,14 @@ window.addEventListener('load', function () {
       })
     }
 
-    updatePatient()
-
-
 
     /* ----------------------------------------------------------------------------------- */
     /*                 [6] FUNCTION: Delete Dentist & Patient [DELETE]                     */
     /* ----------------------------------------------------------------------------------- */
 
-
     function dentistDelete() {
 
-      const dentistDeleteButton = document.querySelector('.delete-button')
+      const dentistDeleteButton = document.querySelector('.dentist-update, .delete-button')
       const searchDentistId = document.getElementById('inputDentistId')
 
         dentistDeleteButton.addEventListener('click', function (e){
@@ -430,6 +428,30 @@ window.addEventListener('load', function () {
             .then(response => {
               console.log(response.status);
               renderDentist() 
+            })
+        })
+    }
+
+
+    function patientDelete() {
+
+      const patientDeleteButton = document.querySelector('.patient-update, .delete-button')
+      const searchPatientId = document.getElementById('inputPatientId')
+
+        patientDeleteButton.addEventListener('click', function (e){
+            e.preventDefault()
+
+            const id = searchPatientId.value
+            const url = `${endpointPatient}/${id}`
+  
+            const settings = {
+              method: 'DELETE'
+            }
+
+            fetch(url, settings)
+            .then(response => {
+              console.log(response.status);
+              renderPatient() 
             })
         })
     }
