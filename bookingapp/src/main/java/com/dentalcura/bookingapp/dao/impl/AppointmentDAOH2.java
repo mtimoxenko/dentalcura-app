@@ -53,10 +53,10 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getInsertCustom());
 
-            preparedStatement.setInt(1, appointment.id());
+            preparedStatement.setLong(1, appointment.id());
             preparedStatement.setString(2, appointment.date());
-            preparedStatement.setInt(3, appointment.patient().id());
-            preparedStatement.setInt(4, appointment.dentist().id());
+            preparedStatement.setLong(3, appointment.patient().id());
+            preparedStatement.setLong(4, appointment.dentist().id());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -96,10 +96,10 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
 
 
             while (resultSet.next()){
-                int id = resultSet.getInt(1);
+                Long id = resultSet.getLong(1);
                 String date = resultSet.getString(2);
-                int patient_id = resultSet.getInt(3);
-                int dentist_id = resultSet.getInt(4);
+                Long patient_id = resultSet.getLong(3);
+                Long dentist_id = resultSet.getLong(4);
 
                 patient = patientService.selectPatientByID(patient_id);
                 dentist = dentistService.selectDentistByID(dentist_id);
@@ -127,7 +127,7 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
     }
 
     @Override
-    public Appointment selectByID(int id) {
+    public Appointment selectByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
 
@@ -145,13 +145,13 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getSelectById());
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
                 String date = resultSet.getString(2);
-                int patient_id = resultSet.getInt(3);
-                int dentist_id = resultSet.getInt(4);
+                Long patient_id = resultSet.getLong(3);
+                Long dentist_id = resultSet.getLong(4);
 
                 patient = patientService.selectPatientByID(patient_id);
                 dentist = dentistService.selectDentistByID(dentist_id);
@@ -187,11 +187,11 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getUpdateById());
 
-            preparedStatement.setInt(4, appointment.id());
+            preparedStatement.setLong(4, appointment.id());
 
             preparedStatement.setString(1, appointment.date());
-            preparedStatement.setInt(2, appointment.patient().id());
-            preparedStatement.setInt(3, appointment.dentist().id());
+            preparedStatement.setLong(2, appointment.patient().id());
+            preparedStatement.setLong(3, appointment.dentist().id());
 
 
             preparedStatement.executeUpdate();
@@ -212,7 +212,7 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
     }
 
     @Override
-    public Appointment deleteByID(int id) {
+    public Appointment deleteByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
 
@@ -221,7 +221,7 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getDeleteById());
 
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
 
             preparedStatement.executeUpdate();
             preparedStatement.close();

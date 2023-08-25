@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Repository
+@Repository("userDAOH2")
 public class UserDAOH2 implements IDao<User>{
+
 
     public void createTable(){
         Connection connection;
@@ -49,7 +50,7 @@ public class UserDAOH2 implements IDao<User>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.USERS.getInsertCustom());
 
-            preparedStatement.setInt(1, user.id());
+            preparedStatement.setLong(1, user.id());
             preparedStatement.setString(2, user.name());
             preparedStatement.setString(3, user.surname());
             preparedStatement.setString(4, user.email());
@@ -85,7 +86,7 @@ public class UserDAOH2 implements IDao<User>{
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                int id = resultSet.getInt(1);
+                Long id = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
                 String email = resultSet.getString(4);
@@ -116,7 +117,7 @@ public class UserDAOH2 implements IDao<User>{
     }
 
     @Override
-    public User selectByID(int id) {
+    public User selectByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
         User user = null;
@@ -125,7 +126,7 @@ public class UserDAOH2 implements IDao<User>{
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.USERS.getSelectById());
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
@@ -166,7 +167,7 @@ public class UserDAOH2 implements IDao<User>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.USERS.getUpdateById());
 
-            preparedStatement.setInt(5, user.id());
+            preparedStatement.setLong(5, user.id());
 
             preparedStatement.setString(1, user.name());
             preparedStatement.setString(2, user.surname());
@@ -192,7 +193,7 @@ public class UserDAOH2 implements IDao<User>{
     }
 
     @Override
-    public User deleteByID(int id) {
+    public User deleteByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
 
@@ -201,7 +202,7 @@ public class UserDAOH2 implements IDao<User>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.USERS.getDeleteById());
 
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
 
             preparedStatement.executeUpdate();
             preparedStatement.close();

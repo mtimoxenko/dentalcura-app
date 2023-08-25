@@ -14,6 +14,8 @@ import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.service.AppointmentService;
 import com.dentalcura.bookingapp.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,20 +30,24 @@ public class AppointmentController {
 
 
     @GetMapping()
-    public List<AppointmentResponse> getAppointmentAll() {
+    public ResponseEntity<List<AppointmentResponse>> getAppointmentAll() {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-        return AppointmentMapper.appointmentsToDtoResponse(appointmentService.selectAllAppointment());
+        return new ResponseEntity<>(
+                AppointmentMapper.appointmentsToDtoResponse(appointmentService.selectAllAppointment()),
+                HttpStatus.OK
+        );
+//        return AppointmentMapper.appointmentsToDtoResponse(appointmentService.selectAllAppointment());
 //        return appointmentService.selectAllAppointment();
     }
 
     @GetMapping("/{id}")
-<<<<<<< HEAD
-    public Appointment getAppointment(@PathVariable int id) {
-=======
-    public AppointmentResponse getAppointment(@PathVariable Long id) {
->>>>>>> 74ad6c0d65a3d7f0c6bbdcd1cbdf13f05bded0e5
+    public ResponseEntity<AppointmentResponse> getAppointment(@PathVariable Long id) {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-        return AppointmentMapper.appointmentToDtoResponse(appointmentService.selectAppointmentByID(id));
+        return new ResponseEntity<>(
+                AppointmentMapper.appointmentToDtoResponse(appointmentService.selectAppointmentByID(id)),
+                HttpStatus.OK
+        );
+//        return AppointmentMapper.appointmentToDtoResponse(appointmentService.selectAppointmentByID(id));
 //        return appointmentService.selectAppointmentByID(id);
     }
 
@@ -60,7 +66,7 @@ public class AppointmentController {
     }
 
     @DeleteMapping("/{id}")
-    public Appointment deleteAppointment(@PathVariable int id) {
+    public Appointment deleteAppointment(@PathVariable Long id) {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
         return appointmentService.deleteDAppointmentByID(id);
     }

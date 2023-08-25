@@ -48,7 +48,7 @@ public class DentistDAOH2 implements IDao<Dentist>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getInsertCustom());
 
-            preparedStatement.setInt(1, dentist.id());
+            preparedStatement.setLong(1, dentist.id());
             preparedStatement.setString(2, dentist.name());
             preparedStatement.setString(3, dentist.surname());
             preparedStatement.setInt(4, dentist.licenseNumber());
@@ -82,7 +82,7 @@ public class DentistDAOH2 implements IDao<Dentist>{
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                int id = resultSet.getInt(1);
+                Long id = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
                 Integer licenseNumber = resultSet.getInt(4);
@@ -110,7 +110,7 @@ public class DentistDAOH2 implements IDao<Dentist>{
     }
 
     @Override
-    public Dentist selectByID(int id) {
+    public Dentist selectByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
         Dentist dentist = null;
@@ -119,11 +119,11 @@ public class DentistDAOH2 implements IDao<Dentist>{
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getSelectById());
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                int tabId = resultSet.getInt(1);
+                Long tabId = resultSet.getLong(1);
                 String name = resultSet.getString(2);
                 String surname = resultSet.getString(3);
                 Integer licenseNumber = resultSet.getInt(4);
@@ -158,7 +158,7 @@ public class DentistDAOH2 implements IDao<Dentist>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getUpdateById());
 
-            preparedStatement.setInt(4, dentist.id());
+            preparedStatement.setLong(4, dentist.id());
 
             preparedStatement.setString(1, dentist.name());
             preparedStatement.setString(2, dentist.surname());
@@ -183,7 +183,7 @@ public class DentistDAOH2 implements IDao<Dentist>{
     }
 
     @Override
-    public Dentist deleteByID(int id) {
+    public Dentist deleteByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
 
@@ -192,7 +192,7 @@ public class DentistDAOH2 implements IDao<Dentist>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getDeleteById());
 
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
 
             preparedStatement.executeUpdate();
             preparedStatement.close();

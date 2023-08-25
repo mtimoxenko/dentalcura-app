@@ -49,7 +49,7 @@ public class AddressDAOH2 implements IDao<Address>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.ADDRESS.getInsertCustom());
 
-            preparedStatement.setInt(1, address.id());
+            preparedStatement.setLong(1, address.id());
             preparedStatement.setString(2, address.streetName());
             preparedStatement.setInt(3, address.streetNumber());
             preparedStatement.setInt(4, address.floor());
@@ -85,7 +85,7 @@ public class AddressDAOH2 implements IDao<Address>{
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                int id = resultSet.getInt(1);
+                Long id = resultSet.getLong(1);
                 String streetName = resultSet.getString(2);
                 Integer streetNumber = resultSet.getInt(3);
                 Integer floor = resultSet.getInt(4);
@@ -115,7 +115,7 @@ public class AddressDAOH2 implements IDao<Address>{
     }
 
     @Override
-    public Address selectByID(int id) {
+    public Address selectByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
         Address address = null;
@@ -124,7 +124,7 @@ public class AddressDAOH2 implements IDao<Address>{
             Class.forName(DB.DRIVER);
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.ADDRESS.getSelectById());
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
@@ -164,7 +164,7 @@ public class AddressDAOH2 implements IDao<Address>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.ADDRESS.getUpdateById());
 
-            preparedStatement.setInt(5, address.id());
+            preparedStatement.setLong(5, address.id());
 
             preparedStatement.setString(1, address.streetName());
             preparedStatement.setInt(2, address.streetNumber());
@@ -190,7 +190,7 @@ public class AddressDAOH2 implements IDao<Address>{
     }
 
     @Override
-    public Address deleteByID(int id) {
+    public Address deleteByID(Long id) {
         Connection connection;
         PreparedStatement preparedStatement;
 
@@ -199,7 +199,7 @@ public class AddressDAOH2 implements IDao<Address>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.ADDRESS.getDeleteById());
 
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
 
             preparedStatement.executeUpdate();
             preparedStatement.close();

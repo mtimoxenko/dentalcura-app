@@ -26,7 +26,7 @@ public class PatientService {
         return patientIDao.selectAll();
     }
 
-    public Patient selectPatientByID(int id){
+    public Patient selectPatientByID(Long id){
         return patientIDao.selectByID(id);
     }
 
@@ -34,7 +34,7 @@ public class PatientService {
         return patientIDao.updateByID(patient);
     }
 
-    public Patient deletePatientByID(int id){
+    public Patient deletePatientByID(Long id){
         return patientIDao.deleteByID(id);
     }
 }
