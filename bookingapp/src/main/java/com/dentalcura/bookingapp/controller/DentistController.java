@@ -8,6 +8,8 @@ import com.dentalcura.bookingapp.dto.dentist.UpdateDentistRequest;
 import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.service.DentistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,16 +25,24 @@ public class DentistController {
 
 
     @GetMapping()
-    public List<DentistResponse> getDentistAll() {
+    public ResponseEntity<List<DentistResponse>> getDentistAll() {
         dentistService.setDentistIDao(new DentistDAOH2());
-        return DentistMapper.dentistsToDtoResponse(dentistService.selectAllDentist());
+        return new ResponseEntity<>(
+                DentistMapper.dentistsToDtoResponse(dentistService.selectAllDentist()),
+                HttpStatus.OK
+        );
+//        return DentistMapper.dentistsToDtoResponse(dentistService.selectAllDentist());
 //        return dentistService.selectAllDentist();
     }
 
     @GetMapping("/{id}")
-    public DentistResponse getDentist(@PathVariable Long id) {
+    public ResponseEntity<DentistResponse> getDentist(@PathVariable Long id) {
         dentistService.setDentistIDao(new DentistDAOH2());
-        return DentistMapper.dentistToDtoResponse(dentistService.selectDentistByID(id));
+        return new ResponseEntity<>(
+                DentistMapper.dentistToDtoResponse(dentistService.selectDentistByID(id)),
+                HttpStatus.OK
+        );
+//        return DentistMapper.dentistToDtoResponse(dentistService.selectDentistByID(id));
 //        return dentistService.selectDentistByID(id);
     }
 

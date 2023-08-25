@@ -5,6 +5,8 @@ import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.model.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,8 +14,13 @@ import java.util.List;
 @Getter @Setter
 @Service
 public class UserService {
-    private IDao<User> userIDao;
 
+    private final IDao<User> userIDao;
+
+    @Autowired
+    public UserService(@Qualifier("userDAOH2") IDao<User> userIDao) {
+        this.userIDao = userIDao;
+    }
 
     public void createTableUser(){
         userIDao.createTable();

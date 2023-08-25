@@ -11,6 +11,8 @@ import com.dentalcura.bookingapp.dto.patient.UpdatePatientRequest;
 import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,16 +27,24 @@ public class PatientController {
 
 
     @GetMapping()
-    public List<PatientResponse> getPatientAll() {
+    public ResponseEntity<List<PatientResponse>> getPatientAll() {
         patientService.setPatientIDao(new PatientDAOH2());
-        return PatientMapper.patientsToDtoResponse(patientService.selectAllPatient());
+        return new ResponseEntity<>(
+                PatientMapper.patientsToDtoResponse(patientService.selectAllPatient()),
+                HttpStatus.OK
+        );
+//        return PatientMapper.patientsToDtoResponse(patientService.selectAllPatient());
 //        return patientService.selectAllPatient();
     }
 
     @GetMapping("/{id}")
-    public PatientResponse getPatient(@PathVariable Long id) {
+    public ResponseEntity<PatientResponse> getPatient(@PathVariable Long id) {
         patientService.setPatientIDao(new PatientDAOH2());
-        return PatientMapper.patientToDtoResponse(patientService.selectPatientByID(id));
+        return new ResponseEntity<>(
+                PatientMapper.patientToDtoResponse(patientService.selectPatientByID(id)),
+                HttpStatus.OK
+        );
+//        return PatientMapper.patientToDtoResponse(patientService.selectPatientByID(id));
 //        return patientService.selectPatientByID(id);
     }
 
