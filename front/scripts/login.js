@@ -2,7 +2,7 @@ window.addEventListener('load', function () {
 
     const form = this.document.querySelector('form')
     // https://todo-api.ctd.academy/#/users/loginUser
-    const endpointLogin = 'https://todo-api.ctd.academy/v1/users/login';
+    
 
 
 
@@ -48,6 +48,8 @@ window.addEventListener('load', function () {
     /* ---------------------------------------------------------------------- */
     /*                     [3] FUNCTION: User login [POST]                    */
     /* ---------------------------------------------------------------------- */
+    const endpointLogin = 'http://localhost:8080/user/login';
+
     function loginUser(config) {
 
         fetch(endpointLogin, config)
@@ -56,10 +58,7 @@ window.addEventListener('load', function () {
             console.log("Promise OK!");
             console.log(data);
 
-            if (data.jwt) {
-                // saving jwt to localstorage
-                localStorage.setItem('jwt', JSON.stringify(data.jwt));
-
+            if (data == 33) {
                 // redirecting to the page
                 location.replace('./tasks.html');
             };
@@ -68,8 +67,6 @@ window.addEventListener('load', function () {
             console.log("Promise rejected...");
             console.log(err);      
         });
-        
-
         
     };
 

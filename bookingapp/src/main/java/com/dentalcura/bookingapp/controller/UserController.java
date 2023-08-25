@@ -15,6 +15,8 @@ import com.dentalcura.bookingapp.model.User;
 import com.dentalcura.bookingapp.service.DentistService;
 import com.dentalcura.bookingapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,11 +53,11 @@ public class UserController {
 
 
     // QUE HAGO CON ESTE USER?
-//    @PostMapping("/login")
-//    public User loginUser(@RequestBody LoginUserRequest loginUserRequest) {
+    @PostMapping("/login")
+    public ResponseEntity<Integer> loginUser(@RequestBody LoginUserRequest loginUserRequest) {
 //        userService.setUserIDao(new UserDAOH2());
-//        return userService.insertUser(UserMapper.dtoPostRequestToUser(createUserRequest));
-//    }
+        return new ResponseEntity <>(33, HttpStatus.OK) ;
+    }
 
 
 
