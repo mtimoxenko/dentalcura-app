@@ -70,22 +70,10 @@ form label {
 }
 
 form input {
-    border-radius: 3px;
+    border-radius: .1rem;
     margin-bottom: 1rem;
-    padding: .3rem 1rem;
+    padding: .3rem .5rem;
     border: 2px solid var(--app-grey);
-}
-
-Address{
-    margin-top: 5%;
-}
-
-.address{
-    display: flex;
-    box-sizing: border-box;
-    flex-direction: column;
-    text-align: end;
-    margin-bottom: 5%;
 }
 
 form input:focus {
@@ -97,10 +85,11 @@ form button{
     background-color: var(--azul);
     color: white;
     padding: .8rem 0;
-    border-radius: .3rem;
+    border-radius: .2rem;
     font-size: 1rem;
     font-weight: 400;
 }
+
 form button:hover{
     background-color: var(--azul-hover);
 }

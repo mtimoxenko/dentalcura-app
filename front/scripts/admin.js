@@ -13,69 +13,64 @@ window.addEventListener('load', function () {
     const endpointDentist = 'http://localhost:8080/dentist'
     const endpointPatient = 'http://localhost:8080/patient'
 
-
-  
     const btnCloseApp = document.querySelector('#closeApp');
-  
+
+
     // getUserName();
-    // getDentistList();
-    // getAppointment();
-    
+    getDentistAll()
+    getPatientAll()
 
 
     /* ------------------------------------------------------------------------------- */
     /*                 [0] FUNCTION: Render Dentist & Patient [GET]                    */
     /* ------------------------------------------------------------------------------- */
-  
-  
-    function renderDentist(){
+
+
+    function getDentistAll(){
+      fetch(endpointDentist)
+      .then(response=>response.json())
+      .then(data=>{
+        console.log(data)
+        renderDentist(data)
+        searchDentistById()
+      })
+    }
+
+    function renderDentist(list){
       const selectDentist = document.querySelector('#dentist-table ul')
       selectDentist.innerHTML = ''
 
-      const settings = {
-        method: 'GET',
-      }
-   
-      fetch(endpointDentist, settings)
-        .then(response=>response.json())
-        .then(data=>{
-          console.log(data)
-          data.forEach(dentist=>{
-            selectDentist.innerHTML+=`
-            <li>${dentist.name} ${dentist.surname}, Lic: ${dentist.licenseNumber}
-            <div></div>
-            </li>`
-          })
-        })
+      list.forEach(dentist=>{
+        selectDentist.innerHTML+=`
+        <li>${dentist.name} ${dentist.surname}, Lic: ${dentist.licenseNumber}
+        <div></div>
+        </li>`
+      })
     }
   
-    renderDentist()
 
+
+    function getPatientAll(){
+      fetch(endpointPatient)
+      .then(response=>response.json())
+      .then(data=>{
+        console.log(data)
+        renderPatient(data)
+        searchPatientById()
+      })
+    }
   
-    function renderPatient(){
-        const selectPatient = document.querySelector('#patient-table ul')
-        selectPatient.innerHTML = ''
+    function renderPatient(list){
+      const selectPatient = document.querySelector('#patient-table ul')
+      selectPatient.innerHTML = ''
 
-        const settings = {
-          method: 'GET',
-        }
-    
-        fetch(endpointPatient, settings)
-          .then(response=>response.json())
-          .then(data=>{
-            console.log(data);
-            data.forEach(patient=>{
-              selectPatient.innerHTML+=`
-              <li>${patient.name} ${patient.surname}, NI Number: ${patient.niNumber}
-              <div></div>
-              </li>`
-            })
-          })
-      }
-    
-      renderPatient()
-
-
+      list.forEach(patient=>{
+        selectPatient.innerHTML+=`
+        <li>${patient.name} ${patient.surname}, NI Number: ${patient.niNumber}
+        <div></div>
+        </li>`
+      })
+    }
 
 
       /* -------------------------------------- */
@@ -123,94 +118,8 @@ window.addEventListener('load', function () {
     }
   
 
-
     /* ----------------------------------------------------------------------------------- */
-    /*                 [3] FUNCTION: Search By Id Dentist & Patient [GET]                  */
-    /* ----------------------------------------------------------------------------------- */
-
-
-    function searchDentistById(){
-
-      const searchButton = document.querySelector('.dentist-search button')
-      const name = document.querySelector('.dentist-update #inputName')
-      const surname = document.querySelector('.dentist-update #inputSurname')
-      const licenseNumber = document.querySelector('.dentist-update #inputLicenseNumber')
-
-      const searchDentistId = document.getElementById('inputDentistId')
-
-
-      searchButton.addEventListener('click', function(e){
-        e.preventDefault()
-
-        const id = searchDentistId.value
-        const url = `${endpointDentist}/${id}`
-
-        const settings = {
-          method: 'GET',
-        }
-
-        fetch(url, settings)
-        .then(response=>response.json())
-        .then(data=>{
-          console.log(data);
-              name.setAttribute('placeholder', data.name)
-              surname.setAttribute('placeholder', data.surname)
-              licenseNumber.setAttribute('placeholder', data.licenseNumber)
-              dentistDelete()
-              updateDentist()
-        })
-      })
-    }
-
-    searchDentistById()
-
-
-    function searchPatientById(){
-
-      const searchButton = document.querySelector('.patient-search button')
-      const name = document.querySelector('.patient-update #inputName')
-      const surname = document.querySelector('.patient-update #inputSurname')
-      const niNumber = document.querySelector('.patient-update #inputNiNumber')
-      const streetName = document.querySelector('.patient-update, #inputStreetName')
-      const streetNumber = document.querySelector('.patient-update, #inputStreetNumber')
-      const floor = document.querySelector('.patient-update, #inputFloor')
-      const department = document.querySelector('.patient-update, #inputDepartment')
-
-      const searchPatientId = document.getElementById('inputPatientId')
-
-
-      searchButton.addEventListener('click', function(e){
-        e.preventDefault()
-
-        const id = searchPatientId.value
-        const url = `${endpointPatient}/${id}`
-
-        const settings = {
-          method: 'GET',
-        }
-
-        fetch(url, settings)
-        .then(response=>response.json())
-        .then(data=>{
-          console.log(data);
-            name.setAttribute('placeholder', data.name)
-            surname.setAttribute('placeholder', data.surname)
-            niNumber.setAttribute('placeholder', data.niNumber)
-            streetName.setAttribute('placeholder', data.streetName)
-            streetNumber.setAttribute('placeholder', data.streetNumber)
-            floor.setAttribute('placeholder', data.floor)
-            department.setAttribute('placeholder', data.department)
-            patientDelete()
-            updatePatient()
-        })
-      })
-    }
-
-    searchPatientById()
-
-
-    /* ----------------------------------------------------------------------------------- */
-    /*                 [4] FUNCTION: Load Dentist & Patient [POST]                         */
+    /*                 [3] FUNCTION: Load Dentist & Patient [POST]                         */
     /* ----------------------------------------------------------------------------------- */
 
 
@@ -244,12 +153,12 @@ window.addEventListener('load', function () {
           .then((response) => response.json())
           .then(data=>{
               console.log(data);
-          renderDentist()  
+              getDentistAll()
           }).catch(err => {
               console.log(err);      
           })
         
-          form.reset()
+//          form.reset()
       })
     }
 
@@ -297,7 +206,7 @@ window.addEventListener('load', function () {
           .then((response) => response.json())
           .then(data=>{
             console.log(data);
-            renderPatient()  
+            getPatientAll() 
           }).catch(err => {
             console.log(err);      
           })
@@ -311,12 +220,99 @@ window.addEventListener('load', function () {
 
 
     /* ----------------------------------------------------------------------------------- */
+    /*                 [4] FUNCTION: Search By Id Dentist & Patient [GET]                  */
+    /* ----------------------------------------------------------------------------------- */
+
+
+    function searchDentistById(){
+
+      const searchForm = document.querySelector('.dentist-search')
+      const name = document.querySelector('.dentist-update #inputName')
+      const surname = document.querySelector('.dentist-update #inputSurname')
+      const licenseNumber = document.querySelector('.dentist-update #inputLicenseNumber')
+
+      const searchDentistId = document.getElementById('inputDentistId')
+
+
+      searchForm.addEventListener('submit', function(e){
+        e.preventDefault()
+
+        const id = searchDentistId.value
+        const url = `${endpointDentist}/${id}`
+
+        const settings = {
+          method: 'GET',
+        }
+
+        fetch(url, settings)
+        .then(response=>response.json())
+        .then(data=>{
+          console.log(data);
+              name.setAttribute('placeholder', data.name)
+              surname.setAttribute('placeholder', data.surname)
+              licenseNumber.setAttribute('placeholder', data.licenseNumber)
+              updateDentist()
+              dentistDelete()
+        })
+      })
+    }
+
+
+
+    function searchPatientById(){
+
+      const searchButton = document.querySelector('.patient-search button')
+      const name = document.querySelector('.patient-update #inputName')
+      const surname = document.querySelector('.patient-update #inputSurname')
+      const niNumber = document.querySelector('.patient-update #inputNiNumber')
+      const streetName = document.querySelector('.patient-update, #inputStreetName')
+      const streetNumber = document.querySelector('.patient-update, #inputStreetNumber')
+      const floor = document.querySelector('.patient-update, #inputFloor')
+      const department = document.querySelector('.patient-update, #inputDepartment')
+
+      const searchPatientId = document.getElementById('inputPatientId')
+
+
+      searchButton.addEventListener('click', function(e){
+        e.preventDefault()
+
+        const id = searchPatientId.value
+        const url = `${endpointPatient}/${id}`
+
+        const settings = {
+          method: 'GET',
+        }
+
+        fetch(url, settings)
+        .then(response=>response.json())
+        .then(data=>{
+          console.log(data);
+            name.setAttribute('placeholder', data.name)
+            surname.setAttribute('placeholder', data.surname)
+            niNumber.setAttribute('placeholder', data.niNumber)
+            streetName.setAttribute('placeholder', data.streetName)
+            streetNumber.setAttribute('placeholder', data.streetNumber)
+            floor.setAttribute('placeholder', data.floor)
+            department.setAttribute('placeholder', data.department)
+            updatePatient()
+            patientDelete()
+        })
+      })
+    }
+
+    searchPatientById()
+
+
+    /* ----------------------------------------------------------------------------------- */
     /*                 [5] FUNCTION: Update Dentist & Patient [PUT]                        */
     /* ----------------------------------------------------------------------------------- */
 
     function updateDentist(){
 
-      const updateButton = document.querySelector('.dentist-update, .update-button')
+      const updateform = document.querySelector('.dentist-update')
+      const searchForm = document.querySelector('.dentist-search')
+
+      const updateButton = document.querySelector('.dentist-update .update-button')
       const searchDentistId = document.getElementById('inputDentistId')
 
       const name = document.querySelector('.dentist-update #inputName')
@@ -348,15 +344,20 @@ window.addEventListener('load', function () {
         fetch(url, settings)
         .then(response => {
           console.log(response.status)
-          renderDentist()
+          getDentistAll()
         })
+        updateform.reset()
+        searchForm.reset()
       })
     }
 
 
     function updatePatient(){
 
-      const updateButton = document.querySelector('.patient-update, .update-button')
+      const updateform = document.querySelector('.patient-update')
+      const searchForm = document.querySelector('.patient-search')
+
+      const updateButton = document.querySelector('.patient-update .update-button')
       const searchPatientId = document.getElementById('inputPatientId')
 
       const name = document.querySelector('.patient-update #inputName')
@@ -399,10 +400,13 @@ window.addEventListener('load', function () {
         fetch(url, settings)
         .then(response => {
           console.log(response.status);
-          renderPatient();
+          getPatientAll()
         })
+        searchForm.reset()
+        updateform.reset()
       })
     }
+
 
 
     /* ----------------------------------------------------------------------------------- */
@@ -411,7 +415,10 @@ window.addEventListener('load', function () {
 
     function dentistDelete() {
 
-      const dentistDeleteButton = document.querySelector('.dentist-update, .delete-button')
+      const updateform = document.querySelector('.dentist-update')
+      const searchForm = document.querySelector('.dentist-search')
+
+      const dentistDeleteButton = document.querySelector('.dentist-update #delete-button')
       const searchDentistId = document.getElementById('inputDentistId')
 
         dentistDeleteButton.addEventListener('click', function (e){
@@ -427,15 +434,21 @@ window.addEventListener('load', function () {
             fetch(url, settings)
             .then(response => {
               console.log(response.status);
-              renderDentist() 
+              getDentistAll()
             })
+            updateform.reset()
+            searchForm.reset()
         })
     }
 
 
+
     function patientDelete() {
 
-      const patientDeleteButton = document.querySelector('.patient-update, .delete-button')
+      const updateform = document.querySelector('.patient-update')
+      const searchForm = document.querySelector('.patient-search')
+
+      const patientDeleteButton = document.querySelector('.patient-update #delete-button')
       const searchPatientId = document.getElementById('inputPatientId')
 
         patientDeleteButton.addEventListener('click', function (e){
@@ -451,11 +464,14 @@ window.addEventListener('load', function () {
             fetch(url, settings)
             .then(response => {
               console.log(response.status);
-              renderPatient() 
+              getPatientAll()
             })
+            searchForm.reset()
+            updateform.reset()
         })
     }
 
 
-});
+
+})
   
