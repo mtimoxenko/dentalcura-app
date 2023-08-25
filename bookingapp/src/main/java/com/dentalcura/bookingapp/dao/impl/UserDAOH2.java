@@ -13,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Repository
+@Repository("userDAOH2")
 public class UserDAOH2 implements IDao<User>{
+
 
     public void createTable(){
         Connection connection;

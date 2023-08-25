@@ -9,6 +9,7 @@ import com.dentalcura.bookingapp.service.UserService;
 import com.dentalcura.bookingapp.util.DB;
 import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,104 +77,104 @@ public class BookingAppApplication {
 
 
 	// DB
-	private static void createDB(){
-		drops();
-		log.info("[ Executing createDB() ]");
-		PatientService patientService = new PatientService();
-		DentistService dentistService = new DentistService();
-		AppointmentService appointmentService = new AppointmentService();
-		UserService userService = new UserService();
+//	private static void createDB(){
+//		drops();
+//		log.info("[ Executing createDB() ]");
+//		PatientService patientService = new PatientService();
+//		DentistService dentistService = new DentistService();
+//		AppointmentService appointmentService = new AppointmentService();
+//		UserService userService = new UserService();
+//
+//
+//		// seteamos la estrategia de persistencia
+//		patientService.setPatientIDao(new PatientDAOH2());
+//		dentistService.setDentistIDao(new DentistDAOH2());
+//		appointmentService.setAppointmentIDao(new AppointmentDAOH2());
+//		userService.setUserIDao(new UserDAOH2());
+//
+//		// creamos las tablas en la DB
+//		patientService.createTablePatient();
+//		dentistService.createTableDentist();
+//		appointmentService.createTableAppointment();
+//		userService.createTableUser();
+//
+//		log.info("DB created");
+//	}
+//	private static void drops() {
+//		log.info("[ Executing drops() ]");
+//		try{
+//			Connection connection;
+//			Statement statement;
+//
+//			Class.forName(DB.DRIVER);
+//			connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
+//			statement = connection.createStatement();
+//
+//			statement.execute(SQLQueries.DROPS.getCreateTable());
+//
+//			statement.close();
+//			connection.close();
+//
+//			log.info("DB cleared");
+//
+//		} catch (SQLException | ClassNotFoundException e) {
+//			log.error("Clearing DB was NOT possible");
+//			log.error(String.valueOf(e));
+//			throw new RuntimeException(e);
+//		}
+//
+//	}
 
 
-		// seteamos la estrategia de persistencia
-		patientService.setPatientIDao(new PatientDAOH2());
-		dentistService.setDentistIDao(new DentistDAOH2());
-		appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-		userService.setUserIDao(new UserDAOH2());
 
-		// creamos las tablas en la DB
-		patientService.createTablePatient();
-		dentistService.createTableDentist();
-		appointmentService.createTableAppointment();
-		userService.createTableUser();
-
-		log.info("DB created");
-	}
-	private static void drops() {
-		log.info("[ Executing drops() ]");
-		try{
-			Connection connection;
-			Statement statement;
-
-			Class.forName(DB.DRIVER);
-			connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-			statement = connection.createStatement();
-
-			statement.execute(SQLQueries.DROPS.getCreateTable());
-
-			statement.close();
-			connection.close();
-
-			log.info("DB cleared");
-
-		} catch (SQLException | ClassNotFoundException e) {
-			log.error("Clearing DB was NOT possible");
-			log.error(String.valueOf(e));
-			throw new RuntimeException(e);
-		}
-
-	}
-
-
-
-	// USER
-	private static void userAdd(Long id, String name, String surname, String email, String password, Boolean admin){
-		log.info("[ Executing userAdd() ]");
-		UserService userService = new UserService();
-		// Persistence strategy
-		userService.setUserIDao(new UserDAOH2());
-
-		User user = new User(id, name, surname, email, password, admin);
-		userService.insertUser(user);
-		log.info("[ userAdd() finished ]");
-	}
-	public static List<User> userListAll(){
-		log.info("[ Executing userListAll() ]");
-		UserService userService = new UserService();
-		// Persistence strategy
-		userService.setUserIDao(new UserDAOH2());
-		log.info("[ userListAll() finished ]");
-		return userService.selectAllUser();
-	}
-	private static void userListById(Long id){
-		log.info("[ Executing userListById() ]");
-		UserService userService = new UserService();
-		// Persistence strategy
-		userService.setUserIDao(new UserDAOH2());
-
-		userService.selectUserByID(id);
-		log.info("[ userListById() finished ]");
-	}
-	private static void userDeleteById(Long id){
-		log.info("[ Executing userDeleteById() ]");
-		UserService userService = new UserService();
-		// Persistence strategy
-		userService.setUserIDao(new UserDAOH2());
-
-		userService.deleteUserByID(id);
-		log.info("[ userDeleteById() finished ]");
-	}
-	private static void userUpdateById(Long id, String name, String surname, String email, String password, Boolean admin){
-		log.info("[ Executing userUpdateById() ]");
-		UserService userService = new UserService();
-		// Persistence strategy
-		userService.setUserIDao(new UserDAOH2());
-
-		User user = new User(id, name, surname, email, password, admin);
-		userService.updateUserByID(user);
-		log.info("[ userUpdateById() finished ]");
-	}
-
+//	 USER
+//	private static void userAdd(Long id, String name, String surname, String email, String password, Boolean admin){
+//		log.info("[ Executing userAdd() ]");
+//		UserService userService = new UserService();
+//		// Persistence strategy
+//		userService.setUserIDao(new UserDAOH2());
+//
+//		User user = new User(id, name, surname, email, password, admin);
+//		userService.insertUser(user);
+//		log.info("[ userAdd() finished ]");
+//	}
+//	public static List<User> userListAll(){
+//		log.info("[ Executing userListAll() ]");
+//		UserService userService = new UserService();
+//		// Persistence strategy
+//		userService.setUserIDao(new UserDAOH2());
+//		log.info("[ userListAll() finished ]");
+//		return userService.selectAllUser();
+//	}
+//	private static void userListById(Long id){
+//		log.info("[ Executing userListById() ]");
+//		UserService userService = new UserService();
+//		// Persistence strategy
+//		userService.setUserIDao(new UserDAOH2());
+//
+//		userService.selectUserByID(id);
+//		log.info("[ userListById() finished ]");
+//	}
+//	private static void userDeleteById(Long id){
+//		log.info("[ Executing userDeleteById() ]");
+//		UserService userService = new UserService();
+//		// Persistence strategy
+//		userService.setUserIDao(new UserDAOH2());
+//
+//		userService.deleteUserByID(id);
+//		log.info("[ userDeleteById() finished ]");
+//	}
+//	private static void userUpdateById(Long id, String name, String surname, String email, String password, Boolean admin){
+//		log.info("[ Executing userUpdateById() ]");
+//		UserService userService = new UserService();
+//		// Persistence strategy
+//		userService.setUserIDao(new UserDAOH2());
+//
+//		User user = new User(id, name, surname, email, password, admin);
+//		userService.updateUserByID(user);
+//		log.info("[ userUpdateById() finished ]");
+//	}
+//
 
 
 	// PATIENT
