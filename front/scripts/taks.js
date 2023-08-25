@@ -7,11 +7,9 @@ window.addEventListener('load', function () {
   /* ------------------------- AOS lib. init -------------------------------- */
   AOS.init();
 
-  // https://todo-api.ctd.academy/#/tasks/getOneTask
-  // const enpointAppointment = 'https://todo-api.ctd.academy/v1/tasks';
-  // https://todo-api.ctd.academy/#/users/getMe
   // const endpointGetUser = 'https://todo-api.ctd.academy/v1/users/getMe';
   // const token = JSON.parse(localStorage.jwt);
+
   const endpointDentist = 'http://localhost:8080/dentist'
   const endpointTurno = './json/turno.json'
   const endpointPatient = 'http://localhost:8080/patient'
@@ -146,28 +144,6 @@ window.addEventListener('load', function () {
   // }
 
 
-  /* ----------------------------------------------------------------- */
-  /*                 [3] FUNCTION: Get Appointment list [GET]                */
-  /* ----------------------------------------------------------------- */
-
-  function getAppointment() {
-    const settings = {
-      method: 'GET',
-      headers: {
-        authorization: token
-      }
-    };
-
-    fetch(enpointAppointment, settings)
-      .then(response => response.json())
-      .then(appointment => {
-
-        btnDeleteAppointment();
-      })
-      .catch(error => console.log(error));
-  };
-
-
   /* ------------------------------------------------------------------- */
   /*                    [4] FUNCTION: Add Appointment [POST]                    */
   /* ------------------------------------------------------------------- */
@@ -208,11 +184,11 @@ window.addEventListener('load', function () {
       }
     }
 
-    fetch(enpointAppointment, settings)
+    fetch(endpointAppointment, settings)
       .then(response => response.json())
       .then(response => {
         // console.log(response.status);
-        getAppointment();
+        renderAppointment();
       })
       .catch(error => console.log(error));
 
@@ -225,10 +201,8 @@ window.addEventListener('load', function () {
   /* ----------------------------------------------------------- */
   function renderAppointment() {
 
-    // clear all Appointment
-    const appointmentToDo = document.querySelector('#test');
+    const appointmentToDo = document.querySelector('#appointment-list');
     appointmentToDo.innerHTML = "";
-
 
     fetch(endpointAppointment)
     .then(response=>response.json())
@@ -236,8 +210,9 @@ window.addEventListener('load', function () {
       console.log(data)
       data.forEach(appointment=>{
         appointmentToDo.innerHTML+=`
-        <li>Date: ${appointment.date} Dentist: ${appointment.dentist.name} ${appointment.dentist.surname}, Patient: ${appointment.patient.name} ${appointment.patient.surname}
+        <li>Date: ${appointment.date} Dentist: ${appointment.dentistFullName}, Patient: ${appointment.patientFullName}
         </li>`
+        btnDeleteAppointment()
       })
     })
   }
@@ -266,7 +241,7 @@ renderAppointment()
           if (result.isConfirmed) {
 
             const id = event.target.id;
-            const url = `${enpointAppointment}/${id}`
+            const url = `${endpointAppointment}/${id}`
 
             const settings = {
               method: 'DELETE',

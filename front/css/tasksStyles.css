@@ -53,7 +53,7 @@ nav .user-info button {
     color: white;
     padding: .5rem 1rem;
     margin-left: 2rem;
-    border-radius: .2rem;
+    border-radius: .1rem;
     font-size: .8rem;
     font-weight: 400;
 }
@@ -68,7 +68,6 @@ form {
     background-color: var(--negro);
     padding: 2rem 3rem;
     margin-bottom: 1rem;
-    border-radius: 1rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -94,7 +93,7 @@ form button {
     background-color: var(--azul);
     color: white;
     padding: .8rem 1.5rem;
-    border-radius: .3rem;
+    border-radius: .1rem;
     font-size: 1rem;
     margin-top: 2rem;
     font-weight: 400;
@@ -110,57 +109,16 @@ main h2 {
     margin: 1.5rem 0 .5rem 0;
 }
 
-.new-appointment div
+.list-div{
+    background-color: black;
+    padding: 2rem;
+}
 
-/* ------------appointment pendientes */
-.appointment-pendientes .tarea {
-    background-color: var(--app-grey);
-    margin-bottom: .7rem;
-    border-radius: .5rem;
-    border-left: .6rem solid grey;
-    padding: .5rem 1rem;
+#appointment-list{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.appointment-pendientes .tarea i {
-    pointer-events: none;
-    color: grey;
-    font-size: 1.4rem;
-    border-radius: 50vh;
-}
-
-.appointment-pendientes .tarea button {
-    border-radius: 50vh;
-}
-
-.appointment-pendientes .tarea button:hover i {
-    color: var(--verde);
-}
-
-.appointment-pendientes .tarea button:active {
-    background-color: var(--verde);
-}
-
-.appointment-pendientes .tarea .descripcion {
-    padding: .3rem .5rem;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-}
-
-.appointment-pendientes .tarea .descripcion .nombre {
-    flex-grow: 1;
-}
-
-.appointment-pendientes .tarea .descripcion .timestamp {
-    margin-left: 1rem;
-    padding: .3rem .8rem;
-    border-radius: 50vh;
-    background-color: white;
-    color: grey;
-    font-size: .9rem;
+    box-sizing: border-box;
+    flex-direction: column;
+    list-style-type: square;
 }
 
 footer {

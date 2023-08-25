@@ -49,7 +49,7 @@ nav .user-info button {
     color: white;
     padding: .5rem 1rem;
     margin-left: 2rem;
-    border-radius: .2rem;
+    border-radius: .1rem;
     font-size: .8rem;
     font-weight: 400;
 }
@@ -66,7 +66,6 @@ nav .user-info button {
     background-color: var(--negro);
     padding: 2rem 3rem;
     margin-bottom: 1rem;
-    border-radius: 1rem;
     display: flex;
     width: 100%;
 }
@@ -98,9 +97,9 @@ form label {
 }
 
 form input {
-    border-radius: 3px;
+    border-radius: .1rem;
     margin-bottom: 1rem;
-    padding: .3rem 1rem;
+    padding: .3rem .5rem;
     border: 2px solid var(--app-grey);
 }
 
@@ -108,7 +107,7 @@ form button{
     background-color: var(--azul);
     color: white;
     padding: .8rem 0;
-    border-radius: .2rem;
+    border-radius: .1rem;
     font-size: 1rem;
     font-weight: 400;
     margin-top: 5%;
@@ -117,8 +116,8 @@ form button{
 .update-form button{
     background-color: var(--azul);
     color: white;
-    padding: .2rem 0;
-    border-radius: .2rem;
+    padding: .2rem;
+    border-radius: .1rem;
     font-size: 1rem;
     font-weight: 400;
 }
@@ -156,11 +155,11 @@ form button:hover{
     margin: 0%;
 }
 
-.patient-update .delete-button, .dentist-update .delete-button{
+#delete-button{
     background-color: rgb(202, 0, 0);
 }
 
-.patient-update .delete-button:hover, .dentist-update .delete-button:hover{
+#delete-button:hover{
     background-color: rgb(159, 0, 0);
 }
 
