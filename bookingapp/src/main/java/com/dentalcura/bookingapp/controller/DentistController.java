@@ -1,11 +1,12 @@
 package com.dentalcura.bookingapp.controller;
 
 import com.dentalcura.bookingapp.dao.impl.DentistDAOH2;
-import com.dentalcura.bookingapp.dao.impl.PatientDAOH2;
+import com.dentalcura.bookingapp.dto.dentist.CreateDentistRequest;
+import com.dentalcura.bookingapp.dto.dentist.DentistResponse;
+import com.dentalcura.bookingapp.dto.DentistMapper;
+import com.dentalcura.bookingapp.dto.dentist.UpdateDentistRequest;
 import com.dentalcura.bookingapp.model.Dentist;
-import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.service.DentistService;
-import com.dentalcura.bookingapp.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,30 +19,35 @@ public class DentistController {
 
     @Autowired
     private DentistService dentistService;
+//    private DentistMapper dentistMapper;
 
 
     @GetMapping()
-    public List<Dentist> getDentistAll() {
+    public List<DentistResponse> getDentistAll() {
         dentistService.setDentistIDao(new DentistDAOH2());
-        return dentistService.selectAllDentist();
+        return DentistMapper.dentistsToDtoResponse(dentistService.selectAllDentist());
+//        return dentistService.selectAllDentist();
     }
 
     @GetMapping("/{id}")
-    public Dentist getDentist(@PathVariable Long id) {
+    public DentistResponse getDentist(@PathVariable Long id) {
         dentistService.setDentistIDao(new DentistDAOH2());
-        return dentistService.selectDentistByID(id);
+        return DentistMapper.dentistToDtoResponse(dentistService.selectDentistByID(id));
+//        return dentistService.selectDentistByID(id);
     }
 
     @PostMapping
-    public Dentist createDentist(@RequestBody Dentist dentist) {
+    public Dentist createDentist(@RequestBody CreateDentistRequest createDentistRequest) {
         dentistService.setDentistIDao(new DentistDAOH2());
-        return dentistService.insertDentist(dentist);
+        return dentistService.insertDentist(DentistMapper.dtoPostRequestToDentist(createDentistRequest));
+//        return dentistService.insertDentist(dentist);
     }
 
     @PutMapping("/{id}")
-    public Dentist updateDentist(@RequestBody Dentist dentist) {
+    public Dentist updateDentist(@RequestBody UpdateDentistRequest updateDentistRequest) {
         dentistService.setDentistIDao(new DentistDAOH2());
-        return dentistService.updateDentistByID(dentist);
+        return dentistService.updateDentistByID(DentistMapper.dtoPutRequestToDentist(updateDentistRequest));
+//        return dentistService.updateDentistByID(dentist);
     }
 
     @DeleteMapping("/{id}")
@@ -51,3 +57,4 @@ public class DentistController {
     }
 
 }
+
