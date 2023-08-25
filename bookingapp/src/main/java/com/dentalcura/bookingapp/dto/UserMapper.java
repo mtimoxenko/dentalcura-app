@@ -1,6 +1,7 @@
 package com.dentalcura.bookingapp.dto;
 
 import com.dentalcura.bookingapp.dto.user.CreateUserRequest;
+import com.dentalcura.bookingapp.dto.user.LoginUserRequest;
 import com.dentalcura.bookingapp.dto.user.UserResponse;
 import com.dentalcura.bookingapp.dto.user.UpdateUserRequest;
 import com.dentalcura.bookingapp.model.User;
@@ -36,6 +37,18 @@ public class UserMapper {
                 createUserRequest.email(),
                 createUserRequest.password(),
                 createUserRequest.admin()
+        );
+    }
+
+    // Request DTO for @PostMapping (Login a User)
+    public static User dtoLoginRequestToUser(LoginUserRequest loginUserRequest) {
+        return new User(
+                null,
+                null,
+                null,
+                loginUserRequest.email(),
+                loginUserRequest.password(),
+                null
         );
     }
 
