@@ -5,6 +5,7 @@ import com.dentalcura.bookingapp.dto.user.LoginUserRequest;
 import com.dentalcura.bookingapp.dto.user.UserResponse;
 import com.dentalcura.bookingapp.dto.user.UpdateUserRequest;
 import com.dentalcura.bookingapp.model.User;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class UserMapper {
     // Response DTO for @GetMapping (Retrieving a User)
     public static UserResponse userToDtoResponse(User user) {
         return new UserResponse(
+                user.id(),
                 user.name(),
                 user.surname(),
                 user.email(),
@@ -53,9 +55,9 @@ public class UserMapper {
     }
 
     // Request DTO for @PutMapping (Updating a User)
-    public static User dtoPutRequestToUser(UpdateUserRequest updateUserRequest) {
+    public static User dtoPutRequestToUser(Long id, UpdateUserRequest updateUserRequest) {
         return new User(
-                updateUserRequest.id(),
+                id,
                 updateUserRequest.name(),
                 updateUserRequest.surname(),
                 updateUserRequest.email(),

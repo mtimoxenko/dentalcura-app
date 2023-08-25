@@ -88,14 +88,14 @@ public class UserController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@RequestBody UpdateUserRequest updateUserRequest) {
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest) {
 //        userService.setUserIDao(new UserDAOH2());
         HttpHeaders httpHeaders = new HttpHeaders();
 
         httpHeaders.add("customHeaderName", "customHeaderValue");  // Adding a custom header
         String message = "User updated successfully!";
 
-        userService.updateUserByID(UserMapper.dtoPutRequestToUser(updateUserRequest));
+        userService.updateUserByID(UserMapper.dtoPutRequestToUser(id, updateUserRequest));
         return ResponseEntity.ok()
                 .headers(httpHeaders)
                 .body(message);

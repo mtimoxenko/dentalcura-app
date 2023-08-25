@@ -41,8 +41,8 @@ public enum SQLQueries {
             "DELETE FROM appointment WHERE id=?"
     ),
     USERS(
-            "DROP TABLE IF EXISTS usr; CREATE TABLE usr(id BIGINT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), email VARCHAR(255), password VARCHAR(255), admin TINYINT);",
-            "INSERT INTO usr VALUES(?,?,?,?,?,?);",
+            "DROP TABLE IF EXISTS usr; CREATE TABLE usr(id BIGINT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), email VARCHAR(255), password VARCHAR(255), admin TINYINT);",
+            "INSERT INTO usr (name, surname, email, password, admin) VALUES(?,?,?,?,?);",
             "SELECT * FROM usr",
             "SELECT * FROM usr WHERE id=?",
             "UPDATE usr SET name=?, surname=?, email=?, admin=? WHERE id=?;",
