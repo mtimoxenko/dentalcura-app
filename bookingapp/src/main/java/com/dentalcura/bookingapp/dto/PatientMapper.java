@@ -14,6 +14,7 @@ public class PatientMapper {
     // Response DTO for @GetMapping (Retrieving a Patient)
     public static PatientResponse patientToDtoResponse(Patient patient) {
         return new PatientResponse(
+                patient.id(),
                 patient.name(),
                 patient.surname(),
                 patient.niNumber(),

@@ -5,11 +5,13 @@ import com.dentalcura.bookingapp.model.Address;
 import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.model.Patient;
+import com.dentalcura.bookingapp.service.AppointmentService;
 import com.dentalcura.bookingapp.service.DentistService;
 import com.dentalcura.bookingapp.service.PatientService;
 import com.dentalcura.bookingapp.util.DB;
 import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Repository
+@Repository("appointmentDAOH2")
 public class AppointmentDAOH2 implements IDao<Appointment>{
 
     public void createTable(){

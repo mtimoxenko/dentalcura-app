@@ -16,6 +16,7 @@ import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.service.AppointmentService;
 import com.dentalcura.bookingapp.service.DentistService;
 import com.dentalcura.bookingapp.service.PatientService;
+import com.dentalcura.bookingapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,21 +30,28 @@ import java.util.List;
 @RequestMapping("/appointment")
 public class AppointmentController {
 
+
     @Autowired
     private AppointmentService appointmentService;
     @Autowired
     private PatientService patientService;
     @Autowired
     private DentistService dentistService;
-
+//
+//    @Autowired
+//    public AppointmentController(AppointmentService appointmentService, PatientService patientService, DentistService dentistService) {
+//        this.appointmentService = appointmentService;
+//        this.patientService = patientService;
+//        this.dentistService = dentistService;
+//    }
 
     @GetMapping()
     public ResponseEntity<List<AppointmentResponse>> getAppointmentAll() {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-        return new ResponseEntity<>(
-                AppointmentMapper.appointmentsToDtoResponse(appointmentService.selectAllAppointment()),
-                HttpStatus.OK
-        );
+
+        List<AppointmentResponse> appointmentResponses = AppointmentMapper.appointmentsToDtoResponse(appointmentService.selectAllAppointment());
+
+        return new ResponseEntity<>(appointmentResponses, HttpStatus.OK);
 //        return AppointmentMapper.appointmentsToDtoResponse(appointmentService.selectAllAppointment());
 //        return appointmentService.selectAllAppointment();
     }
@@ -51,10 +59,9 @@ public class AppointmentController {
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentResponse> getAppointment(@PathVariable Long id) {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-        return new ResponseEntity<>(
-                AppointmentMapper.appointmentToDtoResponse(appointmentService.selectAppointmentByID(id)),
-                HttpStatus.OK
-        );
+
+        AppointmentResponse appointmentResponse = AppointmentMapper.appointmentToDtoResponse(appointmentService.selectAppointmentByID(id));
+        return new ResponseEntity<>(appointmentResponse, HttpStatus.OK);
 //        return AppointmentMapper.appointmentToDtoResponse(appointmentService.selectAppointmentByID(id));
 //        return appointmentService.selectAppointmentByID(id);
     }
@@ -81,7 +88,7 @@ public class AppointmentController {
         // paso 4
         // retorna el appointment
 
-        appointmentService.setAppointmentIDao(new AppointmentDAOH2());
+//        appointmentService.setAppointmentIDao(new AppointmentDAOH2());
         appointmentService.insertAppointment(AppointmentMapper.dtoPostRequestToAppointment(createAppointmentRequest, patient, dentist));
         return ResponseEntity.ok()
                 .headers(httpHeaders)
@@ -92,7 +99,7 @@ public class AppointmentController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateAppointment(@PathVariable Long id, @RequestBody UpdateAppointmentRequest updateAppointmentRequest) {
-        appointmentService.setAppointmentIDao(new AppointmentDAOH2());
+//        appointmentService.setAppointmentIDao(new AppointmentDAOH2());
         HttpHeaders httpHeaders = new HttpHeaders();
 
         httpHeaders.add("customHeaderName", "customHeaderValue");  // Adding a custom header
@@ -112,7 +119,7 @@ public class AppointmentController {
         httpHeaders.add("customHeaderName", "customHeaderValue");  // Adding a custom header
         String message = "Appointment deleted successfully!";
 
-        appointmentService.setAppointmentIDao(new AppointmentDAOH2());
+//        appointmentService.setAppointmentIDao(new AppointmentDAOH2());
         appointmentService.deleteDAppointmentByID(id);
 
         return ResponseEntity.ok()

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Repository
+@Repository("patientDAOH2")
 public class PatientDAOH2 implements IDao<Patient> {
 
     public void createTable(){

@@ -2,8 +2,11 @@ package com.dentalcura.bookingapp.service;
 
 import com.dentalcura.bookingapp.dao.IDao;
 import com.dentalcura.bookingapp.model.Patient;
+import com.dentalcura.bookingapp.model.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +15,6 @@ import java.util.List;
 @Service
 public class PatientService {
     private IDao<Patient> patientIDao;
-
 
     public void createTablePatient(){
         patientIDao.createTable();
