@@ -13,12 +13,13 @@ import java.util.List;
 
 public class AppointmentMapper {
 
-    // Response DTO for @GetMapping (Retrieving a Appointment)
+    // Response DTO for @GetMapping (Retrieving an Appointment)
     public static AppointmentResponse appointmentToDtoResponse(Appointment appointment) {
         return new AppointmentResponse(
+                appointment.id(),
                 appointment.date(),
-                appointment.patient().name() + appointment.patient().surname(),
-                appointment.dentist().name() + appointment.dentist().surname()
+                appointment.patient().name() + " " + appointment.patient().surname(),
+                appointment.dentist().name() + " " + appointment.dentist().surname()
         );
     }
     // Response DTO for @GetMapping (Retrieving a List<Appointment>)
@@ -29,35 +30,21 @@ public class AppointmentMapper {
         return appointmentResponses;
     }
 
-    // Request DTO for @PostMapping (Creating a Appointment)
-    public static Appointment dtoPostRequestToAppointment(CreateAppointmentRequest createAppointmentRequest) {
+    // Request DTO for @PostMapping (Creating an Appointment)
+    public static Appointment dtoPostRequestToAppointment(
+            CreateAppointmentRequest createAppointmentRequest,
+            Patient patient,
+            Dentist dentist
+    ) {
         return new Appointment(
                 createAppointmentRequest.id(),
                 createAppointmentRequest.date(),
-                new Patient(
-                        createAppointmentRequest.patient().id(),
-                        createAppointmentRequest.patient().name(),
-                        createAppointmentRequest.patient().surname(),
-                        createAppointmentRequest.patient().niNumber(),
-                        createAppointmentRequest.patient().registrationDate(),
-                        new Address(
-                                createAppointmentRequest.patient().address().id(),
-                                createAppointmentRequest.patient().address().streetName(),
-                                createAppointmentRequest.patient().address().streetNumber(),
-                                createAppointmentRequest.patient().address().floor(),
-                                createAppointmentRequest.patient().address().department()
-                                )
-                ),
-                new Dentist(
-                        createAppointmentRequest.dentist().id(),
-                        createAppointmentRequest.dentist().name(),
-                        createAppointmentRequest.dentist().surname(),
-                        createAppointmentRequest.dentist().licenseNumber()
-                        )
+                patient,
+                dentist
         );
     }
 
-    // Request DTO for @PutMapping (Updating a Appointment)
+    // Request DTO for @PutMapping (Updating an Appointment)
     public static Appointment dtoPutRequestToAppointment(UpdateAppointmentRequest updateAppointmentRequest) {
         return new Appointment(
                 updateAppointmentRequest.id(),
