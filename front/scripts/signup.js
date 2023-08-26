@@ -14,7 +14,6 @@ window.addEventListener('load', function () {
         event.preventDefault()
 
         const payload = {
-            id: 3,
             name: name.value,
             surname: surname.value,
             email: email.value,
@@ -42,10 +41,7 @@ window.addEventListener('load', function () {
                 response.json()})
             .then(data => {
                 console.log(data)
-                if (data.admin) {
-                    location.replace('./admin.html')
-                }
-                
+
             }).catch(err => {
                 console.log(err);      
             })

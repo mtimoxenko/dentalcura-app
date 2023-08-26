@@ -16,7 +16,7 @@ window.addEventListener('load', function () {
     const btnCloseApp = document.querySelector('#closeApp');
 
 
-    // getUserName();
+    // getUserName()
     getDentistAll()
     getPatientAll()
 
@@ -106,7 +106,7 @@ window.addEventListener('load', function () {
         headers: {
           authorization: token
         }
-      };
+      }
   
       fetch(endpointGetUser, settings)
         .then(response => response.json())
@@ -248,9 +248,9 @@ window.addEventListener('load', function () {
         .then(response=>response.json())
         .then(data=>{
           console.log(data);
-              name.setAttribute('placeholder', data.name)
-              surname.setAttribute('placeholder', data.surname)
-              licenseNumber.setAttribute('placeholder', data.licenseNumber)
+              name.value = data.name
+              surname.value = data.surname
+              licenseNumber.value = data.licenseNumber
               updateDentist()
               dentistDelete()
         })
@@ -265,10 +265,10 @@ window.addEventListener('load', function () {
       const name = document.querySelector('.patient-update #inputName')
       const surname = document.querySelector('.patient-update #inputSurname')
       const niNumber = document.querySelector('.patient-update #inputNiNumber')
-      const streetName = document.querySelector('.patient-update, #inputStreetName')
-      const streetNumber = document.querySelector('.patient-update, #inputStreetNumber')
-      const floor = document.querySelector('.patient-update, #inputFloor')
-      const department = document.querySelector('.patient-update, #inputDepartment')
+      const streetName = document.querySelector('.patient-update #inputStreetName')
+      const streetNumber = document.querySelector('.patient-update #inputStreetNumber')
+      const floor = document.querySelector('.patient-update #inputFloor')
+      const department = document.querySelector('.patient-update #inputDepartment')
 
       const searchPatientId = document.getElementById('inputPatientId')
 
@@ -287,13 +287,13 @@ window.addEventListener('load', function () {
         .then(response=>response.json())
         .then(data=>{
           console.log(data);
-            name.setAttribute('placeholder', data.name)
-            surname.setAttribute('placeholder', data.surname)
-            niNumber.setAttribute('placeholder', data.niNumber)
-            streetName.setAttribute('placeholder', data.streetName)
-            streetNumber.setAttribute('placeholder', data.streetNumber)
-            floor.setAttribute('placeholder', data.floor)
-            department.setAttribute('placeholder', data.department)
+            name.value = data.name
+            surname.value = data.surname
+            niNumber.value = data.niNumber
+            streetName.value = data.streetName
+            streetNumber.value = data.streetNumber
+            floor.value = data.floor
+            department.value = data.department
             updatePatient()
             patientDelete()
         })
