@@ -17,16 +17,16 @@ public enum SQLQueries {
             "DELETE FROM dentist WHERE id=?"
     ),
     PATIENT(
-            "DROP TABLE IF EXISTS patient; CREATE TABLE patient(id BIGINT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), ni_num INT, reg_date VARCHAR(255), address_id BIGINT , CONSTRAINT fk_patient_address FOREIGN KEY (address_id) REFERENCES address(id));",
-            "INSERT INTO patient VALUES(?,?,?,?,?,?);",
+            "DROP TABLE IF EXISTS patient; CREATE TABLE patient(id BIGINT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), ni_num INT, reg_date VARCHAR(255), address_id BIGINT AUTO_INCREMENT, CONSTRAINT fk_patient_address FOREIGN KEY (address_id) REFERENCES address(id));",
+            "INSERT INTO patient (name, surname, ni_num, reg_date) VALUES(?,?,?,?);",
             "SELECT * FROM patient",
             "SELECT * FROM patient WHERE id=?",
             "UPDATE patient SET name=?, surname=? WHERE id=?;",
             "DELETE FROM patient WHERE id=?"
     ),
     ADDRESS(
-            "DROP TABLE IF EXISTS address; CREATE TABLE address(id BIGINT PRIMARY KEY, street_name VARCHAR(255), street_num INT, floor INT, department CHAR(1));",
-            "INSERT INTO address VALUES(?,?,?,?,?);",
+            "DROP TABLE IF EXISTS address; CREATE TABLE address(id BIGINT AUTO_INCREMENT PRIMARY KEY, street_name VARCHAR(255), street_num INT, floor INT, department CHAR(1));",
+            "INSERT INTO address (street_name, street_num, floor, department) VALUES(?,?,?,?);",
             "SELECT * FROM address",
             "SELECT * FROM address WHERE id=?",
             "UPDATE address SET street_name=?, street_num=?, floor=?, department=? WHERE id=?;",

@@ -35,13 +35,13 @@ public class PatientMapper {
     // Request DTO for @PostMapping (Creating a Patient)
     public static Patient dtoPostRequestToPatient(CreatePatientRequest createPatientRequest) {
         return new Patient(
-                createPatientRequest.id(),
+                null,
                 createPatientRequest.name(),
                 createPatientRequest.surname(),
                 createPatientRequest.niNumber(),
                 createPatientRequest.registrationDate(),
                 new Address(
-                        createPatientRequest.id(),
+                        null,
                         createPatientRequest.streetName(),
                         createPatientRequest.streetNumber(),
                         createPatientRequest.floor(),

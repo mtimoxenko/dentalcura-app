@@ -25,11 +25,11 @@ public class AddressDAOH2 implements IDao<Address>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.ADDRESS.getInsertCustom());
 
-            preparedStatement.setLong(1, address.id());
-            preparedStatement.setString(2, address.streetName());
-            preparedStatement.setInt(3, address.streetNumber());
-            preparedStatement.setInt(4, address.floor());
-            preparedStatement.setString(5, address.department());
+//            preparedStatement.setLong(1, address.id());
+            preparedStatement.setString(1, address.streetName());
+            preparedStatement.setInt(2, address.streetNumber());
+            preparedStatement.setInt(3, address.floor());
+            preparedStatement.setString(4, address.department());
 
 
             preparedStatement.executeUpdate();

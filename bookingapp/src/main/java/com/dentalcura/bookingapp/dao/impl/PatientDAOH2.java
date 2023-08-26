@@ -33,13 +33,13 @@ public class PatientDAOH2 implements IDao<Patient> {
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getInsertCustom());
 
-            preparedStatement.setLong(1, patient.id());
-            preparedStatement.setString(2, patient.name());
-            preparedStatement.setString(3, patient.surname());
-            preparedStatement.setInt(4, patient.niNumber());
-            preparedStatement.setString(5, patient.registrationDate());
+//            preparedStatement.setLong(1, patient.id());
+            preparedStatement.setString(1, patient.name());
+            preparedStatement.setString(2, patient.surname());
+            preparedStatement.setInt(3, patient.niNumber());
+            preparedStatement.setString(4, patient.registrationDate());
             // fk address_id
-            preparedStatement.setLong(6, patient.address().id());
+//            preparedStatement.setLong(5, patient.address().id());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
