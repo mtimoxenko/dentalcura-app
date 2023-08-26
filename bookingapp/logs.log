@@ -1,4 +1,0 @@
-[2023-08-15 21:03:11] [ INFO ] [DentistDAOH2Test:19] Iniciando TEST
-[2023-08-15 21:03:11] [ INFO ] [DentistDAOMemoryTest:16] initializing TEST
-[2023-08-15 21:03:11] [ INFO ] [DentistDAOMemoryTest:37] Test OK!
-[2023-08-15 21:03:11] [ INFO ] [PatientDAOMemory:17] initializing insert TEST (patient)
