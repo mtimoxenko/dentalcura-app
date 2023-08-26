@@ -45,30 +45,14 @@ public class AppointmentMapper {
     }
 
     // Request DTO for @PutMapping (Updating an Appointment)
-    public static Appointment dtoPutRequestToAppointment(UpdateAppointmentRequest updateAppointmentRequest) {
+    public static Appointment dtoPutRequestToAppointment(Long id, UpdateAppointmentRequest updateAppointmentRequest) {
+        Patient patient = new Patient(1L,"a","a",1,"a",(new Address(1L,"a",1,1,"a")));
+        Dentist dentist = new Dentist(1L,"a","a",1);
         return new Appointment(
-                updateAppointmentRequest.id(),
+                id,
                 updateAppointmentRequest.date(),
-                new Patient(
-                        updateAppointmentRequest.patient().id(),
-                        updateAppointmentRequest.patient().name(),
-                        updateAppointmentRequest.patient().surname(),
-                        updateAppointmentRequest.patient().niNumber(),
-                        updateAppointmentRequest.patient().registrationDate(),
-                        new Address(
-                                updateAppointmentRequest.patient().address().id(),
-                                updateAppointmentRequest.patient().address().streetName(),
-                                updateAppointmentRequest.patient().address().streetNumber(),
-                                updateAppointmentRequest.patient().address().floor(),
-                                updateAppointmentRequest.patient().address().department()
-                        )
-                ),
-                new Dentist(
-                        updateAppointmentRequest.dentist().id(),
-                        updateAppointmentRequest.dentist().name(),
-                        updateAppointmentRequest.dentist().surname(),
-                        updateAppointmentRequest.dentist().licenseNumber()
-                )
+                patient,
+                dentist
         );
     }
 

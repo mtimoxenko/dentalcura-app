@@ -91,16 +91,33 @@ public class AppointmentController {
     }
 
     @PutMapping("/{id}")
-    public Appointment updateAppointment(@RequestBody UpdateAppointmentRequest updateAppointmentRequest) {
+    public ResponseEntity<String> updateAppointment(@PathVariable Long id, @RequestBody UpdateAppointmentRequest updateAppointmentRequest) {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-        return appointmentService.updateAppointmentByID(AppointmentMapper.dtoPutRequestToAppointment(updateAppointmentRequest));
-//        return appointmentService.updateAppointmentByID(appointment);
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        httpHeaders.add("customHeaderName", "customHeaderValue");  // Adding a custom header
+        String message = "Appointment updated successfully!";
+
+        appointmentService.updateAppointmentByID(AppointmentMapper.dtoPutRequestToAppointment(id, updateAppointmentRequest));
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .body(message);
+        //        return appointmentService.updateAppointmentByID(appointment);
     }
 
     @DeleteMapping("/{id}")
-    public Appointment deleteAppointment(@PathVariable Long id) {
+    public ResponseEntity<String> deleteAppointment(@PathVariable Long id) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        httpHeaders.add("customHeaderName", "customHeaderValue");  // Adding a custom header
+        String message = "Appointment deleted successfully!";
+
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-        return appointmentService.deleteDAppointmentByID(id);
+        appointmentService.deleteDAppointmentByID(id);
+
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .body(message);
     }
 
 }

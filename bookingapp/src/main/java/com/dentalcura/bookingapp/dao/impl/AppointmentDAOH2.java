@@ -187,11 +187,8 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getUpdateById());
 
-            preparedStatement.setLong(4, appointment.id());
-
+            preparedStatement.setLong(2, appointment.id());
             preparedStatement.setString(1, appointment.date());
-            preparedStatement.setLong(2, appointment.patient().id());
-            preparedStatement.setLong(3, appointment.dentist().id());
 
 
             preparedStatement.executeUpdate();

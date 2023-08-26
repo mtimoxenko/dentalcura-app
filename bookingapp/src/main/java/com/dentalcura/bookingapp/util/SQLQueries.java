@@ -37,7 +37,7 @@ public enum SQLQueries {
             "INSERT INTO appointment VALUES(?,?,?,?);",
             "SELECT * FROM appointment",
             "SELECT * FROM appointment WHERE id=?",
-            "UPDATE appointment SET date=?, patient_id=?, dentist_id=? WHERE id=?;",
+            "UPDATE appointment SET date=? WHERE id=?;",
             "DELETE FROM appointment WHERE id=?"
     ),
     USERS(
