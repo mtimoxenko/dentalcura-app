@@ -1,6 +1,7 @@
 package com.dentalcura.bookingapp.service;
 
 import com.dentalcura.bookingapp.dao.IDao;
+import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.model.User;
 import lombok.Getter;
@@ -15,6 +16,11 @@ import java.util.List;
 @Service
 public class PatientService {
     private IDao<Patient> patientIDao;
+
+//    @Autowired
+//    public PatientService(@Qualifier("patientDAOH2") IDao<Patient> patientIDao) {
+//        this.patientIDao = patientIDao;
+//    }
 
     public void createTablePatient(){
         patientIDao.createTable();

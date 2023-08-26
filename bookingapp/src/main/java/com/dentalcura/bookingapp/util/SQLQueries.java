@@ -13,7 +13,7 @@ public enum SQLQueries {
             "INSERT INTO dentist VALUES(?,?,?,?);",
             "SELECT * FROM dentist",
             "SELECT * FROM dentist WHERE id=?",
-            "UPDATE dentist SET name=?, surname=?, license_num=? WHERE id=?;",
+            "UPDATE dentist SET name=?, surname=? WHERE id=?;",
             "DELETE FROM dentist WHERE id=?"
     ),
     PATIENT(
@@ -21,7 +21,7 @@ public enum SQLQueries {
             "INSERT INTO patient VALUES(?,?,?,?,?,?);",
             "SELECT * FROM patient",
             "SELECT * FROM patient WHERE id=?",
-            "UPDATE patient SET name=?, surname=?, ni_num=?, reg_date=? WHERE id=?;",
+            "UPDATE patient SET name=?, surname=? WHERE id=?;",
             "DELETE FROM patient WHERE id=?"
     ),
     ADDRESS(

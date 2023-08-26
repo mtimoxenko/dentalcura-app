@@ -22,6 +22,11 @@ import java.util.List;
 @Repository("appointmentDAOH2")
 public class AppointmentDAOH2 implements IDao<Appointment>{
 
+    @Autowired
+    private DentistService dentistService;
+    @Autowired
+    private PatientService patientService;
+
     public void createTable(){
         Connection connection;
         Statement statement;

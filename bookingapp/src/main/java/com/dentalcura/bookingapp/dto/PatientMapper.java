@@ -51,15 +51,15 @@ public class PatientMapper {
     }
 
     // Request DTO for @PutMapping (Updating a Patient)
-    public static Patient dtoPutRequestToPatient(UpdatePatientRequest updatePatientRequest) {
+    public static Patient dtoPutRequestToPatient(Long id, UpdatePatientRequest updatePatientRequest) {
         return new Patient(
-                updatePatientRequest.id(),
+                id,
                 updatePatientRequest.name(),
                 updatePatientRequest.surname(),
-                updatePatientRequest.niNumber(),
-                updatePatientRequest.registrationDate(),
+                null,
+                null,
                 new Address(
-                        updatePatientRequest.id(),
+                        id,
                         updatePatientRequest.streetName(),
                         updatePatientRequest.streetNumber(),
                         updatePatientRequest.floor(),

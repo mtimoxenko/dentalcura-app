@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Repository
+@Repository("addressDAOH2")
 public class AddressDAOH2 implements IDao<Address>{
 
     @Override

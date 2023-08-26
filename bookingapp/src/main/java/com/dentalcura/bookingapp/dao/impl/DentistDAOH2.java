@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Repository
+@Repository("dentistDAOH2")
 public class DentistDAOH2 implements IDao<Dentist>{
 
     public void createTable(){
@@ -158,11 +158,10 @@ public class DentistDAOH2 implements IDao<Dentist>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getUpdateById());
 
-            preparedStatement.setLong(4, dentist.id());
+            preparedStatement.setLong(3, dentist.id());
 
             preparedStatement.setString(1, dentist.name());
             preparedStatement.setString(2, dentist.surname());
-            preparedStatement.setInt(3, dentist.licenseNumber());
 
 
             preparedStatement.executeUpdate();

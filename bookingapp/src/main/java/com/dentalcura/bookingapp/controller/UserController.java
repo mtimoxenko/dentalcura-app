@@ -25,13 +25,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
-    private final UserService userService;
-
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
+
+//    @Autowired
+//    public UserController(UserService userService) {
+//        this.userService = userService;
+//    }
 
 
     @GetMapping()
