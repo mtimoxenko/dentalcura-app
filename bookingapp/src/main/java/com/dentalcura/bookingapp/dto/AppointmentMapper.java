@@ -37,7 +37,7 @@ public class AppointmentMapper {
             Dentist dentist
     ) {
         return new Appointment(
-                createAppointmentRequest.id(),
+                null,
                 createAppointmentRequest.date(),
                 patient,
                 dentist

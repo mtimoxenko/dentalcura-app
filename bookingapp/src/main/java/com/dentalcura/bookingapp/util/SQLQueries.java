@@ -33,8 +33,8 @@ public enum SQLQueries {
             "DELETE FROM address WHERE id=?"
     ),
     APPOINTMENT(
-            "DROP TABLE IF EXISTS appointment; CREATE TABLE appointment(id BIGINT PRIMARY KEY, date VARCHAR(255), patient_id BIGINT , CONSTRAINT fk_appointment_patient FOREIGN KEY (patient_id) REFERENCES patient(id), dentist_id BIGINT , CONSTRAINT fk_appointment_dentist FOREIGN KEY (dentist_id) REFERENCES dentist(id));",
-            "INSERT INTO appointment VALUES(?,?,?,?);",
+            "DROP TABLE IF EXISTS appointment; CREATE TABLE appointment(id BIGINT AUTO_INCREMENT PRIMARY KEY, date VARCHAR(255), patient_id BIGINT , CONSTRAINT fk_appointment_patient FOREIGN KEY (patient_id) REFERENCES patient(id), dentist_id BIGINT , CONSTRAINT fk_appointment_dentist FOREIGN KEY (dentist_id) REFERENCES dentist(id));",
+            "INSERT INTO appointment (date, patient_id, dentist_id) VALUES(?,?,?);",
             "SELECT * FROM appointment",
             "SELECT * FROM appointment WHERE id=?",
             "UPDATE appointment SET date=? WHERE id=?;",
