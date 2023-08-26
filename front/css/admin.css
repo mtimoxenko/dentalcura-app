@@ -79,6 +79,7 @@ nav .user-info button {
 
 .tables ul{
     margin-top: 5%;
+    list-style-type: square;
 }
 
 form {
