@@ -33,7 +33,7 @@ public class UserMapper {
     // Request DTO for @PostMapping (Creating a User)
     public static User dtoPostRequestToUser(CreateUserRequest createUserRequest) {
         return new User(
-                createUserRequest.id(),
+                null,
                 createUserRequest.name(),
                 createUserRequest.surname(),
                 createUserRequest.email(),

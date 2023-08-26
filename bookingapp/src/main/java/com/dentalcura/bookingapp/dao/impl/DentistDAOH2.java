@@ -15,29 +15,6 @@ import java.util.List;
 @Repository("dentistDAOH2")
 public class DentistDAOH2 implements IDao<Dentist>{
 
-    public void createTable(){
-        Connection connection;
-        Statement statement;
-
-        try {
-            Class.forName(DB.DRIVER);
-            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            statement = connection.createStatement();
-
-            statement.execute(SQLQueries.DENTIST    .getCreateTable());
-
-            statement.close();
-            connection.close();
-
-            log.info("DENTIST table was created in DB");
-
-        } catch (SQLException | ClassNotFoundException e) {
-            log.error("Creating DENTIST table in DB was not possible");
-            log.error(String.valueOf(e));
-            throw new RuntimeException(e);
-        }
-    }
-
     @Override
     public Dentist insert(Dentist dentist) {
         Connection connection;
@@ -48,10 +25,10 @@ public class DentistDAOH2 implements IDao<Dentist>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.DENTIST.getInsertCustom());
 
-            preparedStatement.setLong(1, dentist.id());
-            preparedStatement.setString(2, dentist.name());
-            preparedStatement.setString(3, dentist.surname());
-            preparedStatement.setInt(4, dentist.licenseNumber());
+//            preparedStatement.setLong(1, dentist.id());
+            preparedStatement.setString(1, dentist.name());
+            preparedStatement.setString(2, dentist.surname());
+            preparedStatement.setInt(3, dentist.licenseNumber());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();

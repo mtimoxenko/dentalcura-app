@@ -27,29 +27,6 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
     @Autowired
     private PatientService patientService;
 
-    public void createTable(){
-        Connection connection;
-        Statement statement;
-
-        try {
-            Class.forName(DB.DRIVER);
-            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            statement = connection.createStatement();
-
-            statement.execute(SQLQueries.APPOINTMENT.getCreateTable());
-
-            statement.close();
-            connection.close();
-
-            log.info("APPOINTMENT table was created in DB");
-
-        } catch (SQLException | ClassNotFoundException e) {
-            log.error("Creating APPOINTMENT table in DB was not possible");
-            log.error(String.valueOf(e));
-            throw new RuntimeException(e);
-        }
-    }
-
     @Override
     public Appointment insert(Appointment appointment) {
         Connection connection;

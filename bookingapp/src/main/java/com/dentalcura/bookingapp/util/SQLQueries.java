@@ -9,8 +9,8 @@ import lombok.Getter;
 public enum SQLQueries {
 
     DENTIST(
-            "DROP TABLE IF EXISTS dentist; CREATE TABLE dentist(id BIGINT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), license_num INT);",
-            "INSERT INTO dentist VALUES(?,?,?,?);",
+            "DROP TABLE IF EXISTS dentist; CREATE TABLE dentist(id BIGINT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), surname VARCHAR(255), license_num INT);",
+            "INSERT INTO dentist (name, surname, license_num) VALUES(?,?,?);",
             "SELECT * FROM dentist",
             "SELECT * FROM dentist WHERE id=?",
             "UPDATE dentist SET name=?, surname=? WHERE id=?;",

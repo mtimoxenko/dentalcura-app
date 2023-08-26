@@ -22,9 +22,6 @@ public class PatientService {
 //        this.patientIDao = patientIDao;
 //    }
 
-    public void createTablePatient(){
-        patientIDao.createTable();
-    }
 
     public Patient insertPatient(Patient patient){
         return patientIDao.insert(patient);

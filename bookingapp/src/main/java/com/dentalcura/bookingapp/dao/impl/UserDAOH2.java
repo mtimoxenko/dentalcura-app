@@ -17,29 +17,6 @@ import java.util.List;
 public class UserDAOH2 implements IDao<User>{
 
 
-    public void createTable(){
-        Connection connection;
-        Statement statement;
-
-        try {
-            Class.forName(DB.DRIVER);
-            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            statement = connection.createStatement();
-
-            statement.execute(SQLQueries.USERS.getCreateTable());
-
-            statement.close();
-            connection.close();
-
-            log.info("USR table was created in DB");
-
-        } catch (SQLException | ClassNotFoundException e) {
-            log.error("Creating USR table in DB was not possible");
-            log.error(String.valueOf(e));
-            throw new RuntimeException(e);
-        }
-    }
-
     @Override
     public User insert(User user) {
         Connection connection;

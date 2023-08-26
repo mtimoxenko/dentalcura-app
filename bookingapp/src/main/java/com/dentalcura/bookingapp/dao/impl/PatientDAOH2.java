@@ -16,39 +16,6 @@ import java.util.List;
 @Repository("patientDAOH2")
 public class PatientDAOH2 implements IDao<Patient> {
 
-    public void createTable(){
-        Connection connection;
-        Statement statement;
-
-
-        // primero crea la tabla ADDRESS ?
-        try {
-            //               TURBIOOOOOOO!!!
-            // aca llamaria al AddressDAOH2.insert
-            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
-            addressDAOH2.createTable();
-            // -------------------------------------
-
-
-
-            Class.forName(DB.DRIVER);
-            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            statement = connection.createStatement();
-
-            statement.execute(SQLQueries.PATIENT.getCreateTable());
-
-            statement.close();
-            connection.close();
-
-            log.info("PATIENT table was created in DB");
-
-        } catch (SQLException | ClassNotFoundException e) {
-            log.error("Creating PATIENT table in DB was not possible");
-            log.error(String.valueOf(e));
-            throw new RuntimeException(e);
-        }
-    }
-
     @Override // OK
     public Patient insert(Patient patient) {
         Connection connection;

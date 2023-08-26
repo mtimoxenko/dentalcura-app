@@ -31,7 +31,7 @@ public class DentistMapper {
     // Request DTO for @PostMapping (Creating a Dentist)
     public static Dentist dtoPostRequestToDentist(CreateDentistRequest createDentistRequest) {
         return new Dentist(
-                createDentistRequest.id(),
+                null,
                 createDentistRequest.name(),
                 createDentistRequest.surname(),
                 createDentistRequest.licenseNumber()

@@ -22,10 +22,6 @@ public class DentistService {
 //        this.dentistIDao = dentistIDao;
 //    }
 
-    public void createTableDentist(){
-        dentistIDao.createTable();
-    }
-
     public Dentist insertDentist(Dentist dentist){
         return dentistIDao.insert(dentist);
     }
