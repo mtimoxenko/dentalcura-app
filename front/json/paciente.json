@@ -1,0 +1,20 @@
+[
+    {
+        "nombre": "Winny",
+        "apellido": "Pooh",
+        "documento": 111,
+        "fecha_alta": "10/09/1950"
+    },
+    {
+        "nombre": "Tom",
+        "apellido": "Sawyer",
+        "documento": 222,
+        "fecha_alta": "10/09/1894"
+    },    
+    {
+        "nombre": "Peter",
+        "apellido": "Pan",
+        "documento": 333,
+        "fecha_alta": "10/09/1902"
+    }
+]

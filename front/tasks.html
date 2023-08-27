@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dental Cura</title>
+  <link rel="icon" type="image/x-icon" href="./assets/DH_Logo_Black.png">
+  <meta name="description" content="Book Dental Care with DentalCura" />
+
+  <!-- ----------------------------- CSS ----------------------------- -->
+  <link rel="stylesheet" href="./css/tasksStyles.css">
+
+  <!-- ------------------- Fontawesome -------------------- -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- ------------------------------ css libraries ------------------------------ -->
+  <!-- Sweet Alert -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Animate on scroll -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+  <!-- ------------------------- webpage logic ------------------------- -->
+  <script src="./scripts/taks.js"></script>
+
+</head>
+
+<body>
+
+  <!-- navbar -->
+  <header class="container">
+    <nav>
+      <h1>Transforming Smiles: Book Dental Care with DentalCura</h1>
+
+      <div class="user-info">
+        <p>username</p>
+        <div class="user-image"></div>
+        <button id="closeApp"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+      </div>
+    </nav>
+  </header>
+  
+
+  <main class="container">
+
+
+    <form class="new-appointment">
+      <div>
+        <h2>Add Appointment</h2>        
+      </div>
+
+      <div class="select">
+        <fieldset id="select-patient">
+          <legend>Select Patient</legend>
+        </fieldset>
+
+        <fieldset id="select-dentist">
+          <legend>Select Dentist</legend>
+        </fieldset>
+
+        <fieldset id="select-turno">
+          <legend>Select Turno</legend>
+        </fieldset>
+
+      </div>
+
+        <button type="submit"><i class="fa-solid fa-pencil"></i> Add Appointment</button>
+    </form>
+
+
+    <div class="list-div">
+      <ul id="appointment-list">
+      </ul>
+    </div>
+
+
+
+  </main>
+
+
+  <footer>
+    <img src="./assets/DH_Logo_White.png" alt="">
+  </footer>
+</body>
+
+</html>
