@@ -13,41 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Repository
+@Repository("patientDAOH2")
 public class PatientDAOH2 implements IDao<Patient> {
-
-    public void createTable(){
-        Connection connection;
-        Statement statement;
-
-
-        // primero crea la tabla ADDRESS ?
-        try {
-            //               TURBIOOOOOOO!!!
-            // aca llamaria al AddressDAOH2.insert
-            AddressDAOH2 addressDAOH2 = new AddressDAOH2();
-            addressDAOH2.createTable();
-            // -------------------------------------
-
-
-
-            Class.forName(DB.DRIVER);
-            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            statement = connection.createStatement();
-
-            statement.execute(SQLQueries.PATIENT.getCreateTable());
-
-            statement.close();
-            connection.close();
-
-            log.info("PATIENT table was created in DB");
-
-        } catch (SQLException | ClassNotFoundException e) {
-            log.error("Creating PATIENT table in DB was not possible");
-            log.error(String.valueOf(e));
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override // OK
     public Patient insert(Patient patient) {
@@ -66,13 +33,13 @@ public class PatientDAOH2 implements IDao<Patient> {
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getInsertCustom());
 
-            preparedStatement.setLong(1, patient.id());
-            preparedStatement.setString(2, patient.name());
-            preparedStatement.setString(3, patient.surname());
-            preparedStatement.setInt(4, patient.niNumber());
-            preparedStatement.setString(5, patient.registrationDate());
+//            preparedStatement.setLong(1, patient.id());
+            preparedStatement.setString(1, patient.name());
+            preparedStatement.setString(2, patient.surname());
+            preparedStatement.setInt(3, patient.niNumber());
+            preparedStatement.setString(4, patient.registrationDate());
             // fk address_id
-            preparedStatement.setLong(6, patient.address().id());
+//            preparedStatement.setLong(5, patient.address().id());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -205,13 +172,13 @@ public class PatientDAOH2 implements IDao<Patient> {
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.PATIENT.getUpdateById());
 
-            preparedStatement.setLong(5, patient.id());
+            preparedStatement.setLong(3, patient.id());
 
             preparedStatement.setString(1, patient.name());
             preparedStatement.setString(2, patient.surname());
 //            preparedStatement.setString(3, patient.address());
-            preparedStatement.setInt(3, patient.niNumber());
-            preparedStatement.setString(4, patient.registrationDate());
+//            preparedStatement.setInt(3, patient.niNumber());
+//            preparedStatement.setString(4, patient.registrationDate());
 
 
             preparedStatement.executeUpdate();

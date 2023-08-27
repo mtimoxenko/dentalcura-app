@@ -12,32 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Repository
+@Repository("addressDAOH2")
 public class AddressDAOH2 implements IDao<Address>{
-
-    @Override
-    public void createTable(){
-        Connection connection;
-        Statement statement;
-
-        try {
-            Class.forName(DB.DRIVER);
-            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            statement = connection.createStatement();
-
-            statement.execute(SQLQueries.ADDRESS.getCreateTable());
-
-            statement.close();
-            connection.close();
-
-            log.info("ADDRESS table was created in DB");
-
-        } catch (SQLException | ClassNotFoundException e) {
-            log.error("Creating ADDRESS table in DB was not possible");
-            log.error(String.valueOf(e));
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public Address insert(Address address) {
@@ -49,11 +25,11 @@ public class AddressDAOH2 implements IDao<Address>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.ADDRESS.getInsertCustom());
 
-            preparedStatement.setLong(1, address.id());
-            preparedStatement.setString(2, address.streetName());
-            preparedStatement.setInt(3, address.streetNumber());
-            preparedStatement.setInt(4, address.floor());
-            preparedStatement.setString(5, address.department());
+//            preparedStatement.setLong(1, address.id());
+            preparedStatement.setString(1, address.streetName());
+            preparedStatement.setInt(2, address.streetNumber());
+            preparedStatement.setInt(3, address.floor());
+            preparedStatement.setString(4, address.department());
 
 
             preparedStatement.executeUpdate();

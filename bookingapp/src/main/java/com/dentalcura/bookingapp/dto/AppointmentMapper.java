@@ -13,12 +13,13 @@ import java.util.List;
 
 public class AppointmentMapper {
 
-    // Response DTO for @GetMapping (Retrieving a Appointment)
+    // Response DTO for @GetMapping (Retrieving an Appointment)
     public static AppointmentResponse appointmentToDtoResponse(Appointment appointment) {
         return new AppointmentResponse(
+                appointment.id(),
                 appointment.date(),
-                appointment.patient().name() + appointment.patient().surname(),
-                appointment.dentist().name() + appointment.dentist().surname()
+                appointment.patient().name() + " " + appointment.patient().surname(),
+                appointment.dentist().name() + " " + appointment.dentist().surname()
         );
     }
     // Response DTO for @GetMapping (Retrieving a List<Appointment>)
@@ -29,59 +30,29 @@ public class AppointmentMapper {
         return appointmentResponses;
     }
 
-    // Request DTO for @PostMapping (Creating a Appointment)
-    public static Appointment dtoPostRequestToAppointment(CreateAppointmentRequest createAppointmentRequest) {
+    // Request DTO for @PostMapping (Creating an Appointment)
+    public static Appointment dtoPostRequestToAppointment(
+            CreateAppointmentRequest createAppointmentRequest,
+            Patient patient,
+            Dentist dentist
+    ) {
         return new Appointment(
-                createAppointmentRequest.id(),
+                null,
                 createAppointmentRequest.date(),
-                new Patient(
-                        createAppointmentRequest.patient().id(),
-                        createAppointmentRequest.patient().name(),
-                        createAppointmentRequest.patient().surname(),
-                        createAppointmentRequest.patient().niNumber(),
-                        createAppointmentRequest.patient().registrationDate(),
-                        new Address(
-                                createAppointmentRequest.patient().address().id(),
-                                createAppointmentRequest.patient().address().streetName(),
-                                createAppointmentRequest.patient().address().streetNumber(),
-                                createAppointmentRequest.patient().address().floor(),
-                                createAppointmentRequest.patient().address().department()
-                                )
-                ),
-                new Dentist(
-                        createAppointmentRequest.dentist().id(),
-                        createAppointmentRequest.dentist().name(),
-                        createAppointmentRequest.dentist().surname(),
-                        createAppointmentRequest.dentist().licenseNumber()
-                        )
+                patient,
+                dentist
         );
     }
 
-    // Request DTO for @PutMapping (Updating a Appointment)
-    public static Appointment dtoPutRequestToAppointment(UpdateAppointmentRequest updateAppointmentRequest) {
+    // Request DTO for @PutMapping (Updating an Appointment)
+    public static Appointment dtoPutRequestToAppointment(Long id, UpdateAppointmentRequest updateAppointmentRequest) {
+        Patient patient = new Patient(1L,"a","a",1,"a",(new Address(1L,"a",1,1,"a")));
+        Dentist dentist = new Dentist(1L,"a","a",1);
         return new Appointment(
-                updateAppointmentRequest.id(),
+                id,
                 updateAppointmentRequest.date(),
-                new Patient(
-                        updateAppointmentRequest.patient().id(),
-                        updateAppointmentRequest.patient().name(),
-                        updateAppointmentRequest.patient().surname(),
-                        updateAppointmentRequest.patient().niNumber(),
-                        updateAppointmentRequest.patient().registrationDate(),
-                        new Address(
-                                updateAppointmentRequest.patient().address().id(),
-                                updateAppointmentRequest.patient().address().streetName(),
-                                updateAppointmentRequest.patient().address().streetNumber(),
-                                updateAppointmentRequest.patient().address().floor(),
-                                updateAppointmentRequest.patient().address().department()
-                        )
-                ),
-                new Dentist(
-                        updateAppointmentRequest.dentist().id(),
-                        updateAppointmentRequest.dentist().name(),
-                        updateAppointmentRequest.dentist().surname(),
-                        updateAppointmentRequest.dentist().licenseNumber()
-                )
+                patient,
+                dentist
         );
     }
 

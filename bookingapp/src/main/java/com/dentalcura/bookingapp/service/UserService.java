@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Getter @Setter
+@Getter
+@Setter
 @Service
 public class UserService {
+<<<<<<< HEAD
 
     private final IDao<User> userIDao;
 
@@ -24,6 +26,14 @@ public class UserService {
 
     public void createTableUser(){
         userIDao.createTable();
+=======
+
+    private IDao<User> userIDao;
+
+    @Autowired
+    public UserService(@Qualifier("userDAOH2") IDao<User> userIDao) {
+        this.userIDao = userIDao;
+>>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
     }
 
     public User insertUser(User user){

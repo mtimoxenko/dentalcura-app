@@ -4,8 +4,7 @@ import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.model.Patient;
 
 public record CreateAppointmentRequest(
-        Long id,
         String date,
-        Patient patient,
-        Dentist dentist
+        Long patientId,
+        Long dentistId
 ) { }

@@ -2,8 +2,11 @@ package com.dentalcura.bookingapp.service;
 
 import com.dentalcura.bookingapp.dao.IDao;
 import com.dentalcura.bookingapp.model.Dentist;
+import com.dentalcura.bookingapp.model.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +17,10 @@ public class DentistService {
     private IDao<Dentist> dentistIDao;
 
 
-    public void createTableDentist(){
-        dentistIDao.createTable();
-    }
+//    @Autowired
+//    public DentistService(@Qualifier("dentistDAOH2") IDao<Dentist> dentistIDao) {
+//        this.dentistIDao = dentistIDao;
+//    }
 
     public Dentist insertDentist(Dentist dentist){
         return dentistIDao.insert(dentist);

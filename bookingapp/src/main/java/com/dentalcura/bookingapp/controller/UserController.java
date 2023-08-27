@@ -25,13 +25,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+<<<<<<< HEAD
 
     private final UserService userService;
 
+=======
+>>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
+//    @Autowired
+//    public UserController(UserService userService) {
+//        this.userService = userService;
+//    }
 
 
     @GetMapping()
@@ -88,14 +96,22 @@ public class UserController {
 
 
     @PutMapping("/{id}")
+<<<<<<< HEAD
     public ResponseEntity<String> updateUser(@RequestBody UpdateUserRequest updateUserRequest) {
+=======
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest) {
+>>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
 //        userService.setUserIDao(new UserDAOH2());
         HttpHeaders httpHeaders = new HttpHeaders();
 
         httpHeaders.add("customHeaderName", "customHeaderValue");  // Adding a custom header
         String message = "User updated successfully!";
 
+<<<<<<< HEAD
         userService.updateUserByID(UserMapper.dtoPutRequestToUser(updateUserRequest));
+=======
+        userService.updateUserByID(UserMapper.dtoPutRequestToUser(id, updateUserRequest));
+>>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
         return ResponseEntity.ok()
                 .headers(httpHeaders)
                 .body(message);

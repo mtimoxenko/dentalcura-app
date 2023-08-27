@@ -5,11 +5,13 @@ import com.dentalcura.bookingapp.model.Address;
 import com.dentalcura.bookingapp.model.Appointment;
 import com.dentalcura.bookingapp.model.Dentist;
 import com.dentalcura.bookingapp.model.Patient;
+import com.dentalcura.bookingapp.service.AppointmentService;
 import com.dentalcura.bookingapp.service.DentistService;
 import com.dentalcura.bookingapp.service.PatientService;
 import com.dentalcura.bookingapp.util.DB;
 import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -17,31 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Repository
+@Repository("appointmentDAOH2")
 public class AppointmentDAOH2 implements IDao<Appointment>{
 
-    public void createTable(){
-        Connection connection;
-        Statement statement;
-
-        try {
-            Class.forName(DB.DRIVER);
-            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            statement = connection.createStatement();
-
-            statement.execute(SQLQueries.APPOINTMENT.getCreateTable());
-
-            statement.close();
-            connection.close();
-
-            log.info("APPOINTMENT table was created in DB");
-
-        } catch (SQLException | ClassNotFoundException e) {
-            log.error("Creating APPOINTMENT table in DB was not possible");
-            log.error(String.valueOf(e));
-            throw new RuntimeException(e);
-        }
-    }
+    @Autowired
+    private DentistService dentistService;
+    @Autowired
+    private PatientService patientService;
 
     @Override
     public Appointment insert(Appointment appointment) {
@@ -53,10 +37,10 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getInsertCustom());
 
-            preparedStatement.setLong(1, appointment.id());
-            preparedStatement.setString(2, appointment.date());
-            preparedStatement.setLong(3, appointment.patient().id());
-            preparedStatement.setLong(4, appointment.dentist().id());
+//            preparedStatement.setLong(1, appointment.id());
+            preparedStatement.setString(1, appointment.date());
+            preparedStatement.setLong(2, appointment.patient().id());
+            preparedStatement.setLong(3, appointment.dentist().id());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -187,11 +171,8 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.APPOINTMENT.getUpdateById());
 
-            preparedStatement.setLong(4, appointment.id());
-
+            preparedStatement.setLong(2, appointment.id());
             preparedStatement.setString(1, appointment.date());
-            preparedStatement.setLong(2, appointment.patient().id());
-            preparedStatement.setLong(3, appointment.dentist().id());
 
 
             preparedStatement.executeUpdate();

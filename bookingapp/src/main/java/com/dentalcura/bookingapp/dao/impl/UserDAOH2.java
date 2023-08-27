@@ -16,6 +16,7 @@ import java.util.List;
 @Repository("userDAOH2")
 public class UserDAOH2 implements IDao<User>{
 
+<<<<<<< HEAD
 
     public void createTable(){
         Connection connection;
@@ -39,6 +40,8 @@ public class UserDAOH2 implements IDao<User>{
             throw new RuntimeException(e);
         }
     }
+=======
+>>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
 
     @Override
     public User insert(User user) {
@@ -50,12 +53,12 @@ public class UserDAOH2 implements IDao<User>{
             connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
             preparedStatement = connection.prepareStatement(SQLQueries.USERS.getInsertCustom());
 
-            preparedStatement.setLong(1, user.id());
-            preparedStatement.setString(2, user.name());
-            preparedStatement.setString(3, user.surname());
-            preparedStatement.setString(4, user.email());
-            preparedStatement.setString(5, user.password());
-            preparedStatement.setBoolean(6, user.admin());
+//            preparedStatement.setLong(1, user.id());
+            preparedStatement.setString(1, user.name());
+            preparedStatement.setString(2, user.surname());
+            preparedStatement.setString(3, user.email());
+            preparedStatement.setString(4, user.password());
+            preparedStatement.setBoolean(5, user.admin());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
