@@ -30,7 +30,7 @@ public class BookingAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookingAppApplication.class, args);
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
 //		log.info("Sequence init...");
 //<<<<<<< HEAD
@@ -112,7 +112,7 @@ public class BookingAppApplication {
 //		patientDeleteById(2L);
 //		appointmentDeleteById(2L);
 //		log.info("Task execution finished");
-=======
+/*=======
 //		createDB();
 >>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
 	}

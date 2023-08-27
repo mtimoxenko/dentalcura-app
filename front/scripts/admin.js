@@ -129,13 +129,11 @@ window.addEventListener('load', function () {
       const name = document.querySelector('.dentist-load #inputName')
       const surname = document.querySelector('.dentist-load #inputSurname')
       const licenseNumber = document.querySelector('.dentist-load #inputLicenseNumber')
-      const id = document.querySelector('.dentist-load #inputId')
 
       form.addEventListener('submit', function(e){
         e.preventDefault()
 
         const payload = {
-          id: id.value,
           name: name.value,
           surname: surname.value,
           licenseNumber: licenseNumber.value
@@ -175,13 +173,11 @@ window.addEventListener('load', function () {
       const streetNumber = document.querySelector('.patient-load #inputStreetNumber')
       const floor = document.querySelector('.patient-load #inputFloor')
       const department = document.querySelector('.patient-load #inputDepartment')
-      const id = document.querySelector('.patient-load #inputId')
 
       form.addEventListener('submit', function(e){
         e.preventDefault()      
 
         const payload = {
-          id: id.value,
           name: name.value,
           surname: surname.value,
           niNumber: niNumber.value,
@@ -313,7 +309,7 @@ window.addEventListener('load', function () {
       const searchForm = document.querySelector('.dentist-search')
 
       const updateButton = document.querySelector('.dentist-update .update-button')
-      const searchDentistId = document.getElementById('inputDentistId')
+      const dentistId = document.getElementById('inputDentistId')
 
       const name = document.querySelector('.dentist-update #inputName')
       const surname = document.querySelector('.dentist-update #inputSurname')
@@ -323,11 +319,10 @@ window.addEventListener('load', function () {
       updateButton.addEventListener('click', function(e){
         e.preventDefault()
 
-        const id = searchDentistId.value
+        const id = dentistId.value
         const url = `${endpointDentist}/${id}`
 
         const payload = {
-          id: id,
           name: name.value,
           surname: surname.value,
           licenseNumber: licenseNumber.value
@@ -358,7 +353,7 @@ window.addEventListener('load', function () {
       const searchForm = document.querySelector('.patient-search')
 
       const updateButton = document.querySelector('.patient-update .update-button')
-      const searchPatientId = document.getElementById('inputPatientId')
+      const patientId = document.getElementById('inputPatientId')
 
       const name = document.querySelector('.patient-update #inputName')
       const surname = document.querySelector('.patient-update #inputSurname')
@@ -372,11 +367,10 @@ window.addEventListener('load', function () {
       updateButton.addEventListener('click', function(e){
         e.preventDefault()
 
-        const id = searchPatientId.value
+        const id = patientId.value
         const url = `${endpointPatient}/${id}`
 
         const payload = {
-          id: id,
           name: name.value,
           surname: surname.value,
           niNumber: niNumber.value,
@@ -419,12 +413,12 @@ window.addEventListener('load', function () {
       const searchForm = document.querySelector('.dentist-search')
 
       const dentistDeleteButton = document.querySelector('.dentist-update #delete-button')
-      const searchDentistId = document.getElementById('inputDentistId')
+      const dentistId = document.getElementById('inputDentistId')
 
         dentistDeleteButton.addEventListener('click', function (e){
             e.preventDefault()
 
-            const id = searchDentistId.value
+            const id = dentistId.value
             const url = `${endpointDentist}/${id}`
   
             const settings = {
@@ -449,12 +443,12 @@ window.addEventListener('load', function () {
       const searchForm = document.querySelector('.patient-search')
 
       const patientDeleteButton = document.querySelector('.patient-update #delete-button')
-      const searchPatientId = document.getElementById('inputPatientId')
+      const patientId = document.getElementById('inputPatientId')
 
         patientDeleteButton.addEventListener('click', function (e){
             e.preventDefault()
 
-            const id = searchPatientId.value
+            const id = patientId.value
             const url = `${endpointPatient}/${id}`
   
             const settings = {
