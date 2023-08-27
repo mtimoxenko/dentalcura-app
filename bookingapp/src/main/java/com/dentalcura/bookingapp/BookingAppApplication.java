@@ -10,10 +10,7 @@ import com.dentalcura.bookingapp.util.DB;
 import com.dentalcura.bookingapp.util.SQLQueries;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-=======
 import org.springframework.beans.factory.annotation.Qualifier;
->>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +30,7 @@ public class BookingAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookingAppApplication.class, args);
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 
 //		log.info("Sequence init...");
 //<<<<<<< HEAD
@@ -44,7 +41,7 @@ public class BookingAppApplication {
 //		userAdd(2L, "UserComun", "UserApellido", "user@test.com", "111111", false);
 
 //		userListById(1L);
-/*		userListAll();
+		userListAll();
 		userDeleteById(2L);
 		userListAll();
 		userUpdateById(1L,"MaxPower","Timochenko","maxpower@test.com","MaxPower12345",false);
@@ -115,7 +112,7 @@ public class BookingAppApplication {
 //		patientDeleteById(2L);
 //		appointmentDeleteById(2L);
 //		log.info("Task execution finished");
-=======
+/*=======
 //		createDB();
 >>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
 	}
@@ -420,5 +417,6 @@ public class BookingAppApplication {
 		log.info("DB created");
 	}
 
->>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
+>>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e*/
+}
 }

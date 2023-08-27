@@ -11,10 +11,7 @@ import com.dentalcura.bookingapp.dto.patient.UpdatePatientRequest;
 import com.dentalcura.bookingapp.model.Patient;
 import com.dentalcura.bookingapp.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-=======
 import org.springframework.http.HttpHeaders;
->>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,17 +30,17 @@ public class PatientController {
     @GetMapping()
     public ResponseEntity<List<PatientResponse>> getPatientAll() {
         patientService.setPatientIDao(new PatientDAOH2());
-<<<<<<< HEAD
+
         return new ResponseEntity<>(
                 PatientMapper.patientsToDtoResponse(patientService.selectAllPatient()),
                 HttpStatus.OK
         );
-=======
+
 
         List<PatientResponse> patientResponses = PatientMapper.patientsToDtoResponse(patientService.selectAllPatient());
 
         return new ResponseEntity<>(patientResponses, HttpStatus.OK);
->>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
+
 //        return PatientMapper.patientsToDtoResponse(patientService.selectAllPatient());
 //        return patientService.selectAllPatient();
     }
@@ -51,17 +48,17 @@ public class PatientController {
     @GetMapping("/{id}")
     public ResponseEntity<PatientResponse> getPatient(@PathVariable Long id) {
         patientService.setPatientIDao(new PatientDAOH2());
-<<<<<<< HEAD
+
         return new ResponseEntity<>(
                 PatientMapper.patientToDtoResponse(patientService.selectPatientByID(id)),
                 HttpStatus.OK
         );
-=======
+
 
         PatientResponse patientResponse = PatientMapper.patientToDtoResponse(patientService.selectPatientByID(id));
 
         return new ResponseEntity<>(patientResponse, HttpStatus.OK);
->>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
+
 //        return PatientMapper.patientToDtoResponse(patientService.selectPatientByID(id));
 //        return patientService.selectPatientByID(id);
     }

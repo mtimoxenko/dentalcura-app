@@ -18,10 +18,9 @@ import com.dentalcura.bookingapp.service.DentistService;
 import com.dentalcura.bookingapp.service.PatientService;
 import com.dentalcura.bookingapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-=======
+
 import org.springframework.http.HttpHeaders;
->>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,17 +50,17 @@ public class AppointmentController {
     @GetMapping()
     public ResponseEntity<List<AppointmentResponse>> getAppointmentAll() {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-<<<<<<< HEAD
+
         return new ResponseEntity<>(
                 AppointmentMapper.appointmentsToDtoResponse(appointmentService.selectAllAppointment()),
                 HttpStatus.OK
         );
-=======
+
 
         List<AppointmentResponse> appointmentResponses = AppointmentMapper.appointmentsToDtoResponse(appointmentService.selectAllAppointment());
 
         return new ResponseEntity<>(appointmentResponses, HttpStatus.OK);
->>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
+
 //        return AppointmentMapper.appointmentsToDtoResponse(appointmentService.selectAllAppointment());
 //        return appointmentService.selectAllAppointment();
     }
@@ -69,16 +68,16 @@ public class AppointmentController {
     @GetMapping("/{id}")
     public ResponseEntity<AppointmentResponse> getAppointment(@PathVariable Long id) {
         appointmentService.setAppointmentIDao(new AppointmentDAOH2());
-<<<<<<< HEAD
+
         return new ResponseEntity<>(
                 AppointmentMapper.appointmentToDtoResponse(appointmentService.selectAppointmentByID(id)),
                 HttpStatus.OK
         );
-=======
+
 
         AppointmentResponse appointmentResponse = AppointmentMapper.appointmentToDtoResponse(appointmentService.selectAppointmentByID(id));
         return new ResponseEntity<>(appointmentResponse, HttpStatus.OK);
->>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
+
 //        return AppointmentMapper.appointmentToDtoResponse(appointmentService.selectAppointmentByID(id));
 //        return appointmentService.selectAppointmentByID(id);
     }
