@@ -13,10 +13,6 @@ public class AppointmentService {
     private IDao<Appointment> appointmentIDao;
 
 
-    public void createTableAppointment(){
-        appointmentIDao.createTable();
-    }
-
     public Appointment insertAppointment(Appointment appointment){
         return appointmentIDao.insert(appointment);
     }

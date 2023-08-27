@@ -14,6 +14,7 @@ public class PatientMapper {
     // Response DTO for @GetMapping (Retrieving a Patient)
     public static PatientResponse patientToDtoResponse(Patient patient) {
         return new PatientResponse(
+                patient.id(),
                 patient.name(),
                 patient.surname(),
                 patient.niNumber(),
@@ -34,13 +35,13 @@ public class PatientMapper {
     // Request DTO for @PostMapping (Creating a Patient)
     public static Patient dtoPostRequestToPatient(CreatePatientRequest createPatientRequest) {
         return new Patient(
-                createPatientRequest.id(),
+                null,
                 createPatientRequest.name(),
                 createPatientRequest.surname(),
                 createPatientRequest.niNumber(),
                 createPatientRequest.registrationDate(),
                 new Address(
-                        createPatientRequest.id(),
+                        null,
                         createPatientRequest.streetName(),
                         createPatientRequest.streetNumber(),
                         createPatientRequest.floor(),
@@ -50,15 +51,15 @@ public class PatientMapper {
     }
 
     // Request DTO for @PutMapping (Updating a Patient)
-    public static Patient dtoPutRequestToPatient(UpdatePatientRequest updatePatientRequest) {
+    public static Patient dtoPutRequestToPatient(Long id, UpdatePatientRequest updatePatientRequest) {
         return new Patient(
-                updatePatientRequest.id(),
+                id,
                 updatePatientRequest.name(),
                 updatePatientRequest.surname(),
-                updatePatientRequest.niNumber(),
-                updatePatientRequest.registrationDate(),
+                null,
+                null,
                 new Address(
-                        updatePatientRequest.id(),
+                        id,
                         updatePatientRequest.streetName(),
                         updatePatientRequest.streetNumber(),
                         updatePatientRequest.floor(),

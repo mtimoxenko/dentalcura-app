@@ -14,6 +14,7 @@ public class DentistMapper {
     // Response DTO for @GetMapping (Retrieving a Dentist)
     public static DentistResponse dentistToDtoResponse(Dentist dentist) {
         return new DentistResponse(
+                dentist.id(),
                 dentist.name(),
                 dentist.surname(),
                 dentist.licenseNumber()
@@ -30,7 +31,7 @@ public class DentistMapper {
     // Request DTO for @PostMapping (Creating a Dentist)
     public static Dentist dtoPostRequestToDentist(CreateDentistRequest createDentistRequest) {
         return new Dentist(
-                createDentistRequest.id(),
+                null,
                 createDentistRequest.name(),
                 createDentistRequest.surname(),
                 createDentistRequest.licenseNumber()
@@ -38,12 +39,12 @@ public class DentistMapper {
     }
 
     // Request DTO for @PutMapping (Updating a Dentist)
-    public static Dentist dtoPutRequestToDentist(UpdateDentistRequest updateDentistRequest) {
+    public static Dentist dtoPutRequestToDentist(Long id, UpdateDentistRequest updateDentistRequest) {
         return new Dentist(
-                updateDentistRequest.id(),
+                id,
                 updateDentistRequest.name(),
                 updateDentistRequest.surname(),
-                updateDentistRequest.licenseNumber()
+                null
         );
     }
 
