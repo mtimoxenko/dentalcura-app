@@ -10,10 +10,10 @@ window.addEventListener('load', function () {
   // const endpointGetUser = 'https://todo-api.ctd.academy/v1/users/getMe';
   // const token = JSON.parse(localStorage.jwt);
 
-  const endpointDentist = 'http://localhost:8080/dentist'
+  const endpointDentist = 'http://localhost:8082/dentist'
   const endpointTurno = './json/turno.json'
-  const endpointPatient = 'http://localhost:8080/patient'
-  const endpointAppointment = 'http://localhost:8080/appointment'
+  const endpointPatient = 'http://localhost:8082/patient'
+  const endpointAppointment = 'http://localhost:8082/appointment'
 
 
   const formAddAppointment = document.querySelector('.new-appointment');

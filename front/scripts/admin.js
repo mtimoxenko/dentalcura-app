@@ -10,8 +10,8 @@ window.addEventListener('load', function () {
 
     // const token = JSON.parse(localStorage.jwt);
     
-    const endpointDentist = 'http://localhost:8080/dentist'
-    const endpointPatient = 'http://localhost:8080/patient'
+    const endpointDentist = 'http://localhost:8082/dentist'
+    const endpointPatient = 'http://localhost:8082/patient'
 
     const btnCloseApp = document.querySelector('#closeApp');
 

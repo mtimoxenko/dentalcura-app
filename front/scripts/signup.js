@@ -1,7 +1,7 @@
 window.addEventListener('load', function () {
 
     const form = document.querySelector('form')
-    const endpoint = 'http://localhost:8080/user'
+    const endpoint = 'http://localhost:8082/user'
 
     const name = document.querySelector('#inputName')
     const surname = document.querySelector('#inputSurname')
