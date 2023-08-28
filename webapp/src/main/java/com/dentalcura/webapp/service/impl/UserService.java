@@ -57,8 +57,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void updateUserByID(UpdateUserRequest updateUserRequest) {
+    public void updateUserByID(Long id, UpdateUserRequest updateUserRequest) {
         User user = mapper.convertValue(updateUserRequest, User.class);
+        user.setId(id);
         userRepository.save(user);
     }
 

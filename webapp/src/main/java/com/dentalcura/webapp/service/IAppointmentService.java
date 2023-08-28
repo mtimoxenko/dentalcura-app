@@ -12,7 +12,7 @@ public interface IAppointmentService {
     void insertAppointment(CreateAppointmentRequest createAppointmentRequest);
     List<AppointmentResponse> selectAllAppointment();
     AppointmentResponse selectAppointmentByID(Long id);
-    void updateAppointmentByID(UpdateAppointmentRequest updateAppointmentRequest);
+    void updateAppointmentByID(Long id, UpdateAppointmentRequest updateAppointmentRequest);
     void deleteAppointmentByID(Long id);
 
 }

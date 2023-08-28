@@ -57,8 +57,9 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public void updatePatientByID(UpdatePatientRequest updatePatientRequest) {
+    public void updatePatientByID(Long id, UpdatePatientRequest updatePatientRequest) {
         Patient patient = mapper.convertValue(updatePatientRequest, Patient.class);
+        patient.setId(id);
         patientRepository.save(patient);
     }
 

@@ -57,8 +57,9 @@ public class DentistService implements IDentistService {
     }
 
     @Override
-    public void updateDentistByID(UpdateDentistRequest updateDentistRequest) {
+    public void updateDentistByID(Long id, UpdateDentistRequest updateDentistRequest) {
         Dentist dentist = mapper.convertValue(updateDentistRequest, Dentist.class);
+        dentist.setId(id);
         dentistRepository.save(dentist);
     }
 

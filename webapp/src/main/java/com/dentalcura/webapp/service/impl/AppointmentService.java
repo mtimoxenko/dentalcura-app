@@ -57,8 +57,9 @@ public class AppointmentService implements IAppointmentService {
     }
 
     @Override
-    public void updateAppointmentByID(UpdateAppointmentRequest updateAppointmentRequest) {
+    public void updateAppointmentByID(Long id, UpdateAppointmentRequest updateAppointmentRequest) {
         Appointment appointment = mapper.convertValue(updateAppointmentRequest, Appointment.class);
+        appointment.setId(id);
         appointmentRepository.save(appointment);
     }
 

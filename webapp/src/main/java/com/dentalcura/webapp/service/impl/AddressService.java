@@ -35,10 +35,10 @@ public class AddressService implements IAddressService {
 
     @Override
     public List<AddressResponse> selectAllAddress() {
-        List<Address> addresss = addressRepository.findAll();
+        List<Address> addresses = addressRepository.findAll();
         List<AddressResponse> addressResponses = new ArrayList<>();
 
-        for(Address address: addresss){
+        for(Address address: addresses){
             addressResponses.add(mapper.convertValue(address, AddressResponse.class));
         }
          
@@ -57,8 +57,9 @@ public class AddressService implements IAddressService {
     }
 
     @Override
-    public void updateAddressByID(UpdateAddressRequest updateAddressRequest) {
+    public void updateAddressByID(Long id, UpdateAddressRequest updateAddressRequest) {
         Address address = mapper.convertValue(updateAddressRequest, Address.class);
+        address.setId(id);
         addressRepository.save(address);
     }
 

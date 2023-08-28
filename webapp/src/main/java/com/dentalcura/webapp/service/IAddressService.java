@@ -12,7 +12,7 @@ public interface IAddressService {
     void insertAddress(CreateAddressRequest createAddressRequest);
     List<AddressResponse> selectAllAddress();
     AddressResponse selectAddressByID(Long id);
-    void updateAddressByID(UpdateAddressRequest updateAddressRequest);
+    void updateAddressByID(Long id, UpdateAddressRequest updateAddressRequest);
     void deleteAddressByID(Long id);
 
 }

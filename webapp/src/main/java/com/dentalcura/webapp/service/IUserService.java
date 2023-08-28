@@ -15,7 +15,7 @@ public interface IUserService {
     void insertUser(CreateUserRequest createUserRequest);
     List<UserResponse> selectAllUser();
     UserResponse selectUserByID(Long id);
-    void updateUserByID(UpdateUserRequest updateUserRequest);
+    void updateUserByID(Long id, UpdateUserRequest updateUserRequest);
     void deleteUserByID(Long id);
 
 }

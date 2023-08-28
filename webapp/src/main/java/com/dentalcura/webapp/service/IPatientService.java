@@ -12,7 +12,7 @@ public interface IPatientService {
     void insertPatient(CreatePatientRequest createPatientRequest);
     List<PatientResponse> selectAllPatient();
     PatientResponse selectPatientByID(Long id);
-    void updatePatientByID(UpdatePatientRequest updatePatientRequest);
+    void updatePatientByID(Long id, UpdatePatientRequest updatePatientRequest);
     void deletePatientByID(Long id);
 
 }

@@ -12,7 +12,7 @@ public interface IDentistService {
     void insertDentist(CreateDentistRequest createDentistRequest);
     List<DentistResponse> selectAllDentist();
     DentistResponse selectDentistByID(Long id);
-    void updateDentistByID(UpdateDentistRequest updateDentistRequest);
+    void updateDentistByID(Long id, UpdateDentistRequest updateDentistRequest);
     void deleteDentistByID(Long id);
 
 }
