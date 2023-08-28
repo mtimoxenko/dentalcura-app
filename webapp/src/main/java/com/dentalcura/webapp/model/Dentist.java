@@ -20,6 +20,7 @@ public class Dentist{
 
     private String name;
     private String surname;
+    @Column(name = "license_number") // Especifica el nombre de la columna en la base de datos
     private Integer licenseNumber;
 
 

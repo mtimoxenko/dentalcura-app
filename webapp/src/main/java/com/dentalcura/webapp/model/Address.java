@@ -15,7 +15,9 @@ public class Address{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "street_name") // Especifica el nombre de la columna en la base de datos
     private String streetName;
+    @Column(name = "street_num") // Especifica el nombre de la columna en la base de datos
     private Integer streetNumber;
     private Integer floor;
     private String department;
