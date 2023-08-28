@@ -28,6 +28,11 @@ public class AppointmentDAOH2 implements IDao<Appointment>{
     private PatientService patientService;
 
     @Override
+    public void createTable() {
+
+    }
+
+    @Override
     public Appointment insert(Appointment appointment) {
         Connection connection;
         PreparedStatement preparedStatement;

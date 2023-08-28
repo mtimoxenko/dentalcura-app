@@ -18,6 +18,11 @@ public class UserDAOH2 implements IDao<User>{
 
 
     @Override
+    public void createTable() {
+
+    }
+
+    @Override
     public User insert(User user) {
         Connection connection;
         PreparedStatement preparedStatement;

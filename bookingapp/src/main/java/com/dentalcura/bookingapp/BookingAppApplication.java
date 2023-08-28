@@ -146,6 +146,7 @@ public class BookingAppApplication {
 
 
 		log.info("DB created");
+		*/
 	}
 
 }

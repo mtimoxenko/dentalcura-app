@@ -147,6 +147,8 @@ window.addEventListener('load', function () {
           body: JSON.stringify(payload),
         }
 
+        console.log(config)
+
       fetch(endpointDentist, config)
           .then((response) => response.json())
           .then(data=>{

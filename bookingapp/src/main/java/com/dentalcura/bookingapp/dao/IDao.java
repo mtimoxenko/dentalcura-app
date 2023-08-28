@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface IDao<T> {
 
+    abstract void createTable();
+
     T insert(T t);
     List<T> selectAll();
     T selectByID (Long id);

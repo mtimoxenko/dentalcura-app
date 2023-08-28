@@ -16,6 +16,11 @@ import java.util.List;
 @Repository("patientDAOH2")
 public class PatientDAOH2 implements IDao<Patient> {
 
+    @Override
+    public void createTable() {
+
+    }
+
     @Override // OK
     public Patient insert(Patient patient) {
         Connection connection;

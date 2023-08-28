@@ -16,6 +16,11 @@ import java.util.List;
 public class AddressDAOH2 implements IDao<Address>{
 
     @Override
+    public void createTable() {
+
+    }
+
+    @Override
     public Address insert(Address address) {
         Connection connection;
         PreparedStatement preparedStatement;

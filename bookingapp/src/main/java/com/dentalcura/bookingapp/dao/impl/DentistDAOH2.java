@@ -16,6 +16,11 @@ import java.util.List;
 public class DentistDAOH2 implements IDao<Dentist>{
 
     @Override
+    public void createTable() {
+
+    }
+
+    @Override
     public Dentist insert(Dentist dentist) {
         Connection connection;
         PreparedStatement preparedStatement;
