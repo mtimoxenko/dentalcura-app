@@ -49,12 +49,6 @@ public class UserController {
     }
 
 
-
-
-
-
-
-
     @PostMapping("/login")
     public ResponseEntity<Integer> loginUser(@RequestBody LoginUserRequest loginUserRequest) {
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -67,13 +61,6 @@ public class UserController {
                 .headers(httpHeaders)
                 .body(accessToken);
     }
-
-
-
-
-
-
-
 
 
     @PutMapping("/{id}")
