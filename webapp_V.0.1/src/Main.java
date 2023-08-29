@@ -21,13 +21,13 @@ public class Main {
         
 
         // -----> H2
-//        dentistH2();
-//        patientH2();
-//        appointmentH2();
+        dentistH2();
+        patientH2();
+        appointmentH2();
 
         // -----> In-Memory
-//        dentistMemory();
-//        patientMemory();
+        dentistMemory();
+        patientMemory();
         appointmentMemory();     //  <--- facus_branch
 
 
