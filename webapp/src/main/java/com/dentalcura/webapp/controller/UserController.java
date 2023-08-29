@@ -39,7 +39,7 @@ public class UserController {
     public ResponseEntity<String> createUser(@RequestBody CreateUserRequest createUserRequest) {
         HttpHeaders httpHeaders = new HttpHeaders();
 
-        httpHeaders.add("user_created", "true");  // Adding a custom header
+        httpHeaders.add("user_created", "true");  // custom header
         String message = "User created successfully!";
 
         userService.insertUser(createUserRequest);
