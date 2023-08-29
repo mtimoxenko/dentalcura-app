@@ -42,6 +42,16 @@ window.addEventListener('load', function () {
             .then(data => {
                 console.log(data)
 
+                sessionStorage.setItem('name', JSON.stringify(payload.name))
+
+                if(payload.admin){
+                    sessionStorage.setItem('role', JSON.stringify('ROLE_ADMIN'))
+                    location.replace('./admin.html')
+                }
+                else if(!payload.admin){
+                    sessionStorage.setItem('role', JSON.stringify('ROLE_USER'))                    
+                    location.replace('./tasks.html')
+                }
             }).catch(err => {
                 console.log(err);      
             })

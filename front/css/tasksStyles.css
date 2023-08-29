@@ -7,15 +7,13 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    /* capa sobre fondo */
     box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .8);
-
 }
 
 header {
     background-color: var(--negro);
     height: 5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 nav {
@@ -61,7 +59,7 @@ nav .user-info button {
 .container {
     display: flex;
     flex-direction: column;
-    padding: 0 5%;
+    align-items: center;
 }
 
 form {
@@ -72,7 +70,7 @@ form {
     flex-direction: column;
     align-items: flex-start;
     padding-top: 0%;
-    width: 70%;
+    width: 60%;
     align-self: center;
 }
 
@@ -111,7 +109,12 @@ main h2 {
 
 .list-div{
     background-color: black;
-    padding: 2rem;
+    width: 60%;
+    padding: 1rem 2rem;
+}
+
+.list-div h3{
+    margin-bottom: .5rem;
 }
 
 #appointment-list{

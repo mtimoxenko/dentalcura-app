@@ -7,19 +7,17 @@ window.addEventListener('load', function () {
   /* ------------------------- AOS lib. init -------------------------------- */
   AOS.init();
 
-  // const endpointGetUser = 'https://todo-api.ctd.academy/v1/users/getMe';
   // const token = JSON.parse(localStorage.jwt);
 
+  const endpointDate = './json/turno.json'
   const endpointDentist = 'http://localhost:8080/dentist'
-  const endpointTurno = './json/turno.json'
   const endpointPatient = 'http://localhost:8080/patient'
-  const endpointAppointment = 'http://localhost:8080/appointment'
-
+  const endpointAppointment = 'http://localhost:8080/appointment'  
 
   const formAddAppointment = document.querySelector('.new-appointment');
   const btnCloseApp = document.querySelector('#closeApp');
 
-  // getUserName();
+  getUserName();
   // getDentistList();
   // getAppointment();
   
@@ -44,26 +42,23 @@ window.addEventListener('load', function () {
   function renderPatient(){
     const selectPatient = document.getElementById('select-patient')
 
-
     fetch(endpointPatient)
       .then(response=>response.json())
       .then(data=>{
         console.log(data);
         data.forEach(patient=>{
           selectPatient.innerHTML+=`
-          <div><input type="radio" name="patient" id="${patient.niNumber}">
-          <label for="${patient.niNumber}">${patient.name} ${patient.surname}</label>
+          <div><input type="radio" name="patient" id="${patient.id}">
+          <label for="${patient.id}">${patient.name} ${patient.surname}</label>
           </div>`
         })
       })
   }
-
   renderPatient()
 
 
   function renderDentist(){
     const selectDentist = document.getElementById('select-dentist')
-
 
     fetch(endpointDentist)
       .then(response=>response.json())
@@ -71,33 +66,31 @@ window.addEventListener('load', function () {
         console.log(data);
         data.forEach(dentist=>{
           selectDentist.innerHTML+=`
-          <div><input type="radio" name="dentist" id="${dentist.licenceNumber}">
-          <label for="${dentist.licenceNumber}">${dentist.name} ${dentist.surname}</label>
+          <div><input type="radio" name="dentist" id="${dentist.id}">
+          <label for="${dentist.id}">${dentist.name} ${dentist.surname}</label>
           </div>`
         })
       })
   }
-
   renderDentist()
 
-  function renderTurno(){
-    const selectTurno = document.getElementById('select-turno')
 
+  function renderDate(){
+    const selectDate = document.getElementById('select-date')
 
-    fetch(endpointTurno)
+    fetch(endpointDate)
       .then(response=>response.json())
       .then(data=>{
         console.log(data);
-        data.forEach(turno=>{
-          selectTurno.innerHTML+=`
-          <div><input type="radio" name="turno" id="${turno.fecha_hora}">
-          <label for="${turno.fecha_hora}">${turno.fecha_hora}</label>
+        data.forEach(date=>{
+          selectDate.innerHTML+=`
+          <div><input type="radio" name="date" id="${date.fecha_hora}">
+          <label for="${date.fecha_hora}">${date.fecha_hora}</label>
           </div>`
         })
       })
   }
-
-  renderTurno()
+  renderDate()
 
     /* -------------------------------------- */
     /*           [1] FUNCTION: Logout         */
@@ -126,7 +119,15 @@ window.addEventListener('load', function () {
   /*                 [2] FUNCTION: Get user name [GET]                */
   /* ------------------------------------------------------------------ */
 
-  // function getUserName() {
+  function getUserName() {
+
+    const role = sessionStorage.getItem('role')
+    const name = sessionStorage.getItem('name')
+
+    const userName = document.querySelector('.user-info p')
+
+    userName.innerText = JSON.parse(role)
+
   //   const settings = {
   //     method: 'GET',
   //     headers: {
@@ -141,7 +142,7 @@ window.addEventListener('load', function () {
   //       usrName.innerText = data.firstName;
   //     })
   //     .catch(error => console.log(error));
-  // }
+  }
 
 
   /* ------------------------------------------------------------------- */
@@ -151,24 +152,32 @@ window.addEventListener('load', function () {
   formAddAppointment.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    const dentist = document.querySelectorAll('[name=dentist]');
-    const turno = document.querySelectorAll('[name=turno]');
+    const dentist = document.querySelectorAll('[name=dentist]')
+    const patient = document.querySelectorAll('[name=patient]')
+    const date = document.querySelectorAll('[name=date]')
 
     const payload = {
-      dentist: {},
-      patient: "user",
-      turno: ""
-    };
+      date: "",
+      patientId: "",     
+      dentistId: ""
+    }
 
     dentist.forEach(dentist=>{
       if(dentist.checked){
-        payload.dentist = dentist
+        payload.dentistId = dentist.id
       }
     })
 
-    turno.forEach(turno=>{
-      if(turno.checked){
-        payload.turno = turno
+    patient.forEach(patient=>{
+      if(patient.checked){
+        payload.patientId = patient.id
+      }
+    })
+
+    date.forEach(date=>{
+      if(date.checked){
+        console.log(date);
+        payload.date = date.id
       }
     })
 
@@ -177,20 +186,19 @@ window.addEventListener('load', function () {
 
     const settings = {
       method: 'POST',
-      body: JSON.stringify(payload),
       headers: {
-        'Content-Type': 'application/json',
-        authorization: token
-      }
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
     }
 
     fetch(endpointAppointment, settings)
       .then(response => response.json())
       .then(response => {
-        // console.log(response.status);
+        console.log(response.status);
         renderAppointment();
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error))
 
     formAddAppointment.reset();
   })
