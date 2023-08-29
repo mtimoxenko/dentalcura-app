@@ -1,6 +1,7 @@
 package com.dentalcura.webapp.service;
 
 import com.dentalcura.webapp.dto.user.CreateUserRequest;
+import com.dentalcura.webapp.dto.user.LoginUserRequest;
 import com.dentalcura.webapp.dto.user.UpdateUserRequest;
 import com.dentalcura.webapp.dto.user.UserResponse;
 import com.dentalcura.webapp.model.User;
@@ -18,4 +19,5 @@ public interface IUserService {
     void updateUserByID(Long id, UpdateUserRequest updateUserRequest);
     void deleteUserByID(Long id);
 
+    int login(LoginUserRequest loginUserRequest);
 }

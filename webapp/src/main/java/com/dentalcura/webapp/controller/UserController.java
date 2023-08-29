@@ -2,8 +2,10 @@ package com.dentalcura.webapp.controller;
 
 
 import com.dentalcura.webapp.dto.user.CreateUserRequest;
+import com.dentalcura.webapp.dto.user.LoginUserRequest;
 import com.dentalcura.webapp.dto.user.UserResponse;
 import com.dentalcura.webapp.dto.user.UpdateUserRequest;
+import com.dentalcura.webapp.model.User;
 import com.dentalcura.webapp.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -45,6 +47,34 @@ public class UserController {
                 .headers(httpHeaders)
                 .body(message);
     }
+
+
+
+
+
+
+
+
+    @PostMapping("/login")
+    public ResponseEntity<Integer> loginUser(@RequestBody LoginUserRequest loginUserRequest) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        httpHeaders.add("user_login", "true");  // Adding a custom header
+
+        int accessToken = userService.login(loginUserRequest);
+
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .body(accessToken);
+    }
+
+
+
+
+
+
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest) {
