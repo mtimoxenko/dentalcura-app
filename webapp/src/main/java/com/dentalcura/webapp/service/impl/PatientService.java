@@ -1,9 +1,10 @@
 package com.dentalcura.webapp.service.impl;
 
-
+import com.dentalcura.webapp.dto.address.AddressResponse;
 import com.dentalcura.webapp.dto.patient.CreatePatientRequest;
 import com.dentalcura.webapp.dto.patient.UpdatePatientRequest;
 import com.dentalcura.webapp.dto.patient.PatientResponse;
+import com.dentalcura.webapp.model.Address;
 import com.dentalcura.webapp.model.Patient;
 import com.dentalcura.webapp.repository.IPatientRepository;
 import com.dentalcura.webapp.service.IPatientService;
@@ -30,6 +31,11 @@ public class PatientService implements IPatientService {
     @Override
     public void insertPatient(CreatePatientRequest createPatientRequest) {
         Patient patient = mapper.convertValue(createPatientRequest, Patient.class);
+        Address address = patient.getAddress();
+
+        address.setPatient(patient);
+        patient.setAddress(address);
+
         patientRepository.save(patient);
     }
 
@@ -39,7 +45,20 @@ public class PatientService implements IPatientService {
         List<PatientResponse> patientResponses = new ArrayList<>();
 
         for(Patient patient: patients){
-            patientResponses.add(mapper.convertValue(patient, PatientResponse.class));
+            patientResponses.add(
+                    new PatientResponse(
+                            patient.getId(),
+                            patient.getName(),
+                            patient.getSurname(),
+                            patient.getNiNumber(),
+                            new AddressResponse(
+                                    patient.getAddress().getStreetName(),
+                                    patient.getAddress().getStreetNumber(),
+                                    patient.getAddress().getFloor(),
+                                    patient.getAddress().getDepartment()
+                            )
+                    )
+            );
         }
          
         return patientResponses;
@@ -47,20 +66,52 @@ public class PatientService implements IPatientService {
 
     @Override
     public PatientResponse selectPatientByID(Long id) {
-        Optional<Patient> patient = patientRepository.findById(id);
-        PatientResponse patientResponse = null;
+        Optional<Patient> optionalPatient = patientRepository.findById(id);
 
-        if(patient.isPresent())
-            patientResponse = mapper.convertValue(patient, PatientResponse.class);
+        if(optionalPatient.isPresent()) {
+            Patient patient = optionalPatient.get();
+            Address address = patient.getAddress();
 
-        return patientResponse;
+            return new PatientResponse(
+                    patient.getId(),
+                    patient.getName(),
+                    patient.getSurname(),
+                    patient.getNiNumber(),
+                    new AddressResponse(
+                            address.getStreetName(),
+                            address.getStreetNumber(),
+                            address.getFloor(),
+                            address.getDepartment()
+                            )
+                    );
+        }
+
+        return null;
     }
 
     @Override
     public void updatePatientByID(Long id, UpdatePatientRequest updatePatientRequest) {
-        Patient patient = mapper.convertValue(updatePatientRequest, Patient.class);
-        patient.setId(id);
-        patientRepository.save(patient);
+        Optional<Patient> optionalPatient = patientRepository.findById(id);
+
+        if (optionalPatient.isPresent()) {
+            Patient patient = optionalPatient.get();
+            Address address = patient.getAddress();
+
+
+            patient.setName(updatePatientRequest.name());
+            patient.setSurname(updatePatientRequest.surname());
+
+            address.setStreetName(updatePatientRequest.address().getStreetName());
+            address.setStreetNumber(updatePatientRequest.address().getStreetNumber());
+            address.setFloor(updatePatientRequest.address().getFloor());
+            address.setDepartment(updatePatientRequest.address().getDepartment());
+
+            address.setPatient(patient);
+            patient.setAddress(address);
+
+            patientRepository.save(patient);
+        }
+
     }
 
     @Override

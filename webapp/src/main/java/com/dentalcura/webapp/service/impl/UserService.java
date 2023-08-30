@@ -2,6 +2,7 @@ package com.dentalcura.webapp.service.impl;
 
 
 import com.dentalcura.webapp.dto.user.CreateUserRequest;
+import com.dentalcura.webapp.dto.user.LoginUserRequest;
 import com.dentalcura.webapp.dto.user.UpdateUserRequest;
 import com.dentalcura.webapp.dto.user.UserResponse;
 import com.dentalcura.webapp.model.User;
@@ -66,5 +67,19 @@ public class UserService implements IUserService {
     @Override
     public void deleteUserByID(Long id) {
         userRepository.deleteById(id);
+    }
+
+
+    public int login(LoginUserRequest loginUserRequest){
+        List<User> users = userRepository.findAll();
+        int token = 0;
+
+        for (User user: users) {
+            if(user.getEmail().equals(loginUserRequest.email()) && user.getPassword().equals(loginUserRequest.password())){
+                token = user.isAdmin() ? 33 : 1;
+            }
+        }
+
+        return token;
     }
 }

@@ -1,6 +1,7 @@
 package com.dentalcura.webapp.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Dentist{
 
@@ -28,9 +30,4 @@ public class Dentist{
     private List<Appointment> appointments;
 
 
-//    @Override
-//    public String toString() {
-//        return "Dentist: " + name + " " + surname +
-//                ", License no.: " + licenseNumber;
-//    }
 }

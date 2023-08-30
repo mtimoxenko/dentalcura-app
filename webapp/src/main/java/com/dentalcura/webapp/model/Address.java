@@ -1,6 +1,7 @@
 package com.dentalcura.webapp.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Address{
 
@@ -26,12 +28,5 @@ public class Address{
     @JoinColumn(name = "patient_id") // Nombre de la columna de clave foránea en la tabla Direccion
     private Patient patient;
 
-
-//    @Override
-//    public String toString() {
-//        return "Address: " + streetName +
-//                " " + streetNumber + ", " + floor +
-//                "-" + department;
-//    }
 
 }

@@ -1,11 +1,17 @@
 package com.dentalcura.webapp.service.impl;
 
 
+import com.dentalcura.webapp.dto.appointment.AppointmentResponse;
 import com.dentalcura.webapp.dto.dentist.CreateDentistRequest;
 import com.dentalcura.webapp.dto.dentist.UpdateDentistRequest;
 import com.dentalcura.webapp.dto.dentist.DentistResponse;
+import com.dentalcura.webapp.model.Address;
+import com.dentalcura.webapp.model.Appointment;
 import com.dentalcura.webapp.model.Dentist;
+import com.dentalcura.webapp.model.Patient;
+import com.dentalcura.webapp.repository.IAppointmentRepository;
 import com.dentalcura.webapp.repository.IDentistRepository;
+import com.dentalcura.webapp.repository.IPatientRepository;
 import com.dentalcura.webapp.service.IDentistService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -36,10 +42,30 @@ public class DentistService implements IDentistService {
     @Override
     public List<DentistResponse> selectAllDentist() {
         List<Dentist> dentists = dentistRepository.findAll();
+
         List<DentistResponse> dentistResponses = new ArrayList<>();
 
+
         for(Dentist dentist: dentists){
-            dentistResponses.add(mapper.convertValue(dentist, DentistResponse.class));
+            List<AppointmentResponse> appointmentResponses = new ArrayList<>();
+            for(Appointment appointment: dentist.getAppointments()){
+                appointmentResponses.add(
+                        new AppointmentResponse(
+                                appointment.getId(),
+                                appointment.getDate(),
+                                appointment.getPatient().getName() + " " + appointment.getPatient().getSurname()
+                        )
+                );
+            }
+            dentistResponses.add(
+                    new DentistResponse(
+                            dentist.getId(),
+                            dentist.getName(),
+                            dentist.getSurname(),
+                            dentist.getLicenseNumber(),
+                            appointmentResponses
+                            ));
+
         }
          
         return dentistResponses;
@@ -47,20 +73,49 @@ public class DentistService implements IDentistService {
 
     @Override
     public DentistResponse selectDentistByID(Long id) {
-        Optional<Dentist> dentist = dentistRepository.findById(id);
-        DentistResponse dentistResponse = null;
+        Optional<Dentist> optionalDentist = dentistRepository.findById(id);
 
-        if(dentist.isPresent())
-            dentistResponse = mapper.convertValue(dentist, DentistResponse.class);
 
-        return dentistResponse;
+        if(optionalDentist.isPresent()) {
+            Dentist dentist = optionalDentist.get();
+            List<AppointmentResponse> appointmentResponses = new ArrayList<>();
+
+            for(Appointment appointment: dentist.getAppointments()){
+
+
+                appointmentResponses.add(
+                        new AppointmentResponse(
+                                appointment.getId(),
+                                appointment.getDate(),
+                                appointment.getPatient().getName() + " " + appointment.getPatient().getSurname()
+                        )
+                );
+            }
+
+            return new DentistResponse(
+                    dentist.getId(),
+                    dentist.getName(),
+                    dentist.getSurname(),
+                    dentist.getLicenseNumber(),
+                    appointmentResponses
+            );
+
+        }
+            return null;
     }
 
     @Override
     public void updateDentistByID(Long id, UpdateDentistRequest updateDentistRequest) {
-        Dentist dentist = mapper.convertValue(updateDentistRequest, Dentist.class);
-        dentist.setId(id);
-        dentistRepository.save(dentist);
+        Optional<Dentist> optionalDentist = dentistRepository.findById(id);
+
+        if (optionalDentist.isPresent()) {
+            Dentist dentist = optionalDentist.get();
+
+            dentist.setName(updateDentistRequest.name());
+            dentist.setSurname(updateDentistRequest.surname());
+
+            dentistRepository.save(dentist);
+        }
     }
 
     @Override
