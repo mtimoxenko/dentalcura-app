@@ -194,10 +194,12 @@ window.addEventListener('load', function () {
           surname: surname.value,
           niNumber: niNumber.value,
           registrationDate: "Origin of the Universe",
-          streetName: streetName.value,
-          streetNumber: streetNumber.value,
-          floor: floor.value,
-          department: department.value
+          address:{
+            streetName: streetName.value,
+            streetNumber: streetNumber.value,
+            floor: floor.value,
+            department: department.value
+          }
         }
 
         const config = {
@@ -293,10 +295,10 @@ window.addEventListener('load', function () {
           console.log(data);
             name.value = data.name
             surname.value = data.surname
-            streetName.value = data.streetName
-            streetNumber.value = data.streetNumber
-            floor.value = data.floor
-            department.value = data.department
+            streetName.value = data.address.streetName
+            streetNumber.value = data.address.streetNumber
+            floor.value = data.address.floor
+            department.value = data.address.department
             updatePatient()
             patientDelete()
         })
@@ -382,10 +384,12 @@ window.addEventListener('load', function () {
           name: name.value,
           surname: surname.value,
           registrationDate: "Origin of the Universe",
-          streetName: streetName.value,
-          streetNumber: streetNumber.value,
-          floor: floor.value,
-          department: department.value
+          address: {
+            streetName: streetName.value,
+            streetNumber: streetNumber.value,
+            floor: floor.value,
+            department: department.value            
+          }
         }
 
         const settings = {
