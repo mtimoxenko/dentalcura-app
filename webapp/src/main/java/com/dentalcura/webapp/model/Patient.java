@@ -1,6 +1,7 @@
 package com.dentalcura.webapp.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Patient{
 
@@ -31,9 +33,5 @@ public class Patient{
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<Appointment> appointments;
 
-//    @Override
-//    public String toString() {
-//        return "Patient: " + name + " " + surname +
-//                ", ni_number: " + niNumber;
-//    }
+
 }

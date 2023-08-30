@@ -1,6 +1,7 @@
 package com.dentalcura.webapp.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Appointment{
 
@@ -26,12 +28,4 @@ public class Appointment{
     private Dentist dentist;
 
 
-
-
-//    @Override
-//    public String toString() {
-//        return "Appointment: " + date +
-//                ", Dentist: " + dentist.name() + " " + dentist.surname() +
-//                ", Patient: " + patient.name() + " " + patient.surname();
-//    }
 }
