@@ -1,17 +1,14 @@
 package com.dentalcura.webapp.service.impl;
 
 
-import com.dentalcura.webapp.dto.appointment.AppointmentResponse;
+import com.dentalcura.webapp.dto.appointment.AppointmentResponseToDentist;
 import com.dentalcura.webapp.dto.dentist.CreateDentistRequest;
 import com.dentalcura.webapp.dto.dentist.UpdateDentistRequest;
 import com.dentalcura.webapp.dto.dentist.DentistResponse;
-import com.dentalcura.webapp.model.Address;
+import com.dentalcura.webapp.dto.patient.PatientResponseToDentist;
 import com.dentalcura.webapp.model.Appointment;
 import com.dentalcura.webapp.model.Dentist;
-import com.dentalcura.webapp.model.Patient;
-import com.dentalcura.webapp.repository.IAppointmentRepository;
 import com.dentalcura.webapp.repository.IDentistRepository;
-import com.dentalcura.webapp.repository.IPatientRepository;
 import com.dentalcura.webapp.service.IDentistService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -47,13 +44,16 @@ public class DentistService implements IDentistService {
 
 
         for(Dentist dentist: dentists){
-            List<AppointmentResponse> appointmentResponses = new ArrayList<>();
+            List<AppointmentResponseToDentist> appointmentResponses = new ArrayList<>();
             for(Appointment appointment: dentist.getAppointments()){
                 appointmentResponses.add(
-                        new AppointmentResponse(
+                        new AppointmentResponseToDentist(
                                 appointment.getId(),
                                 appointment.getDate(),
-                                appointment.getPatient().getName() + " " + appointment.getPatient().getSurname()
+                                new PatientResponseToDentist(
+                                        appointment.getPatient().getName(),
+                                        appointment.getPatient().getSurname()
+                                )
                         )
                 );
             }
@@ -78,16 +78,19 @@ public class DentistService implements IDentistService {
 
         if(optionalDentist.isPresent()) {
             Dentist dentist = optionalDentist.get();
-            List<AppointmentResponse> appointmentResponses = new ArrayList<>();
+            List<AppointmentResponseToDentist> appointmentResponses = new ArrayList<>();
 
             for(Appointment appointment: dentist.getAppointments()){
 
 
                 appointmentResponses.add(
-                        new AppointmentResponse(
+                        new AppointmentResponseToDentist(
                                 appointment.getId(),
                                 appointment.getDate(),
-                                appointment.getPatient().getName() + " " + appointment.getPatient().getSurname()
+                                new PatientResponseToDentist(
+                                        appointment.getPatient().getName(),
+                                        appointment.getPatient().getSurname()
+                                )
                         )
                 );
             }
