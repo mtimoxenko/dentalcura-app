@@ -3,7 +3,7 @@
 
 
 ## &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; UML Class Diagram
-![UML](uml.drawio.png)
+![UML](webapp_uml.drawio.png)
 <br/><br/><br/><br/>
 
 ## &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Enhanced Entity-Relationship Model
