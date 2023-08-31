@@ -3,7 +3,7 @@ window.addEventListener('load', function () {
     const form = document.querySelector('form')
     const email = document.querySelector('#inputEmail')
     const password = document.querySelector('#inputPassword')
-    const endpointLogin = 'http://localhost:8080/user'
+    const endpointLogin = 'http://localhost:8080/user/login'
 
 
     form.addEventListener('submit', function (event) {
@@ -44,6 +44,9 @@ window.addEventListener('load', function () {
                 }
                 else if (data == 1){
                     location.replace('./tasks.html')                    
+                }                
+                else if (data == 0){
+                    location.replace('./root.html')                    
                 }
 
             //}

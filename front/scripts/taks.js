@@ -22,22 +22,6 @@ window.addEventListener('load', function () {
   // getAppointment();
   
 
-  // function getDentistList(){
-  //   const settings = {
-  //     method: 'GET',
-  //     headers: {
-  //       authorization: token
-  //     }
-  //   };
-
-  //   fetch(endpointDentist, settings)
-  //     .then(response => response.json())
-  //     .then(dentist => {
-
-  //       renderDentist(dentist);
-  //     })
-  //     .catch(error => console.log(error));
-  // }
 
   function renderPatient(){
     const selectPatient = document.getElementById('select-patient')
@@ -146,7 +130,7 @@ window.addEventListener('load', function () {
 
 
   /* ------------------------------------------------------------------- */
-  /*                    [4] FUNCTION: Add Appointment [POST]                    */
+  /*                    [3] FUNCTION: Add Appointment [POST]                    */
   /* ------------------------------------------------------------------- */
 
   formAddAppointment.addEventListener('submit', function (event) {
@@ -158,19 +142,19 @@ window.addEventListener('load', function () {
 
     const payload = {
       date: "",
-      patientId: "",     
-      dentistId: ""
+      patient: {id:""}, 
+      dentist: {id:""} 
     }
 
     dentist.forEach(dentist=>{
       if(dentist.checked){
-        payload.dentistId = dentist.id
+        payload.dentist.id = dentist.id
       }
     })
 
     patient.forEach(patient=>{
       if(patient.checked){
-        payload.patientId = patient.id
+        payload.patient.id = patient.id
       }
     })
 
@@ -205,12 +189,17 @@ window.addEventListener('load', function () {
 
 
   /* ----------------------------------------------------------- */
-  /*                  [5] FUNCTION: Render Appointment           */
+  /*                  [4] FUNCTION: Render Appointment           */
   /* ----------------------------------------------------------- */
   function renderAppointment() {
 
-    const appointmentToDo = document.querySelector('#appointment-list');
-    appointmentToDo.innerHTML = "";
+    const appointmentToDo = document.querySelector('#appointment-list')
+    const patient = document.getElementById('patientLabel')
+    const dentist = document.getElementById('dentistLabel')
+
+    appointmentToDo.innerHTML = ""
+    patient.innerText = "/"
+    dentist.innerText = "/"    
 
     fetch(endpointAppointment)
     .then(response=>response.json())
@@ -218,60 +207,133 @@ window.addEventListener('load', function () {
       console.log(data)
       data.forEach(appointment=>{
         appointmentToDo.innerHTML+=`
-        <li>Date: ${appointment.date} Dentist: ${appointment.dentistFullName}, Patient: ${appointment.patientFullName}
+        <li>Date: ${appointment.date} Dentist: ${appointment.dentist.name} ${appointment.dentist.surname}, Patient: ${appointment.patient.name} ${appointment.patient.surname}
         </li>`
-        btnDeleteAppointment()
       })
     })
   }
 
 renderAppointment()
 
+
   /* -------------------------------------------------------------------------- */
-  /*                     [6] FUNCTION: Delete appointment [DELETE]                    */
+  /*                     [5] FUNCTION: Search appointment [GET]                 */
   /* -------------------------------------------------------------------------- */
-  function btnDeleteAppointment() {
-  
-    const btnDelete = document.querySelectorAll('.borrar');
 
-    btnDelete.forEach(btn => {
+  function searchDentistById(){
 
-      btn.addEventListener('click', function (event) {
-        Swal.fire({
-          title: 'Delete task?',
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel'
-        }).then((result) => {
-          if (result.isConfirmed) {
+    const searchForm = document.querySelector('.appointment-search')
+    const patient = document.getElementById('patientLabel')
+    const dentist = document.getElementById('dentistLabel')
+    const date = document.getElementById('inputDate')
 
-            const id = event.target.id;
-            const url = `${endpointAppointment}/${id}`
+    const searchAppointmentId = document.getElementById('inputAppointmentId')
 
-            const settings = {
-              method: 'DELETE',
-              headers: {
-                "Authorization": token,
-              }
-            }
-            fetch(url, settings)
-              .then(response => {
-                console.log(response.status);
-                getAppointment();
-              })
 
-            Swal.fire(
-              'Appointment deleted.',
-            );
+    searchForm.addEventListener('submit', function(e){
+      e.preventDefault()
 
-          }
-        });
+      const id = searchAppointmentId.value
+      const url = `${endpointAppointment}/${id}`
 
+      const settings = {
+        method: 'GET',
+      }
+
+      fetch(url, settings)
+      .then(response=>response.json())
+      .then(data=>{
+        console.log(data)
+            patient.innerText = data.patient.surname + (', ') + data.patient.name
+            dentist.innerText = data.dentist.surname + (', ') + data.dentist.name
+            date.value = data.date
+            updateAppointment()
+            appointmentDelete()
       })
-    });
+    })
   }
 
-});
+  searchDentistById()
+
+  /* -------------------------------------------------------------------------- */
+  /*                     [6] FUNCTION: Update appointment [PUT]                 */
+  /* -------------------------------------------------------------------------- */
+
+
+  function updateAppointment(){
+
+    const updateform = document.querySelector('.appointment-update')
+    const searchForm = document.querySelector('.appointment-search')
+
+    const updateButton = document.querySelector('.update-button')
+    const appointmentId = document.getElementById('inputAppointmentId')
+
+    const date = document.getElementById('inputDate')
+
+
+    updateButton.addEventListener('click', function(e){
+      e.preventDefault()
+
+      const id = appointmentId.value
+      const url = `${endpointAppointment}/${id}`
+
+      console.log(id)
+
+      const payload = {
+        date: date.value
+      }
+
+      const settings = {
+        method: 'PUT',
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      }
+
+      fetch(url, settings)
+      .then(response => {
+        console.log(response.status)
+        renderAppointment()
+      })
+      updateform.reset()
+      searchForm.reset()
+    })
+  }
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                     [6] FUNCTION: Delete appointment [DELETE]              */
+  /* -------------------------------------------------------------------------- */
+  function appointmentDelete() {
+
+    const updateform = document.querySelector('.appointment-update')
+    const searchForm = document.querySelector('.appointment-search')
+
+    const deleteButton = document.querySelector('#delete-button')
+    const appointmentId = document.getElementById('inputAppointmentId')
+
+
+      deleteButton.addEventListener('click', function (e){
+          e.preventDefault()
+
+          const id = appointmentId.value
+          const url = `${endpointAppointment}/${id}`
+    
+          console.log(id)
+
+          const settings = {
+            method: 'DELETE'
+          }
+
+          fetch(url, settings)
+          .then(response => {
+            console.log(response.status);
+            renderAppointment()
+          })
+          updateform.reset()
+          searchForm.reset()
+      })
+  }
+
+})

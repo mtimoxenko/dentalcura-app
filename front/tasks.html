@@ -33,7 +33,7 @@
 <body>
 
   <!-- navbar -->
-  <header class="container">
+  <header class="contain">
     <nav>
       <h1>Transforming Smiles: Book Dental Care with DentalCura</h1>
 
@@ -48,29 +48,57 @@
 
   <main class="container">
 
+    <div class="forms">
 
-    <form class="new-appointment">
-      <div>
-        <h2>Add Appointment</h2>        
-      </div>
+        <form class="new-appointment">
+          <div>
+            <h2>Add Appointment</h2>        
+          </div>
 
-      <div class="select">
-        <fieldset id="select-patient">
-          <legend>Select Patient</legend>
-        </fieldset>
+          <div class="select">
+            <fieldset id="select-patient">
+              <legend>Select Patient</legend>
+            </fieldset>
 
-        <fieldset id="select-dentist">
-          <legend>Select Dentist</legend>
-        </fieldset>
+            <fieldset id="select-dentist">
+              <legend>Select Dentist</legend>
+            </fieldset>
 
-        <fieldset id="select-date">
-          <legend>Select Date</legend>
-        </fieldset>
+            <fieldset id="select-date">
+              <legend>Select Date</legend>
+            </fieldset>
 
-      </div>
+          </div>
 
-        <button type="submit"><i class="fa-solid fa-pencil"></i> Add Appointment</button>
-    </form>
+            <button type="submit"><i class="fa-solid fa-pencil"></i> Add Appointment</button>
+        </form>
+      
+
+        <section class="update-form">
+
+            <h2>Appointment Update</h2>
+            <form class="appointment-search">
+                <label>ID</label>
+                <input id="inputAppointmentId" type="text">
+                <button type="submit" class="search-button">Search</button>
+            </form>
+
+            
+            <form class="appointment-update">
+                <label>Patient</label>
+                <p id="patientLabel">/</p>
+          
+                <label>Dentist</label>
+                <p id="dentistLabel">/</p>
+
+                <label>Date</label>
+                <input id="inputDate" type="text">
+
+                <button type="submit" class="update-button">Update</button>
+                <button id="delete-button">Delete</button>
+            </form>
+        </section>
+    </div>
 
 
     <div class="list-div">
@@ -78,7 +106,6 @@
       <ul id="appointment-list">
       </ul>
     </div>
-
 
 
   </main>
