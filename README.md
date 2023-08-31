@@ -3,7 +3,7 @@
 
 
 ## &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; UML Class Diagram
-![UML](uml.drawio.png)
+![UML](webapp_uml.drawio.png)
 <br/><br/><br/><br/>
 
 ## &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Enhanced Entity-Relationship Model
@@ -47,5 +47,6 @@
 ###### GET $~~~~~~$ &emsp; http://localhost:8080/user $~~~~~~~$ &emsp; Get all users
 ###### GET $~~~~~~$ &emsp; http://localhost:8080/user/{id} &emsp; Get user by id
 ###### POST $~~~$ &emsp; http://localhost:8080/user $~~~~~~~$ &emsp; Create new user
+###### POST $~~~$ &emsp; http://localhost:8080/user/login $~~~~~~~$ &emsp; Login user
 ###### PUT $~~~~~~$ &emsp; http://localhost:8080/user/{id} &emsp; Update user by id
 ###### DELETE &emsp; http://localhost:8080/user/{id} &emsp; Delete user by id

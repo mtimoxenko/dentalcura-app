@@ -15,6 +15,7 @@ import com.dentalcura.webapp.service.IAppointmentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+@Slf4j
 @Getter @Setter
 @Service
 public class AppointmentService implements IAppointmentService {
@@ -36,6 +39,7 @@ public class AppointmentService implements IAppointmentService {
     public void insertAppointment(CreateAppointmentRequest createAppointmentRequest) {
         Appointment appointment = mapper.convertValue(createAppointmentRequest, Appointment.class);
         appointmentRepository.save(appointment);
+        log.info("New appointment was registered [" +createAppointmentRequest.date()+ "]");
     }
 
     @Override
@@ -90,12 +94,14 @@ public class AppointmentService implements IAppointmentService {
 
     @Override
     public void updateAppointmentByID(Long id, UpdateAppointmentRequest updateAppointmentRequest) {
+        log.info("Request to update appointment [" + updateAppointmentRequest.date() + "]");
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
 
         if(optionalAppointment.isPresent()) {
             Appointment appointment = optionalAppointment.get();
             appointment.setDate(updateAppointmentRequest.date());
             appointmentRepository.save(appointment);
+            log.info("Appointment updated [" + appointment.getDate() + "]");
         }
 
 //        Appointment appointment = mapper.convertValue(updateAppointmentRequest, Appointment.class);
@@ -106,5 +112,6 @@ public class AppointmentService implements IAppointmentService {
     @Override
     public void deleteAppointmentByID(Long id) {
         appointmentRepository.deleteById(id);
+        log.info("Appointment deleted from DB");
     }
 }

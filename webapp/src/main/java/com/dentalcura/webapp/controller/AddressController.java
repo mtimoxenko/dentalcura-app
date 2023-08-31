@@ -5,6 +5,7 @@ import com.dentalcura.webapp.dto.address.CreateAddressRequest;
 import com.dentalcura.webapp.dto.address.AddressResponse;
 import com.dentalcura.webapp.dto.address.UpdateAddressRequest;
 import com.dentalcura.webapp.service.IAddressService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
