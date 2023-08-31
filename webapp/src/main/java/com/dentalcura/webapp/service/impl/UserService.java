@@ -1,10 +1,7 @@
 package com.dentalcura.webapp.service.impl;
 
 
-import com.dentalcura.webapp.dto.user.CreateUserRequest;
-import com.dentalcura.webapp.dto.user.LoginUserRequest;
-import com.dentalcura.webapp.dto.user.UpdateUserRequest;
-import com.dentalcura.webapp.dto.user.UserResponse;
+import com.dentalcura.webapp.dto.user.*;
 import com.dentalcura.webapp.model.User;
 import com.dentalcura.webapp.repository.IUserRepository;
 import com.dentalcura.webapp.service.IUserService;
@@ -70,16 +67,18 @@ public class UserService implements IUserService {
     }
 
 
-    public int login(LoginUserRequest loginUserRequest){
+    public LoginUserResponse login(LoginUserRequest loginUserRequest){
         List<User> users = userRepository.findAll();
         int token = 0;
+        String userName = null;
 
         for (User user: users) {
             if(user.getEmail().equals(loginUserRequest.email()) && user.getPassword().equals(loginUserRequest.password())){
                 token = user.isAdmin() ? 33 : 1;
+                userName = user.getName();
             }
         }
 
-        return token;
+        return new LoginUserResponse(token, userName);
     }
 }
