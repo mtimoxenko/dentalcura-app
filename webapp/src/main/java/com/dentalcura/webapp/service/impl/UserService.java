@@ -76,6 +76,7 @@ public class UserService implements IUserService {
             if(user.getEmail().equals(loginUserRequest.email()) && user.getPassword().equals(loginUserRequest.password())){
                 token = user.isAdmin() ? 33 : 1;
                 userName = user.getName();
+                break;
             }
         }
 
