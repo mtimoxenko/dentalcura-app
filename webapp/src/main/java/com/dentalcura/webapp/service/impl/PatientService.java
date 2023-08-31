@@ -11,6 +11,7 @@ import com.dentalcura.webapp.service.IPatientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Getter @Setter
 @Service
 public class PatientService implements IPatientService {
@@ -37,6 +39,7 @@ public class PatientService implements IPatientService {
         patient.setAddress(address);
 
         patientRepository.save(patient);
+        log.info("New patient was registered [" + patient.getName() + " " +patient.getSurname() + "]");
     }
 
     @Override
@@ -91,6 +94,7 @@ public class PatientService implements IPatientService {
 
     @Override
     public void updatePatientByID(Long id, UpdatePatientRequest updatePatientRequest) {
+        log.info("Request to update patient [" + updatePatientRequest.name() + " " + updatePatientRequest.surname() + "]");
         Optional<Patient> optionalPatient = patientRepository.findById(id);
 
         if (optionalPatient.isPresent()) {
@@ -110,12 +114,14 @@ public class PatientService implements IPatientService {
             patient.setAddress(address);
 
             patientRepository.save(patient);
-        }
+            log.info("Patient updated [" + patient.getName() + " " +patient.getSurname() + "]");
 
+        }
     }
 
     @Override
     public void deletePatientByID(Long id) {
         patientRepository.deleteById(id);
+        log.info("Patient deleted from DB");
     }
 }
