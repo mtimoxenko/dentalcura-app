@@ -3,11 +3,11 @@
 
 
 ## &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; UML Class Diagram
-![UML](webapp_uml.drawio.png)
+![UML](docs/webapp_uml.drawio.png)
 <br/><br/><br/><br/>
 
 ## &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Enhanced Entity-Relationship Model
-![Enhanced entity-relationship model](eer_diagram.png)
+![Enhanced entity-relationship model](docs/eer_diagram.png)
 
 <br/><br/>
 
