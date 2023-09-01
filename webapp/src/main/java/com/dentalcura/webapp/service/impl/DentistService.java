@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @Getter @Setter
 @Service
 public class DentistService implements IDentistService {
+
+    private final static Logger LOGGER = Logger.getLogger(DentistService.class);
 
     @Autowired
     private IDentistRepository dentistRepository;
@@ -36,7 +38,7 @@ public class DentistService implements IDentistService {
     public void insertDentist(CreateDentistRequest createDentistRequest) {
         Dentist dentist = mapper.convertValue(createDentistRequest, Dentist.class);
         dentistRepository.save(dentist);
-        log.info("New dentist was registered [" + dentist.getName() + " " + dentist.getSurname() + "]");
+        LOGGER.info("New dentist was registered [" + dentist.getName() + " " + dentist.getSurname() + "]");
     }
 
     @Override
@@ -112,23 +114,23 @@ public class DentistService implements IDentistService {
 
     @Override
     public void updateDentistByID(Long id, UpdateDentistRequest updateDentistRequest) {
-        log.info("Request to update dentist [" + updateDentistRequest.name() + " " + updateDentistRequest.surname() + "]");
         Optional<Dentist> optionalDentist = dentistRepository.findById(id);
 
         if (optionalDentist.isPresent()) {
             Dentist dentist = optionalDentist.get();
+            LOGGER.info("Request to update dentist id [" + id + "]");
 
             dentist.setName(updateDentistRequest.name());
             dentist.setSurname(updateDentistRequest.surname());
 
             dentistRepository.save(dentist);
-            log.info("Dentist updated [" + dentist.getName() + " " +dentist.getSurname() + "]");
+            LOGGER.info("Dentist updated to [" + dentist.getName() + " " +dentist.getSurname() + "]");
         }
     }
 
     @Override
     public void deleteDentistByID(Long id) {
         dentistRepository.deleteById(id);
-        log.info("Dentist deleted from DB");
+        LOGGER.info("Dentist deleted from DB");
     }
 }

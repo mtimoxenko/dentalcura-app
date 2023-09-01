@@ -10,7 +10,6 @@ import com.dentalcura.webapp.service.IAddressService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Slf4j
+
 @Getter @Setter
 @Service
 public class AddressService implements IAddressService {

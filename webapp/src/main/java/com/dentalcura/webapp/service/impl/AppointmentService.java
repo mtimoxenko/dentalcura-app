@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +25,12 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Slf4j
+
 @Getter @Setter
 @Service
 public class AppointmentService implements IAppointmentService {
+
+    private final static Logger LOGGER = Logger.getLogger(DentistService.class);
 
     @Autowired
     private IAppointmentRepository appointmentRepository;
@@ -39,7 +42,7 @@ public class AppointmentService implements IAppointmentService {
     public void insertAppointment(CreateAppointmentRequest createAppointmentRequest) {
         Appointment appointment = mapper.convertValue(createAppointmentRequest, Appointment.class);
         appointmentRepository.save(appointment);
-        log.info("New appointment was registered [" +createAppointmentRequest.date()+ "]");
+        LOGGER.info("New appointment was registered [" +createAppointmentRequest.date()+ "]");
     }
 
     @Override
@@ -94,14 +97,15 @@ public class AppointmentService implements IAppointmentService {
 
     @Override
     public void updateAppointmentByID(Long id, UpdateAppointmentRequest updateAppointmentRequest) {
-        log.info("Request to update appointment [" + updateAppointmentRequest.date() + "]");
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
 
         if(optionalAppointment.isPresent()) {
             Appointment appointment = optionalAppointment.get();
+            LOGGER.info("Request to update appointment id [" + id + "]");
+
             appointment.setDate(updateAppointmentRequest.date());
             appointmentRepository.save(appointment);
-            log.info("Appointment updated [" + appointment.getDate() + "]");
+            LOGGER.info("Appointment updated to [" + appointment.getDate() + "]");
         }
 
 //        Appointment appointment = mapper.convertValue(updateAppointmentRequest, Appointment.class);
@@ -112,6 +116,6 @@ public class AppointmentService implements IAppointmentService {
     @Override
     public void deleteAppointmentByID(Long id) {
         appointmentRepository.deleteById(id);
-        log.info("Appointment deleted from DB");
+        LOGGER.info("Appointment deleted from DB");
     }
 }
