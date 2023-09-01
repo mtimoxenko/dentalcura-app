@@ -38,14 +38,15 @@ window.addEventListener('load', function () {
 
             //if (data.jwt) {
             //    localStorage.setItem('jwt', JSON.stringify(data.jwt));
+                sessionStorage.setItem('userName', JSON.stringify(data.userName))
 
-                if (data == 33) {
+                if (data.token == 33) {
                     location.replace('./admin.html')
                 }
-                else if (data == 1){
+                else if (data.token == 1){
                     location.replace('./tasks.html')                    
                 }                
-                else if (data == 0){
+                else if (data.token == 0){
                     location.replace('./root.html')                    
                 }
 

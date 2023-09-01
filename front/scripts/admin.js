@@ -104,8 +104,7 @@ window.addEventListener('load', function () {
   
     function getUserName() {
 
-      const role = sessionStorage.getItem('role')
-      const name = sessionStorage.getItem('name')
+      const name = sessionStorage.getItem('userName')
 
       const userName = document.querySelector('.user-info p')
 
@@ -255,11 +254,11 @@ window.addEventListener('load', function () {
         fetch(url, settings)
         .then(response=>response.json())
         .then(data=>{
-          console.log(data);
-              name.value = data.name
-              surname.value = data.surname
-              updateDentist()
-              dentistDelete()
+          console.log(data)
+            name.value = data.name
+            surname.value = data.surname
+            updateDentist()
+            dentistDelete()
         })
       })
     }
@@ -457,6 +456,7 @@ window.addEventListener('load', function () {
 
       const patientDeleteButton = document.querySelector('.patient-update #delete-button')
       const patientId = document.getElementById('inputPatientId')
+
 
         patientDeleteButton.addEventListener('click', function (e){
             e.preventDefault()

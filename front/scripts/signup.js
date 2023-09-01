@@ -41,15 +41,12 @@ window.addEventListener('load', function () {
                 response.json()})
             .then(data => {
                 console.log(data)
-
-                sessionStorage.setItem('name', JSON.stringify(payload.name))
+                sessionStorage.setItem('userName', JSON.stringify(payload.name))
 
                 if(payload.admin){
-                    sessionStorage.setItem('role', JSON.stringify('ROLE_ADMIN'))
                     location.replace('./admin.html')
                 }
-                else if(!payload.admin){
-                    sessionStorage.setItem('role', JSON.stringify('ROLE_USER'))                    
+                else if(!payload.admin){                  
                     location.replace('./tasks.html')
                 }
             }).catch(err => {

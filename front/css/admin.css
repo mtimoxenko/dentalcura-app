@@ -87,7 +87,7 @@ nav .user-info button {
     list-style-type: square;
 }
 
-form {
+form{
     background-color: var(--negro);
     max-width: 24rem;
     margin: 0 auto;

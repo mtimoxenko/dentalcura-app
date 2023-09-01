@@ -14,12 +14,11 @@ window.addEventListener('load', function () {
   const endpointPatient = 'http://localhost:8080/patient'
   const endpointAppointment = 'http://localhost:8080/appointment'  
 
-  const formAddAppointment = document.querySelector('.new-appointment');
-  const btnCloseApp = document.querySelector('#closeApp');
+  const formAddAppointment = document.querySelector('.new-appointment')
+  const btnCloseApp = document.querySelector('#closeApp')
 
-  getUserName();
-  // getDentistList();
-  // getAppointment();
+  getUserName()
+  getAppointment()
   
 
 
@@ -105,12 +104,11 @@ window.addEventListener('load', function () {
 
   function getUserName() {
 
-    const role = sessionStorage.getItem('role')
-    const name = sessionStorage.getItem('name')
+    const name = sessionStorage.getItem('userName')
 
     const userName = document.querySelector('.user-info p')
 
-    userName.innerText = JSON.parse(role)
+    userName.innerText = JSON.parse(name)
 
   //   const settings = {
   //     method: 'GET',
@@ -134,7 +132,7 @@ window.addEventListener('load', function () {
   /* ------------------------------------------------------------------- */
 
   formAddAppointment.addEventListener('submit', function (event) {
-    event.preventDefault();
+    event.preventDefault()
 
     const dentist = document.querySelectorAll('[name=dentist]')
     const patient = document.querySelectorAll('[name=patient]')
@@ -160,12 +158,12 @@ window.addEventListener('load', function () {
 
     date.forEach(date=>{
       if(date.checked){
-        console.log(date);
+        console.log(date)
         payload.date = date.id
       }
     })
 
-    console.log(payload);
+    console.log(payload)
 
 
     const settings = {
@@ -179,19 +177,30 @@ window.addEventListener('load', function () {
     fetch(endpointAppointment, settings)
       .then(response => response.json())
       .then(response => {
-        console.log(response.status);
-        renderAppointment();
+        console.log(response.status)
+        getAppointment()
       })
       .catch(error => console.log(error))
 
-    formAddAppointment.reset();
+    formAddAppointment.reset()
   })
 
 
   /* ----------------------------------------------------------- */
   /*                  [4] FUNCTION: Render Appointment           */
   /* ----------------------------------------------------------- */
-  function renderAppointment() {
+
+  function getAppointment(){
+    fetch(endpointAppointment)
+    .then(response=>response.json())
+    .then(data=>{
+      console.log(data)
+      renderAppointment(data)
+      searchAppointmentId()
+    })
+  }
+
+  function renderAppointment(list){
 
     const appointmentToDo = document.querySelector('#appointment-list')
     const patient = document.getElementById('patientLabel')
@@ -201,26 +210,20 @@ window.addEventListener('load', function () {
     patient.innerText = "/"
     dentist.innerText = "/"    
 
-    fetch(endpointAppointment)
-    .then(response=>response.json())
-    .then(data=>{
-      console.log(data)
-      data.forEach(appointment=>{
+      list.forEach(appointment=>{
         appointmentToDo.innerHTML+=`
         <li>Date: ${appointment.date} Dentist: ${appointment.dentist.name} ${appointment.dentist.surname}, Patient: ${appointment.patient.name} ${appointment.patient.surname}
         </li>`
       })
-    })
   }
 
-renderAppointment()
 
 
   /* -------------------------------------------------------------------------- */
   /*                     [5] FUNCTION: Search appointment [GET]                 */
   /* -------------------------------------------------------------------------- */
 
-  function searchDentistById(){
+  function searchAppointmentId(){
 
     const searchForm = document.querySelector('.appointment-search')
     const patient = document.getElementById('patientLabel')
@@ -253,7 +256,6 @@ renderAppointment()
     })
   }
 
-  searchDentistById()
 
   /* -------------------------------------------------------------------------- */
   /*                     [6] FUNCTION: Update appointment [PUT]                 */
@@ -294,7 +296,7 @@ renderAppointment()
       fetch(url, settings)
       .then(response => {
         console.log(response.status)
-        renderAppointment()
+        getAppointment()
       })
       updateform.reset()
       searchForm.reset()
@@ -305,6 +307,7 @@ renderAppointment()
   /* -------------------------------------------------------------------------- */
   /*                     [6] FUNCTION: Delete appointment [DELETE]              */
   /* -------------------------------------------------------------------------- */
+
   function appointmentDelete() {
 
     const updateform = document.querySelector('.appointment-update')
@@ -329,7 +332,7 @@ renderAppointment()
           fetch(url, settings)
           .then(response => {
             console.log(response.status);
-            renderAppointment()
+            getAppointment()
           })
           updateform.reset()
           searchForm.reset()
