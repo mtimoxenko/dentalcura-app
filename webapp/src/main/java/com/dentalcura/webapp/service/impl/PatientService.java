@@ -11,7 +11,7 @@ import com.dentalcura.webapp.service.IPatientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
+
 @Getter @Setter
 @Service
 public class PatientService implements IPatientService {
+
+    private final static Logger LOGGER = Logger.getLogger(PatientService.class);
 
     @Autowired
     private IPatientRepository patientRepository;
@@ -39,7 +41,7 @@ public class PatientService implements IPatientService {
         patient.setAddress(address);
 
         patientRepository.save(patient);
-        log.info("New patient was registered [" + patient.getName() + " " +patient.getSurname() + "]");
+        LOGGER.info("New patient was registered [" + patient.getName() + " " +patient.getSurname() + "]");
     }
 
     @Override
@@ -94,11 +96,12 @@ public class PatientService implements IPatientService {
 
     @Override
     public void updatePatientByID(Long id, UpdatePatientRequest updatePatientRequest) {
-        log.info("Request to update patient [" + updatePatientRequest.name() + " " + updatePatientRequest.surname() + "]");
         Optional<Patient> optionalPatient = patientRepository.findById(id);
 
         if (optionalPatient.isPresent()) {
             Patient patient = optionalPatient.get();
+            LOGGER.info("Request to update patient id [" + id + "]");
+
             Address address = patient.getAddress();
 
 
@@ -114,7 +117,7 @@ public class PatientService implements IPatientService {
             patient.setAddress(address);
 
             patientRepository.save(patient);
-            log.info("Patient updated [" + patient.getName() + " " +patient.getSurname() + "]");
+            LOGGER.info("Patient updated to [" + patient.getName() + " " +patient.getSurname() + "]");
 
         }
     }
@@ -122,6 +125,6 @@ public class PatientService implements IPatientService {
     @Override
     public void deletePatientByID(Long id) {
         patientRepository.deleteById(id);
-        log.info("Patient deleted from DB");
+        LOGGER.info("Patient deleted from DB");
     }
 }
