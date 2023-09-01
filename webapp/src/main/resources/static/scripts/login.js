@@ -36,9 +36,10 @@ window.addEventListener('load', function () {
             console.log("Promise OK!");
             console.log(data);
 
-            //if (data.jwt) {
+            if (data.token) {
             //    localStorage.setItem('jwt', JSON.stringify(data.jwt));
                 sessionStorage.setItem('userName', JSON.stringify(data.userName))
+                sessionStorage.setItem('jwt', JSON.stringify(data.token))
 
                 if (data.token == 33) {
                     location.replace('./admin.html')
@@ -50,7 +51,7 @@ window.addEventListener('load', function () {
                     location.replace('./root.html')                    
                 }
 
-            //}
+            }
 
         }).catch(err => {
             console.log("Promise rejected...");

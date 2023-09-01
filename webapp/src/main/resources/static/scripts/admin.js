@@ -1,12 +1,11 @@
-// if (!localStorage.jwt) {
-//   location.replace('./index.html');
-// }
+if (!sessionStorage.jwt || sessionStorage.jwt != 33) {
+  location.replace('./index.html');
+}
 
 
 window.addEventListener('load', function () {
     /* ------------------------- AOS lib. init -------------------------------- */
     AOS.init();
-  
 
     // const token = JSON.parse(localStorage.jwt);
     
