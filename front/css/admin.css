@@ -7,6 +7,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    /* capa sobre fondo */
     box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .5);
 }
 
@@ -42,10 +43,6 @@ nav .user-info .user-image {
     margin-left: .5rem;
 }
 
-fieldset{
-    border: none;
-}
-
 nav .user-info button {
     background-color: var(--laranja);
     color: white;
@@ -66,46 +63,59 @@ nav .user-info button {
     align-items: center;
 }
 
-.forms{
+.update-form, .load-form h2{
+    text-align: center;
+}
+
+.tables {
     background-color: var(--negro);
-    padding: 2rem 3rem;
+    padding: 1.5rem 3rem;
     margin-bottom: 1rem;
     display: flex;
-    flex-direction: row;
     width: 80%;
 }
 
-.new-appointment{
+#dentist-table, #patient-table{
     display: flex;
     flex-direction: column;
-    width: 70%;
-    position: relative;
+    width: 30%;
 }
 
-.select{
+.tables ul{
+    margin-top: 5%;
+    list-style-type: square;
+}
+
+form{
+    background-color: var(--negro);
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 2rem 0rem;
+    border-radius: 1rem;
     display: flex;
-    flex-direction: row;
-    margin-top: 1%;
-    justify-content: space-around;
-    width: 100%;
+    flex-direction: column;
 }
 
-legend{
-    margin-bottom: .2rem;
+form label {
+    margin-bottom: .3rem;
+    text-align: start;
 }
 
-.new-appointment button{
+form input {
+    border-radius: .1rem;
+    margin-bottom: 1rem;
+    padding: .3rem .5rem;
+    border: 2px solid var(--app-grey);
+}
+
+form button{
     background-color: var(--azul);
     color: white;
-    padding: .8rem 1.5rem;
+    padding: .8rem 0;
     border-radius: .1rem;
     font-size: 1rem;
-    margin-top: 2rem;
     font-weight: 400;
-    height: 3rem;
-    align-self: center;
-    position: absolute;
-    bottom: 1rem;
+    margin-top: 5%;
 }
 
 .update-form button{
@@ -121,108 +131,36 @@ form button:hover{
     background-color: var(--azul-hover);
 }
 
-.update-form{
+.update-form, .load-form{
     display: flex;
     box-sizing: border-box;
-    width: 30%;
-    padding: 0% 3%;
     flex-direction: column;
 }
 
-.appointment-search{
+.load-form{
+    width: 44%;
+}
+
+.dentist-search, .patient-search{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding-top: 5%;
+    padding-top: 1.3rem;
+    padding-bottom: 0%;
 }
 
-.appointment-search label{
+.dentist-search label, .patient-search label{
     align-self: center;
+    margin-top: .3rem;
 }
 
-.appointment-search input{
+.dentist-search input, .patient-search input{
     width: 20%;
     margin: 1%;
-    padding: .3rem .5rem;
 }
 
-.appointment-search button{
+.dentist-search button, .patient-search button{
     margin: 0%;
-}
-
-.appointment-update{
-    background-color: var(--negro);
-    max-width: 24rem;
-    margin: 0 auto;
-    padding: 2rem 0rem;
-    border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.appointment-update label{
-    align-self: center;
-}
-
-.appointment-update input{
-    border-radius: .1rem;
-    margin-bottom: 1rem;
-    padding: .3rem .5rem;
-    border: 2px solid var(--app-grey);
-}
-
-.appointment-update p{
-    border-radius: .1rem;
-    margin-bottom: 1rem;
-    padding: .3rem .5rem;
-    border: 1px solid var(--app-grey);
-}
-
-.labels{
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-}
-
-.labels h3{
-    font-size: 1.2rem;
-    font-weight: 500;
-}
-
-.ps{
-    display: flex;
-    box-sizing: border-box;
-    border-radius: .1rem;
-    margin-top: .5rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.ps p{
-    padding: .3rem .5rem;
-    margin: -1px -1px -1px 0px;
-    width: 33%;
-    border: 1px solid var(--app-grey);
-}
-
-#centerp{
-    border: 1px solid var(--app-grey);
-    width: 35%;
-    text-align: center;
-}
-
-#finalp{
-    text-align: end;
-}
-
-.appointment-update button{
-    background-color: var(--azul);
-    color: white;
-    padding: .2rem;
-    border-radius: .1rem;
-    font-size: 1rem;
-    font-weight: 400;
-    margin-top: 5%;
 }
 
 #delete-button{
@@ -231,28 +169,6 @@ form button:hover{
 
 #delete-button:hover{
     background-color: rgb(159, 0, 0);
-}
-
-main h2 {
-    margin: 1.5rem 0 .5rem 0;
-}
-
-.list-div{
-    background-color: black;
-    width: 80%;
-    padding: 1rem 2rem;
-    padding-bottom: 5rem;
-}
-
-.list-div h2{
-    margin: .5rem;
-}
-
-#appointment-list{
-    display: flex;
-    box-sizing: border-box;
-    flex-direction: column;
-    list-style-type: square;
 }
 
 footer {

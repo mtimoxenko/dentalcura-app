@@ -35,25 +35,39 @@ window.addEventListener('load', function () {
             body: JSON.stringify(payload),   
         }
 
-        fetch(endpoint, config)
-            .then((response) => {
-                console.log(response);
-                response.json()})
-            .then(data => {
-                console.log(data)
-                sessionStorage.setItem('userName', JSON.stringify(payload.name))
 
-                if(payload.admin){
-                    location.replace('./admin.html')
-                }
-                else if(!payload.admin){                  
-                    location.replace('./tasks.html')
-                }
-            }).catch(err => {
-                console.log(err);      
-            })
-        form.reset()
+        if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
+            alert('Debe completar datos correctamente, sin dejar campos vacios ni espacios')
+        }
+        else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
+            alert('Debe completar datos correctamente, sin dejar campos vacios ni espacios')
+        }
+        else if(payload.email == '' || payload.email.includes(' ') || !payload.email.includes('@')){
+            alert('debe completar campos correctamente')
+        }
+        else if (payload.password == '' || payload.password.includes(' ')) {
+            alert('Debe completar datos correctamente, sin dejar campos vacios ni espacios')
+        }
+
+        else{
+            fetch(endpoint, config)
+                .then((response) => {
+                    console.log(response);
+                    response.json()})
+                .then(data => {
+                    console.log(data)
+                    sessionStorage.setItem('userName', JSON.stringify(payload.name))
+
+                    if(payload.admin){
+                        location.replace('./admin.html')
+                    }
+                    else if(!payload.admin){                  
+                        location.replace('./tasks.html')
+                    }
+                }).catch(err => {
+                    console.log(err);      
+                })
+            form.reset()            
+        }
     })
-
-
 })

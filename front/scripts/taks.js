@@ -165,7 +165,6 @@ window.addEventListener('load', function () {
 
     console.log(payload)
 
-
     const settings = {
       method: 'POST',
       headers: {
@@ -173,16 +172,22 @@ window.addEventListener('load', function () {
       },
       body: JSON.stringify(payload)
     }
-
-    fetch(endpointAppointment, settings)
+    
+    
+    if(payload.date == '' || payload.patient.id == '' || payload.dentist.id == ''){
+      alert('Debe seleccionar patient, dentist and date')
+    }
+    else{
+      fetch(endpointAppointment, settings)
       .then(response => response.json())
       .then(response => {
         console.log(response.status)
         getAppointment()
       })
       .catch(error => console.log(error))
+      formAddAppointment.reset()      
+    }
 
-    formAddAppointment.reset()
   })
 
 
@@ -212,11 +217,10 @@ window.addEventListener('load', function () {
 
       list.forEach(appointment=>{
         appointmentToDo.innerHTML+=`
-        <li>Date: ${appointment.date} Dentist: ${appointment.dentist.name} ${appointment.dentist.surname}, Patient: ${appointment.patient.name} ${appointment.patient.surname}
+        <li><div class='ps'><p>${appointment.date}</p> <p id='centerp'>${appointment.dentist.surname}, ${appointment.dentist.name}</p> <p id='finalp'>${appointment.patient.surname}, ${appointment.patient.name}</p></div>
         </li>`
       })
   }
-
 
 
   /* -------------------------------------------------------------------------- */
