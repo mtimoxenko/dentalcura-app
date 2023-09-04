@@ -37,18 +37,17 @@ window.addEventListener('load', function () {
 
 
         if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
-            alert('Debe completar datos correctamente, sin dejar campos vacios ni espacios')
+            errorMessage()
         }
         else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
-            alert('Debe completar datos correctamente, sin dejar campos vacios ni espacios')
+            errorMessage()
         }
         else if(payload.email == '' || payload.email.includes(' ') || !payload.email.includes('@')){
-            alert('debe completar campos correctamente')
+            errorMessage()
         }
         else if (payload.password == '' || payload.password.includes(' ')) {
-            alert('Debe completar datos correctamente, sin dejar campos vacios ni espacios')
+            errorMessage()
         }
-
         else{
             fetch(endpoint, config)
                 .then((response) => {
@@ -70,4 +69,22 @@ window.addEventListener('load', function () {
             form.reset()            
         }
     })
+
+
+    function errorMessage(){
+        const bugBox = document.querySelector('#errores')
+    
+        if (bugBox) {
+            bugBox.remove()
+        }
+    
+        const divTemplate = document.createElement('div')
+        divTemplate.setAttribute('id', 'errores')
+        divTemplate.style = "background:rgba(255, 0, 0, 0.3);padding:.5em 1em;color: white;margin-top: 1em;"
+        divTemplate.innerHTML += `<p><small>You must complete data correctly, without leaving empty fields or spaces</small></p>`
+        form.appendChild(divTemplate)
+    }
+    
+
+
 })

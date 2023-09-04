@@ -22,9 +22,17 @@ window.addEventListener('load', function () {
             body: JSON.stringify(payload),   
         }
 
-        loginUser(config)
-        form.reset()
+        if(payload.email == '' || payload.email.includes(' ')){
+            errorMessage()
+        }
+        else if (payload.password == '' || payload.password.includes(' ')) {
+            errorMessage()
+        }
+        else{
+            loginUser(config)            
+        }
 
+        form.reset()
     })
 
 
@@ -33,8 +41,8 @@ window.addEventListener('load', function () {
         fetch(endpointLogin, config)
         .then((response) => response.json())
         .then((data) => {
-            console.log("Promise OK!");
-            console.log(data);
+            console.log("Promise OK!")
+            console.log(data)
 
             //if (data.jwt) {
             //    localStorage.setItem('jwt', JSON.stringify(data.jwt));
@@ -47,6 +55,7 @@ window.addEventListener('load', function () {
                     location.replace('./tasks.html')                    
                 }                
                 else if (data.token == 0){
+                    alert('User not found')
                     location.replace('./root.html')                    
                 }
 
@@ -58,6 +67,21 @@ window.addEventListener('load', function () {
         })
     }
 
+
+    function errorMessage(){
+        const bugBox = document.querySelector('#errores')
+    
+        if (bugBox) {
+            bugBox.remove()
+        }
+    
+        const divTemplate = document.createElement('div')
+        divTemplate.setAttribute('id', 'errores')
+        divTemplate.style = "background:rgba(255, 0, 0, 0.3);padding:.5em 1em;color: white;margin-top: 1em;"
+        divTemplate.innerHTML += `<p><small>You must complete data correctly, without leaving empty fields or spaces</small></p>`
+        form.appendChild(divTemplate)
+    }
+
     
 
-});
+})

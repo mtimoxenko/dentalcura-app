@@ -21,6 +21,8 @@ window.addEventListener('load', function () {
     getPatientAll()
     dentistLoad()
     patientLoad()
+    searchDentistById()
+    searchPatientById()
 
 
     /* ------------------------------------------------------------------------------- */
@@ -34,7 +36,6 @@ window.addEventListener('load', function () {
       .then(data=>{
         console.log(data)
         renderDentist(data)
-        searchDentistById()
       })
     }
 
@@ -58,7 +59,6 @@ window.addEventListener('load', function () {
       .then(data=>{
         console.log(data)
         renderPatient(data)
-        searchPatientById()
       })
     }
   
@@ -91,12 +91,12 @@ window.addEventListener('load', function () {
         cancelButtonText: 'Cancel'
       }).then((result) => {
         if (result.isConfirmed) {
-          localStorage.clear();
-          location.replace('./index.html');
+          localStorage.clear()
+          location.replace('./index.html')
         }
-      });
+      })
   
-    });
+    })
   
     /* ------------------------------------------------------------------ */
     /*                 [2] FUNCTION: Get user name [GET]                  */
@@ -160,13 +160,13 @@ window.addEventListener('load', function () {
 
 
         if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
-          alert('Debe completar datos correctamente, sin dejar campos vacios ni espacios')
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
         }
         else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
-          alert('Debe completar datos correctamente, sin dejar campos vacios ni espacios')
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
         }
         else if(payload.licenseNumber == '' || payload.licenseNumber.includes(' ') || isNaN(payload.licenseNumber)){
-          alert('debe completar campos correctamente')
+          alert('You must complete License Number field correctly')
         }
         else{
             fetch(endpointDentist, config)
@@ -224,13 +224,13 @@ window.addEventListener('load', function () {
 
 
         if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
-          alert('Debe completar Name correctamente, sin dejar el campo vacio ni espacios')
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
         }
         else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
-          alert('Debe completar Surname correctamente, sin dejar el campo vacio ni espacios')
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
         }
         else if(payload.niNumber == '' || payload.niNumber.includes(' ') || isNaN(payload.niNumber)){
-          alert('debe completar NI Number correctamente')
+          alert('You must complete NI Number field correctly')
         }
         else{
           fetch(endpointPatient, config)
@@ -277,10 +277,14 @@ window.addEventListener('load', function () {
         .then(response=>response.json())
         .then(data=>{
           console.log(data)
-            name.value = data.name
-            surname.value = data.surname
-            updateDentist()
-            dentistDelete()
+          name.value = data.name
+          surname.value = data.surname
+          updateDentist()
+          dentistDelete()
+        })
+        .catch(err=>{
+          name.value = ""
+          surname.value = ""
         })
       })
     }
@@ -322,6 +326,14 @@ window.addEventListener('load', function () {
             department.value = data.address.department
             updatePatient()
             patientDelete()
+        })
+        .catch(err=>{
+          name.value = ""
+          surname.value = ""
+          streetName.value = ""
+          streetNumber.value = ""
+          floor.value = ""
+          department.value = ""
         })
       })
     }
@@ -367,10 +379,10 @@ window.addEventListener('load', function () {
 
         
         if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
-          alert('Debe completar Name correctamente, sin dejar el campo vacio ni espacios')
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
         }
         else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
-          alert('Debe completar Surname correctamente, sin dejar el campo vacio ni espacios')
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
         }
         else{
           fetch(url, settings)
@@ -433,10 +445,10 @@ window.addEventListener('load', function () {
 
 
         if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
-          alert('Debe completar Name correctamente, sin dejar el campo vacio ni espacios')
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
         }
         else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
-          alert('Debe completar Surname correctamente, sin dejar el campo vacio ni espacios')
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
         }
         else{
           fetch(url, settings)
@@ -455,6 +467,7 @@ window.addEventListener('load', function () {
     /* ----------------------------------------------------------------------------------- */
     /*                 [6] FUNCTION: Delete Dentist & Patient [DELETE]                     */
     /* ----------------------------------------------------------------------------------- */
+
 
     function dentistDelete() {
 
@@ -476,13 +489,27 @@ window.addEventListener('load', function () {
               method: 'DELETE'
             }
 
-            fetch(url, settings)
-            .then(response => {
-              console.log(response.status);
-              getDentistAll()
+            Swal.fire({
+              title: `Confirm delete dentist Id: ${id}`,
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirm',
+              cancelButtonText: 'Cancel'
             })
-            updateform.reset()
-            searchForm.reset()
+            .then((result) => {
+              if (result.isConfirmed) {
+                fetch(url, settings)
+                .then(response => {
+                  console.log(response.status)
+                  getDentistAll()
+                })
+              updateform.reset()
+              searchForm.reset()                
+              }
+            })
+
         })
     }
 
@@ -509,13 +536,27 @@ window.addEventListener('load', function () {
               method: 'DELETE'
             }
 
-            fetch(url, settings)
-            .then(response => {
-              console.log(response.status);
-              getPatientAll()
+            Swal.fire({
+              title: `Confirm delete patient Id: ${id}`,
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirm',
+              cancelButtonText: 'Cancel'
             })
-            searchForm.reset()
-            updateform.reset()
+            .then((result) => {
+              if (result.isConfirmed) {
+                fetch(url, settings)
+                .then(response => {
+                  console.log(response.status)
+                  getPatientAll()
+                })
+              updateform.reset()
+              searchForm.reset()                
+              }
+            })
+
         })
     }
 
