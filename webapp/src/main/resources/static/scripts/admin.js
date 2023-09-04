@@ -1,25 +1,46 @@
+<<<<<<< HEAD:front/scripts/admin.js
+// if (!localStorage.jwt) {
+//   location.replace('./index.html');
+// }
+=======
 if (!sessionStorage.jwt || sessionStorage.jwt != 33) {
   location.replace('./index.html');
 }
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
 
 window.addEventListener('load', function () {
     /* ------------------------- AOS lib. init -------------------------------- */
     AOS.init();
+<<<<<<< HEAD:front/scripts/admin.js
+  
+
+    // const token = JSON.parse(localStorage.jwt);
+    
+    const endpointDentist = 'http://localhost:8082/dentist'
+    const endpointPatient = 'http://localhost:8082/patient'
+=======
 
     // const token = JSON.parse(localStorage.jwt);
     
     const endpointDentist = 'http://localhost:8080/dentist'
     const endpointPatient = 'http://localhost:8080/patient'
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
     const btnCloseApp = document.querySelector('#closeApp');
 
 
+<<<<<<< HEAD:front/scripts/admin.js
+    // getUserName()
+    getDentistAll()
+    getPatientAll()
+=======
     getUserName()
     getDentistAll()
     getPatientAll()
     dentistLoad()
     patientLoad()
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
 
     /* ------------------------------------------------------------------------------- */
@@ -102,6 +123,22 @@ window.addEventListener('load', function () {
     /* ------------------------------------------------------------------ */
   
     function getUserName() {
+<<<<<<< HEAD:front/scripts/admin.js
+      const settings = {
+        method: 'GET',
+        headers: {
+          authorization: token
+        }
+      }
+  
+      fetch(endpointGetUser, settings)
+        .then(response => response.json())
+        .then(data => {
+          const usrName = document.querySelector('.user-info p');
+          usrName.innerText = data.firstName;
+        })
+        .catch(error => console.log(error));
+=======
 
       const name = sessionStorage.getItem('userName')
 
@@ -123,6 +160,7 @@ window.addEventListener('load', function () {
       //     usrName.innerText = data.firstName;
       //   })
       //   .catch(error => console.log(error));
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
     }
   
 
@@ -160,6 +198,19 @@ window.addEventListener('load', function () {
       fetch(endpointDentist, config)
           .then((response) => response.json())
           .then(data=>{
+<<<<<<< HEAD:front/scripts/admin.js
+              console.log(data);
+              getDentistAll()
+          }).catch(err => {
+              console.log(err);      
+          })
+        
+//          form.reset()
+      })
+    }
+
+    dentistLoad()
+=======
               console.log(data)
               getDentistAll()
           }).catch(err => {
@@ -170,12 +221,16 @@ window.addEventListener('load', function () {
       })
     }
 
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
 
     function patientLoad(){
 
       const form = document.querySelector('.patient-load')
+<<<<<<< HEAD:front/scripts/admin.js
+=======
 
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
       const name = document.querySelector('.patient-load #inputName')
       const surname = document.querySelector('.patient-load #inputSurname')
       const niNumber = document.querySelector('.patient-load #inputNiNumber')
@@ -192,12 +247,19 @@ window.addEventListener('load', function () {
           surname: surname.value,
           niNumber: niNumber.value,
           registrationDate: "Origin of the Universe",
+<<<<<<< HEAD:front/scripts/admin.js
+          streetName: streetName.value,
+          streetNumber: streetNumber.value,
+          floor: floor.value,
+          department: department.value
+=======
           address:{
             streetName: streetName.value,
             streetNumber: streetNumber.value,
             floor: floor.value,
             department: department.value
           }
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
         }
 
         const config = {
@@ -208,11 +270,28 @@ window.addEventListener('load', function () {
           body: JSON.stringify(payload),
         }
 
+<<<<<<< HEAD:front/scripts/admin.js
+        console.log(payload);
+=======
         console.log(payload)
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
         fetch(endpointPatient, config)
           .then((response) => response.json())
           .then(data=>{
+<<<<<<< HEAD:front/scripts/admin.js
+            console.log(data);
+            getPatientAll() 
+          }).catch(err => {
+            console.log(err);      
+          })
+
+//        form.reset()
+      })
+    }
+
+    patientLoad()
+=======
             console.log(data)
             getPatientAll() 
           }).catch(err => {
@@ -223,6 +302,7 @@ window.addEventListener('load', function () {
       })
     }
 
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
 
 
@@ -236,6 +316,10 @@ window.addEventListener('load', function () {
       const searchForm = document.querySelector('.dentist-search')
       const name = document.querySelector('.dentist-update #inputName')
       const surname = document.querySelector('.dentist-update #inputSurname')
+<<<<<<< HEAD:front/scripts/admin.js
+      const licenseNumber = document.querySelector('.dentist-update #inputLicenseNumber')
+=======
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
       const searchDentistId = document.getElementById('inputDentistId')
 
@@ -253,11 +337,20 @@ window.addEventListener('load', function () {
         fetch(url, settings)
         .then(response=>response.json())
         .then(data=>{
+<<<<<<< HEAD:front/scripts/admin.js
+          console.log(data);
+              name.value = data.name
+              surname.value = data.surname
+              licenseNumber.value = data.licenseNumber
+              updateDentist()
+              dentistDelete()
+=======
           console.log(data)
             name.value = data.name
             surname.value = data.surname
             updateDentist()
             dentistDelete()
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
         })
       })
     }
@@ -269,6 +362,10 @@ window.addEventListener('load', function () {
       const searchButton = document.querySelector('.patient-search button')
       const name = document.querySelector('.patient-update #inputName')
       const surname = document.querySelector('.patient-update #inputSurname')
+<<<<<<< HEAD:front/scripts/admin.js
+      const niNumber = document.querySelector('.patient-update #inputNiNumber')
+=======
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
       const streetName = document.querySelector('.patient-update #inputStreetName')
       const streetNumber = document.querySelector('.patient-update #inputStreetNumber')
       const floor = document.querySelector('.patient-update #inputFloor')
@@ -293,10 +390,18 @@ window.addEventListener('load', function () {
           console.log(data);
             name.value = data.name
             surname.value = data.surname
+<<<<<<< HEAD:front/scripts/admin.js
+            niNumber.value = data.niNumber
+            streetName.value = data.streetName
+            streetNumber.value = data.streetNumber
+            floor.value = data.floor
+            department.value = data.department
+=======
             streetName.value = data.address.streetName
             streetNumber.value = data.address.streetNumber
             floor.value = data.address.floor
             department.value = data.address.department
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
             updatePatient()
             patientDelete()
         })
@@ -320,6 +425,10 @@ window.addEventListener('load', function () {
 
       const name = document.querySelector('.dentist-update #inputName')
       const surname = document.querySelector('.dentist-update #inputSurname')
+<<<<<<< HEAD:front/scripts/admin.js
+      const licenseNumber = document.querySelector('.dentist-update #inputLicenseNumber')
+=======
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
 
       updateButton.addEventListener('click', function(e){
@@ -328,11 +437,18 @@ window.addEventListener('load', function () {
         const id = dentistId.value
         const url = `${endpointDentist}/${id}`
 
+<<<<<<< HEAD:front/scripts/admin.js
+        const payload = {
+          name: name.value,
+          surname: surname.value,
+          licenseNumber: licenseNumber.value
+=======
         console.log(id)
 
         const payload = {
           name: name.value,
           surname: surname.value,
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
         }
 
         const settings = {
@@ -364,6 +480,10 @@ window.addEventListener('load', function () {
 
       const name = document.querySelector('.patient-update #inputName')
       const surname = document.querySelector('.patient-update #inputSurname')
+<<<<<<< HEAD:front/scripts/admin.js
+      const niNumber = document.querySelector('.patient-update #inputNiNumber')
+=======
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
       const streetName = document.querySelector('.patient-update #inputStreetName')
       const streetNumber = document.querySelector('.patient-update #inputStreetNumber')
       const floor = document.querySelector('.patient-update #inputFloor')
@@ -376,6 +496,17 @@ window.addEventListener('load', function () {
         const id = patientId.value
         const url = `${endpointPatient}/${id}`
 
+<<<<<<< HEAD:front/scripts/admin.js
+        const payload = {
+          name: name.value,
+          surname: surname.value,
+          niNumber: niNumber.value,
+          registrationDate: "Origin of the Universe",
+          streetName: streetName.value,
+          streetNumber: streetNumber.value,
+          floor: floor.value,
+          department: department.value
+=======
         console.log(id)
 
         const payload = {
@@ -388,6 +519,7 @@ window.addEventListener('load', function () {
             floor: floor.value,
             department: department.value            
           }
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
         }
 
         const settings = {
@@ -429,8 +561,11 @@ window.addEventListener('load', function () {
 
             const id = dentistId.value
             const url = `${endpointDentist}/${id}`
+<<<<<<< HEAD:front/scripts/admin.js
+=======
 
             console.log(id)
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
   
             const settings = {
               method: 'DELETE'
@@ -456,14 +591,20 @@ window.addEventListener('load', function () {
       const patientDeleteButton = document.querySelector('.patient-update #delete-button')
       const patientId = document.getElementById('inputPatientId')
 
+<<<<<<< HEAD:front/scripts/admin.js
+=======
 
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
         patientDeleteButton.addEventListener('click', function (e){
             e.preventDefault()
 
             const id = patientId.value
             const url = `${endpointPatient}/${id}`
+<<<<<<< HEAD:front/scripts/admin.js
+=======
 
             console.log(id)
+>>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
   
             const settings = {
               method: 'DELETE'

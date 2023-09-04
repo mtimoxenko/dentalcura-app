@@ -30,7 +30,11 @@ public class BookingAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BookingAppApplication.class, args);
+<<<<<<< HEAD
 /*<<<<<<< HEAD
+=======
+//<<<<<<< HEAD
+>>>>>>> main
 
 //		log.info("Sequence init...");
 //<<<<<<< HEAD
@@ -41,7 +45,11 @@ public class BookingAppApplication {
 //		userAdd(2L, "UserComun", "UserApellido", "user@test.com", "111111", false);
 
 //		userListById(1L);
+<<<<<<< HEAD
 		userListAll();
+=======
+/*		userListAll();
+>>>>>>> main
 		userDeleteById(2L);
 		userListAll();
 		userUpdateById(1L,"MaxPower","Timochenko","maxpower@test.com","MaxPower12345",false);
@@ -415,6 +423,7 @@ public class BookingAppApplication {
 
 
 		log.info("DB created");
+		*/
 	}
 
 >>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e*/

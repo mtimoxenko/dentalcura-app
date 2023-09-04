@@ -17,31 +17,19 @@ import java.util.List;
 public class UserDAOH2 implements IDao<User>{
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
 
-    public void createTable(){
-        Connection connection;
-        Statement statement;
+    @Override
+    public void createTable() {
 
-        try {
-            Class.forName(DB.DRIVER);
-            connection = DriverManager.getConnection(DB.URL,DB.USR,DB.PWD);
-            statement = connection.createStatement();
-
-            statement.execute(SQLQueries.USERS.getCreateTable());
-
-            statement.close();
-            connection.close();
-
-            log.info("USR table was created in DB");
-
-        } catch (SQLException | ClassNotFoundException e) {
-            log.error("Creating USR table in DB was not possible");
-            log.error(String.valueOf(e));
-            throw new RuntimeException(e);
-        }
     }
+<<<<<<< HEAD
 =======
 >>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
+=======
+>>>>>>> main
 
     @Override
     public User insert(User user) {

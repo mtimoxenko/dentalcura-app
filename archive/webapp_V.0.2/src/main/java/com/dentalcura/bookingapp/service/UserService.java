@@ -16,6 +16,7 @@ import java.util.List;
 @Service
 public class UserService {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     private final IDao<User> userIDao;
 
@@ -27,13 +28,18 @@ public class UserService {
     public void createTableUser(){
         userIDao.createTable();
 =======
+=======
+>>>>>>> main
 
     private IDao<User> userIDao;
 
     @Autowired
     public UserService(@Qualifier("userDAOH2") IDao<User> userIDao) {
         this.userIDao = userIDao;
+<<<<<<< HEAD
 >>>>>>> c8b40bcb99acdaa4ee9d42c0fe2d820099888d0e
+=======
+>>>>>>> main
     }
 
     public User insertUser(User user){
