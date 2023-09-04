@@ -1,46 +1,28 @@
-<<<<<<< HEAD:front/scripts/admin.js
 // if (!localStorage.jwt) {
 //   location.replace('./index.html');
 // }
-=======
-if (!sessionStorage.jwt || sessionStorage.jwt != 33) {
-  location.replace('./index.html');
-}
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
 
 window.addEventListener('load', function () {
     /* ------------------------- AOS lib. init -------------------------------- */
     AOS.init();
-<<<<<<< HEAD:front/scripts/admin.js
   
-
-    // const token = JSON.parse(localStorage.jwt);
-    
-    const endpointDentist = 'http://localhost:8082/dentist'
-    const endpointPatient = 'http://localhost:8082/patient'
-=======
 
     // const token = JSON.parse(localStorage.jwt);
     
     const endpointDentist = 'http://localhost:8080/dentist'
     const endpointPatient = 'http://localhost:8080/patient'
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
     const btnCloseApp = document.querySelector('#closeApp');
 
 
-<<<<<<< HEAD:front/scripts/admin.js
-    // getUserName()
-    getDentistAll()
-    getPatientAll()
-=======
     getUserName()
     getDentistAll()
     getPatientAll()
-    dentistLoad()
     patientLoad()
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
+    dentistLoad()
+    searchDentistById()
+    searchPatientById()
 
 
     /* ------------------------------------------------------------------------------- */
@@ -54,7 +36,9 @@ window.addEventListener('load', function () {
       .then(data=>{
         console.log(data)
         renderDentist(data)
-        searchDentistById()
+      })
+      .catch(err => {
+        console.log(err)
       })
     }
 
@@ -64,7 +48,7 @@ window.addEventListener('load', function () {
 
       list.forEach(dentist=>{
         selectDentist.innerHTML+=`
-        <li>${dentist.name} ${dentist.surname}, Lic: ${dentist.licenseNumber}
+        <li>${dentist.surname}, ${dentist.name}. Lic: ${dentist.licenseNumber}
         <div></div>
         </li>`
       })
@@ -73,12 +57,15 @@ window.addEventListener('load', function () {
 
 
     function getPatientAll(){
-      fetch(endpointPatient)
+
+      const settings = {
+        method: 'GET'}
+
+      fetch(endpointPatient, settings)
       .then(response=>response.json())
       .then(data=>{
         console.log(data)
         renderPatient(data)
-        searchPatientById()
       })
     }
   
@@ -88,7 +75,7 @@ window.addEventListener('load', function () {
 
       list.forEach(patient=>{
         selectPatient.innerHTML+=`
-        <li>${patient.name} ${patient.surname}, NI Number: ${patient.niNumber}
+        <li>${patient.surname}, ${patient.name}. Nin: ${patient.niNumber}
         <div></div>
         </li>`
       })
@@ -104,41 +91,27 @@ window.addEventListener('load', function () {
       Swal.fire({
         title: 'Are you leaving?',
         icon: 'question',
+        iconColor: '#545454',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Confirm',
-        cancelButtonText: 'Cancel'
+        cancelButtonText: 'Cancel',
+        background: 'rgba(255, 255, 255, .9)'
       }).then((result) => {
         if (result.isConfirmed) {
-          localStorage.clear();
-          location.replace('./index.html');
+          localStorage.clear()
+          location.replace('./index.html')
         }
-      });
+      })
   
-    });
+    })
   
     /* ------------------------------------------------------------------ */
     /*                 [2] FUNCTION: Get user name [GET]                  */
     /* ------------------------------------------------------------------ */
   
     function getUserName() {
-<<<<<<< HEAD:front/scripts/admin.js
-      const settings = {
-        method: 'GET',
-        headers: {
-          authorization: token
-        }
-      }
-  
-      fetch(endpointGetUser, settings)
-        .then(response => response.json())
-        .then(data => {
-          const usrName = document.querySelector('.user-info p');
-          usrName.innerText = data.firstName;
-        })
-        .catch(error => console.log(error));
-=======
 
       const name = sessionStorage.getItem('userName')
 
@@ -160,7 +133,6 @@ window.addEventListener('load', function () {
       //     usrName.innerText = data.firstName;
       //   })
       //   .catch(error => console.log(error));
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
     }
   
 
@@ -195,42 +167,35 @@ window.addEventListener('load', function () {
 
         console.log(config)
 
-      fetch(endpointDentist, config)
-          .then((response) => response.json())
-          .then(data=>{
-<<<<<<< HEAD:front/scripts/admin.js
-              console.log(data);
-              getDentistAll()
-          }).catch(err => {
-              console.log(err);      
-          })
-        
-//          form.reset()
+
+        if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.licenseNumber == '' || payload.licenseNumber.includes(' ') || isNaN(payload.licenseNumber)){
+          alert('You must complete License Number field correctly')
+        }
+        else{
+            fetch(endpointDentist, config)
+            .then((response) => {response.json()
+              getDentistAll()             
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            form.reset()
+        }
       })
     }
 
-    dentistLoad()
-=======
-              console.log(data)
-              getDentistAll()
-          }).catch(err => {
-              console.log(err)
-          })
-
-          form.reset()
-      })
-    }
-
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
 
     function patientLoad(){
 
       const form = document.querySelector('.patient-load')
-<<<<<<< HEAD:front/scripts/admin.js
-=======
 
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
       const name = document.querySelector('.patient-load #inputName')
       const surname = document.querySelector('.patient-load #inputSurname')
       const niNumber = document.querySelector('.patient-load #inputNiNumber')
@@ -247,19 +212,12 @@ window.addEventListener('load', function () {
           surname: surname.value,
           niNumber: niNumber.value,
           registrationDate: "Origin of the Universe",
-<<<<<<< HEAD:front/scripts/admin.js
-          streetName: streetName.value,
-          streetNumber: streetNumber.value,
-          floor: floor.value,
-          department: department.value
-=======
           address:{
             streetName: streetName.value,
             streetNumber: streetNumber.value,
             floor: floor.value,
             department: department.value
           }
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
         }
 
         const config = {
@@ -270,39 +228,31 @@ window.addEventListener('load', function () {
           body: JSON.stringify(payload),
         }
 
-<<<<<<< HEAD:front/scripts/admin.js
-        console.log(payload);
-=======
         console.log(payload)
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
-        fetch(endpointPatient, config)
-          .then((response) => response.json())
-          .then(data=>{
-<<<<<<< HEAD:front/scripts/admin.js
-            console.log(data);
-            getPatientAll() 
-          }).catch(err => {
-            console.log(err);      
-          })
 
-//        form.reset()
+        if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.niNumber == '' || payload.niNumber.includes(' ') || isNaN(payload.niNumber)){
+          alert('You must complete NI Number field correctly')
+        }
+        else{
+          fetch(endpointPatient, config)
+            .then((response) => {response.json()
+              getPatientAll()             
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          form.reset()          
+        }
       })
     }
 
-    patientLoad()
-=======
-            console.log(data)
-            getPatientAll() 
-          }).catch(err => {
-            console.log(err)
-          })
-
-        form.reset()
-      })
-    }
-
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
 
 
@@ -316,10 +266,6 @@ window.addEventListener('load', function () {
       const searchForm = document.querySelector('.dentist-search')
       const name = document.querySelector('.dentist-update #inputName')
       const surname = document.querySelector('.dentist-update #inputSurname')
-<<<<<<< HEAD:front/scripts/admin.js
-      const licenseNumber = document.querySelector('.dentist-update #inputLicenseNumber')
-=======
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
       const searchDentistId = document.getElementById('inputDentistId')
 
@@ -329,6 +275,7 @@ window.addEventListener('load', function () {
 
         const id = searchDentistId.value
         const url = `${endpointDentist}/${id}`
+        const dentistDeleteButton = document.querySelector('.dentist-update #delete-button')
 
         const settings = {
           method: 'GET',
@@ -337,20 +284,17 @@ window.addEventListener('load', function () {
         fetch(url, settings)
         .then(response=>response.json())
         .then(data=>{
-<<<<<<< HEAD:front/scripts/admin.js
-          console.log(data);
-              name.value = data.name
-              surname.value = data.surname
-              licenseNumber.value = data.licenseNumber
-              updateDentist()
-              dentistDelete()
-=======
           console.log(data)
-            name.value = data.name
-            surname.value = data.surname
-            updateDentist()
-            dentistDelete()
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
+          name.value = data.name
+          surname.value = data.surname
+          updateDentist()
+          dentistDeleteButton.disabled = false
+          dentistDelete()
+        })
+        .catch(err=>{
+          name.value = ""
+          surname.value = ""
+          dentistDeleteButton.disabled = true
         })
       })
     }
@@ -362,10 +306,6 @@ window.addEventListener('load', function () {
       const searchButton = document.querySelector('.patient-search button')
       const name = document.querySelector('.patient-update #inputName')
       const surname = document.querySelector('.patient-update #inputSurname')
-<<<<<<< HEAD:front/scripts/admin.js
-      const niNumber = document.querySelector('.patient-update #inputNiNumber')
-=======
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
       const streetName = document.querySelector('.patient-update #inputStreetName')
       const streetNumber = document.querySelector('.patient-update #inputStreetNumber')
       const floor = document.querySelector('.patient-update #inputFloor')
@@ -379,6 +319,7 @@ window.addEventListener('load', function () {
 
         const id = searchPatientId.value
         const url = `${endpointPatient}/${id}`
+        const patientDeleteButton = document.querySelector('.patient-update #delete-button')
 
         const settings = {
           method: 'GET',
@@ -387,28 +328,29 @@ window.addEventListener('load', function () {
         fetch(url, settings)
         .then(response=>response.json())
         .then(data=>{
-          console.log(data);
+          console.log(data)
             name.value = data.name
             surname.value = data.surname
-<<<<<<< HEAD:front/scripts/admin.js
-            niNumber.value = data.niNumber
-            streetName.value = data.streetName
-            streetNumber.value = data.streetNumber
-            floor.value = data.floor
-            department.value = data.department
-=======
             streetName.value = data.address.streetName
             streetNumber.value = data.address.streetNumber
             floor.value = data.address.floor
             department.value = data.address.department
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
             updatePatient()
+            patientDeleteButton.disabled = false
             patientDelete()
+        })
+        .catch(err=>{
+          name.value = ""
+          surname.value = ""
+          streetName.value = ""
+          streetNumber.value = ""
+          floor.value = ""
+          department.value = ""
+          patientDeleteButton.disabled = true
         })
       })
     }
 
-    searchPatientById()
 
 
     /* ----------------------------------------------------------------------------------- */
@@ -425,10 +367,6 @@ window.addEventListener('load', function () {
 
       const name = document.querySelector('.dentist-update #inputName')
       const surname = document.querySelector('.dentist-update #inputSurname')
-<<<<<<< HEAD:front/scripts/admin.js
-      const licenseNumber = document.querySelector('.dentist-update #inputLicenseNumber')
-=======
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
 
 
       updateButton.addEventListener('click', function(e){
@@ -437,18 +375,11 @@ window.addEventListener('load', function () {
         const id = dentistId.value
         const url = `${endpointDentist}/${id}`
 
-<<<<<<< HEAD:front/scripts/admin.js
-        const payload = {
-          name: name.value,
-          surname: surname.value,
-          licenseNumber: licenseNumber.value
-=======
         console.log(id)
 
         const payload = {
           name: name.value,
           surname: surname.value,
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
         }
 
         const settings = {
@@ -459,13 +390,22 @@ window.addEventListener('load', function () {
           body: JSON.stringify(payload)
         }
 
-        fetch(url, settings)
-        .then(response => {
+
+        if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+        }
+        else{
+          fetch(url, settings)
+          .then(response => {
           console.log(response.status)
           getDentistAll()
         })
         updateform.reset()
         searchForm.reset()
+        }
       })
     }
 
@@ -480,10 +420,6 @@ window.addEventListener('load', function () {
 
       const name = document.querySelector('.patient-update #inputName')
       const surname = document.querySelector('.patient-update #inputSurname')
-<<<<<<< HEAD:front/scripts/admin.js
-      const niNumber = document.querySelector('.patient-update #inputNiNumber')
-=======
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
       const streetName = document.querySelector('.patient-update #inputStreetName')
       const streetNumber = document.querySelector('.patient-update #inputStreetNumber')
       const floor = document.querySelector('.patient-update #inputFloor')
@@ -496,17 +432,6 @@ window.addEventListener('load', function () {
         const id = patientId.value
         const url = `${endpointPatient}/${id}`
 
-<<<<<<< HEAD:front/scripts/admin.js
-        const payload = {
-          name: name.value,
-          surname: surname.value,
-          niNumber: niNumber.value,
-          registrationDate: "Origin of the Universe",
-          streetName: streetName.value,
-          streetNumber: streetNumber.value,
-          floor: floor.value,
-          department: department.value
-=======
         console.log(id)
 
         const payload = {
@@ -519,7 +444,6 @@ window.addEventListener('load', function () {
             floor: floor.value,
             department: department.value            
           }
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
         }
 
         const settings = {
@@ -530,15 +454,24 @@ window.addEventListener('load', function () {
           body: JSON.stringify(payload)
         }
 
-        console.log(payload);
+        console.log(payload)
 
-        fetch(url, settings)
-        .then(response => {
-          console.log(response.status);
-          getPatientAll()
-        })
-        searchForm.reset()
-        updateform.reset()
+
+        if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+        }
+        else{
+          fetch(url, settings)
+          .then(response => {
+            console.log(response.status)
+            getPatientAll()
+          })
+          searchForm.reset()
+          updateform.reset()          
+        }
       })
     }
 
@@ -547,6 +480,7 @@ window.addEventListener('load', function () {
     /* ----------------------------------------------------------------------------------- */
     /*                 [6] FUNCTION: Delete Dentist & Patient [DELETE]                     */
     /* ----------------------------------------------------------------------------------- */
+
 
     function dentistDelete() {
 
@@ -561,23 +495,35 @@ window.addEventListener('load', function () {
 
             const id = dentistId.value
             const url = `${endpointDentist}/${id}`
-<<<<<<< HEAD:front/scripts/admin.js
-=======
 
             console.log(id)
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
   
             const settings = {
               method: 'DELETE'
             }
 
-            fetch(url, settings)
-            .then(response => {
-              console.log(response.status);
-              getDentistAll()
+            Swal.fire({
+              title: `Confirm delete dentist Id: ${id}`,
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirm',
+              cancelButtonText: 'Cancel',
+              background: 'rgba(0, 0, 0, .8)'
             })
-            updateform.reset()
-            searchForm.reset()
+            .then((result) => {
+              if (result.isConfirmed) {
+                fetch(url, settings)
+                .then(response => {
+                  console.log(response.status)
+                  getDentistAll()
+                })
+              updateform.reset()
+              searchForm.reset()                
+              }
+            })
+
         })
     }
 
@@ -591,32 +537,41 @@ window.addEventListener('load', function () {
       const patientDeleteButton = document.querySelector('.patient-update #delete-button')
       const patientId = document.getElementById('inputPatientId')
 
-<<<<<<< HEAD:front/scripts/admin.js
-=======
 
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
         patientDeleteButton.addEventListener('click', function (e){
             e.preventDefault()
 
             const id = patientId.value
             const url = `${endpointPatient}/${id}`
-<<<<<<< HEAD:front/scripts/admin.js
-=======
 
             console.log(id)
->>>>>>> 8e0a412405c36bd95f0b0e24bad2128f97f421c5:webapp/src/main/resources/static/scripts/admin.js
-  
+
             const settings = {
               method: 'DELETE'
             }
 
-            fetch(url, settings)
-            .then(response => {
-              console.log(response.status);
-              getPatientAll()
+            Swal.fire({
+              title: `Confirm delete patient Id: ${id}`,
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirm',
+              cancelButtonText: 'Cancel',
+              background: 'rgba(0, 0, 0, .8)'
             })
-            searchForm.reset()
-            updateform.reset()
+            .then((result) => {
+              if (result.isConfirmed) {
+                fetch(url, settings)
+                .then(response => {
+                  console.log(response.status)
+                  getPatientAll()
+                })
+              updateform.reset()
+              searchForm.reset()                
+              }
+            })
+
         })
     }
 

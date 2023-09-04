@@ -72,7 +72,6 @@ nav .user-info button {
     margin-bottom: 1rem;
     display: flex;
     flex-direction: row;
-    padding-top: 0%;
     width: 80%;
 }
 
@@ -80,6 +79,7 @@ nav .user-info button {
     display: flex;
     flex-direction: column;
     width: 70%;
+    position: relative;
 }
 
 .select{
@@ -104,6 +104,8 @@ legend{
     font-weight: 400;
     height: 3rem;
     align-self: center;
+    position: absolute;
+    bottom: 1rem;
 }
 
 .update-form button{
@@ -159,8 +161,7 @@ form button:hover{
 }
 
 .appointment-update label{
-    margin-bottom: .3rem;
-    text-align: start;
+    align-self: center;
 }
 
 .appointment-update input{
@@ -174,7 +175,44 @@ form button:hover{
     border-radius: .1rem;
     margin-bottom: 1rem;
     padding: .3rem .5rem;
-    border: 2px solid var(--app-grey);
+    border: 1px solid var(--app-grey);
+}
+
+.labels{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+.labels h3{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.ps{
+    display: flex;
+    box-sizing: border-box;
+    border-radius: .1rem;
+    margin-top: .5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ps p{
+    padding: .3rem .5rem;
+    margin: -1px -1px -1px 0px;
+    width: 33%;
+    border: 1px solid var(--app-grey);
+}
+
+#centerp{
+    border: 1px solid var(--app-grey);
+    width: 35%;
+    text-align: center;
+}
+
+#finalp{
+    text-align: end;
 }
 
 .appointment-update button{
@@ -196,17 +234,18 @@ form button:hover{
 }
 
 main h2 {
-    margin: 1.5rem 0 .5rem 0;
+    margin: 0rem 0 .5rem 0;
 }
 
 .list-div{
     background-color: black;
     width: 80%;
     padding: 1rem 2rem;
+    padding-bottom: 5rem;
 }
 
-.list-div h3{
-    margin-bottom: .5rem;
+.list-div h2{
+    margin: .5rem;
 }
 
 #appointment-list{

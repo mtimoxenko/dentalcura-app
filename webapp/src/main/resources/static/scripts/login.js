@@ -22,9 +22,17 @@ window.addEventListener('load', function () {
             body: JSON.stringify(payload),   
         }
 
-        loginUser(config)
-        form.reset()
+        if(payload.email == '' || payload.email.includes(' ')){
+            errorMessage()
+        }
+        else if (payload.password == '' || payload.password.includes(' ')) {
+            errorMessage()
+        }
+        else{
+            loginUser(config)            
+        }
 
+        form.reset()
     })
 
 
@@ -33,13 +41,12 @@ window.addEventListener('load', function () {
         fetch(endpointLogin, config)
         .then((response) => response.json())
         .then((data) => {
-            console.log("Promise OK!");
-            console.log(data);
+            console.log("Promise OK!")
+            console.log(data)
 
-            if (data.token) {
+            //if (data.jwt) {
             //    localStorage.setItem('jwt', JSON.stringify(data.jwt));
                 sessionStorage.setItem('userName', JSON.stringify(data.userName))
-                sessionStorage.setItem('jwt', JSON.stringify(data.token))
 
                 if (data.token == 33) {
                     location.replace('./admin.html')
@@ -48,10 +55,11 @@ window.addEventListener('load', function () {
                     location.replace('./tasks.html')                    
                 }                
                 else if (data.token == 0){
+                    alert('User not found')
                     location.replace('./root.html')                    
                 }
 
-            }
+            //}
 
         }).catch(err => {
             console.log("Promise rejected...");
@@ -59,6 +67,21 @@ window.addEventListener('load', function () {
         })
     }
 
+
+    function errorMessage(){
+        const bugBox = document.querySelector('#errores')
+    
+        if (bugBox) {
+            bugBox.remove()
+        }
+    
+        const divTemplate = document.createElement('div')
+        divTemplate.setAttribute('id', 'errores')
+        divTemplate.style = "background:rgba(255, 0, 0, 0.3);padding:.5em 1em;color: white;margin-top: 1em;"
+        divTemplate.innerHTML += `<p><small>You must complete data correctly, without leaving empty fields or spaces</small></p>`
+        form.appendChild(divTemplate)
+    }
+
     
 
-});
+})
