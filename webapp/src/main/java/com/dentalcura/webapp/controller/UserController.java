@@ -1,9 +1,8 @@
 package com.dentalcura.webapp.controller;
 
 
-import com.dentalcura.webapp.dto.user.CreateUserRequest;
-import com.dentalcura.webapp.dto.user.UserResponse;
-import com.dentalcura.webapp.dto.user.UpdateUserRequest;
+import com.dentalcura.webapp.dto.user.*;
+import com.dentalcura.webapp.model.User;
 import com.dentalcura.webapp.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -37,7 +36,7 @@ public class UserController {
     public ResponseEntity<String> createUser(@RequestBody CreateUserRequest createUserRequest) {
         HttpHeaders httpHeaders = new HttpHeaders();
 
-        httpHeaders.add("user_created", "true");  // Adding a custom header
+        httpHeaders.add("user_created", "true");  // custom header
         String message = "User created successfully!";
 
         userService.insertUser(createUserRequest);
@@ -45,6 +44,21 @@ public class UserController {
                 .headers(httpHeaders)
                 .body(message);
     }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginUserResponse> loginUser(@RequestBody LoginUserRequest loginUserRequest) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        httpHeaders.add("user_login", "true");  // Adding a custom header
+
+        LoginUserResponse loginUserResponse = userService.login(loginUserRequest);
+
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .body(loginUserResponse);
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest) {

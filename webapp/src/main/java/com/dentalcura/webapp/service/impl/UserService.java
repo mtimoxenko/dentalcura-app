@@ -1,15 +1,16 @@
 package com.dentalcura.webapp.service.impl;
 
 
-import com.dentalcura.webapp.dto.user.CreateUserRequest;
-import com.dentalcura.webapp.dto.user.UpdateUserRequest;
-import com.dentalcura.webapp.dto.user.UserResponse;
+import com.dentalcura.webapp.dto.user.*;
+import com.dentalcura.webapp.model.Patient;
 import com.dentalcura.webapp.model.User;
 import com.dentalcura.webapp.repository.IUserRepository;
 import com.dentalcura.webapp.service.IUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 @Getter @Setter
 @Service
 public class UserService implements IUserService {
+
+    private final static Logger LOGGER = Logger.getLogger(UserService.class);
+
 
     @Autowired
     private IUserRepository userRepository;
@@ -31,6 +36,7 @@ public class UserService implements IUserService {
     public void insertUser(CreateUserRequest createUserRequest) {
         User user = mapper.convertValue(createUserRequest, User.class);
         userRepository.save(user);
+        LOGGER.info("New user was registered [" + user.getName() + " " + user.getSurname() + "]");
     }
 
     @Override
@@ -58,13 +64,51 @@ public class UserService implements IUserService {
 
     @Override
     public void updateUserByID(Long id, UpdateUserRequest updateUserRequest) {
-        User user = mapper.convertValue(updateUserRequest, User.class);
-        user.setId(id);
-        userRepository.save(user);
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            LOGGER.info("Request to update user id [" + id + "]");
+
+            user.setId(id);
+            user.setName(updateUserRequest.name());
+            user.setSurname(updateUserRequest.surname());
+            user.setEmail(updateUserRequest.email());
+            user.setPassword(updateUserRequest.password());
+            user.setAdmin(updateUserRequest.admin());
+
+            userRepository.save(user);
+            LOGGER.info("User [" + user.getName() + " " + user.getSurname() + "] updated");
+        }
+
+
+//        LOGGER.info("Request to update user");
+//        User user = mapper.convertValue(updateUserRequest, User.class);
+//        user.setId(id);
+//        userRepository.save(user);
+//        LOGGER.info("User updated to [" + user.getName() + " " +user.getSurname() + "]");
     }
 
     @Override
     public void deleteUserByID(Long id) {
         userRepository.deleteById(id);
+        LOGGER.info("User deleted from DB");
+    }
+
+
+    public LoginUserResponse login(LoginUserRequest loginUserRequest){
+        List<User> users = userRepository.findAll();
+        int token = 0;
+        String userName = null;
+
+        for (User user: users) {
+            if(user.getEmail().equals(loginUserRequest.email()) && user.getPassword().equals(loginUserRequest.password())){
+                token = user.isAdmin() ? 33 : 1;
+                userName = user.getName();
+                break;
+            }
+        }
+
+        return new LoginUserResponse(token, userName);
     }
 }
