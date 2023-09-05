@@ -1,10 +1,8 @@
 package com.dentalcura.webapp.service.impl;
 
 import com.dentalcura.webapp.dto.dentist.CreateDentistRequest;
-import com.dentalcura.webapp.dto.user.CreateUserRequest;
-import com.dentalcura.webapp.dto.user.UpdateUserRequest;
+import com.dentalcura.webapp.dto.dentist.UpdateDentistRequest;
 import com.dentalcura.webapp.model.Dentist;
-import com.dentalcura.webapp.model.User;
 import com.dentalcura.webapp.repository.IDentistRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -55,43 +53,62 @@ class DentistServiceTest {
         assertTrue(found);
     }
 
-//    @Test
-//    void updateDentistByID() {
-//
-//        CreateUserRequest createUserRequest = new CreateUserRequest(
-//                "testName",
-//                "testSurname",
-//                "test@email.com",
-//                "testPassword",
-//                true
-//        );
-//
-//        User user = mapper.convertValue(createUserRequest, User.class);
-//        userRepository.save(user);
-//
-//        UpdateUserRequest updateUserRequest = new UpdateUserRequest(
-//                "testNameUpdate",
-//                "testSurnameUpdate",
-//                "testUpdate@email.com",
-//                "testPasswordUpdate",
-//                false
-//        );
-//
-//        User userUpdate = mapper.convertValue(updateUserRequest, User.class);
-//        userUpdate.setId(1L);
-//        userRepository.save(userUpdate);
-//
-//        Optional<User> optionalUser = userRepository.findById(1L);
-//        User newUser = null;
-//
-//        if(optionalUser.isPresent())
-//            newUser = optionalUser.get();
-//
-//
-//        assertEquals(userUpdate, newUser);
-//    }
+    @Test
+    void updateDentistByID() {
+
+        CreateDentistRequest createDentistRequest = new CreateDentistRequest(
+                "testName",
+                "testSurname",
+                1111
+        );
+
+        Dentist dentist = mapper.convertValue(createDentistRequest, Dentist.class);
+        dentistRepository.save(dentist);
+
+        UpdateDentistRequest updateDentistRequest = new UpdateDentistRequest(
+                "testNameUpdate",
+                "testSurnameUpdate"
+        );
+
+        Dentist dentistUpdate = mapper.convertValue(updateDentistRequest, Dentist.class);
+        dentistUpdate.setId(1L);
+        dentistRepository.save(dentistUpdate);
+
+        Optional<Dentist> optionalDentist = dentistRepository.findById(1L);
+        Dentist newDentist = null;
+
+        if(optionalDentist.isPresent())
+            newDentist = optionalDentist.get();
+
+
+        assertEquals(dentistUpdate.getLicenseNumber(), newDentist.getLicenseNumber());
+    }
 
     @Test
     void deleteDentistByID() {
-    }
+
+        CreateDentistRequest createDentistRequest = new CreateDentistRequest(
+                "testName",
+                "testSurname",
+                2222
+        );
+
+        Dentist dentistToDelete = mapper.convertValue(createDentistRequest, Dentist.class);
+        dentistRepository.save(dentistToDelete);
+
+        dentistRepository.deleteById(4L);
+
+        List<Dentist> dentists = dentistRepository.findAll();
+
+        boolean found = false;
+
+        for (Dentist findDentist: dentists) {
+            if (findDentist.equals(dentistToDelete)) {
+                found = true;
+                break;
+            }
+        }
+
+        assertFalse(found);
+        }
 }
