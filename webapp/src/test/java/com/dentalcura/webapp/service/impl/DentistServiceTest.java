@@ -81,6 +81,7 @@ class DentistServiceTest {
             newDentist = optionalDentist.get();
 
 
+        assert newDentist != null;
         assertEquals(dentistUpdate.getLicenseNumber(), newDentist.getLicenseNumber());
     }
 
@@ -110,5 +111,5 @@ class DentistServiceTest {
         }
 
         assertFalse(found);
-        }
+    }
 }
