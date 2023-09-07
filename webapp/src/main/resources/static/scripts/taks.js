@@ -177,7 +177,7 @@ window.addEventListener('load', function () {
     
     
     if(payload.date == '' || payload.patient.id == '' || payload.dentist.id == ''){
-      alert('Debe seleccionar patient, dentist and date')
+      alert('You must select patient, dentist and date')
     }
     else{
       fetch(endpointAppointment, settings)
@@ -217,7 +217,7 @@ window.addEventListener('load', function () {
 
       list.forEach(appointment=>{
         appointmentToDo.innerHTML+=`
-        <li><div class='ps'><p>${appointment.date}</p> <p id='centerp'>${appointment.dentist.surname}, ${appointment.dentist.name}</p> <p id='finalp'>${appointment.patient.surname}, ${appointment.patient.name}</p></div>
+        <li><div class='ps'><p>${appointment.id} - ${appointment.date}</p> <p id='centerp'>${appointment.dentist.surname}, ${appointment.dentist.name}</p> <p id='finalp'>${appointment.patient.surname}, ${appointment.patient.name}</p></div>
         </li>`
       })
   }

@@ -64,7 +64,7 @@ window.addEventListener('load', function () {
                         location.replace('./tasks.html')
                     }
                 }).catch(err => {
-                    console.log(err);      
+                    console.log(err)
                 })
             form.reset()            
         }

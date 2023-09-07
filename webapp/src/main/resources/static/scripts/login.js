@@ -55,8 +55,7 @@ window.addEventListener('load', function () {
                     location.replace('./tasks.html')                    
                 }                
                 else if (data.token == 0){
-                    alert('User not found')
-                    location.replace('./root.html')                    
+                    alert('User not found')               
                 }
 
             //}

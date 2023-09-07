@@ -48,7 +48,7 @@ window.addEventListener('load', function () {
 
       list.forEach(dentist=>{
         selectDentist.innerHTML+=`
-        <li>${dentist.surname}, ${dentist.name}. Lic: ${dentist.licenseNumber}
+        <li>${dentist.id} - ${dentist.surname}, ${dentist.name}. Lic: ${dentist.licenseNumber}
         <div></div>
         </li>`
       })
@@ -75,7 +75,7 @@ window.addEventListener('load', function () {
 
       list.forEach(patient=>{
         selectPatient.innerHTML+=`
-        <li>${patient.surname}, ${patient.name}. Nin: ${patient.niNumber}
+        <li>${patient.id} - ${patient.surname}, ${patient.name}. Nin: ${patient.niNumber}
         <div></div>
         </li>`
       })

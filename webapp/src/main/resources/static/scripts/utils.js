@@ -1,14 +1,14 @@
 /* ---------------------------------- texto --------------------------------- */
-function validarTexto(texto) {
+function validaText(text) {
     
 }
 
-function normalizarTexto(texto) {
+function normalizeText(text) {
     
 }
 
 /* ---------------------------------- email --------------------------------- */
-function validarEmail(email) {
+function validateEmail(email) {
     
 }
 
@@ -17,11 +17,9 @@ function normalizarEmail(email) {
 }
 
 /* -------------------------------- password -------------------------------- */
-function validarContrasenia(contrasenia) {
+function validatePass(password) {
     
 }
 
-function compararContrasenias(contrasenia_1, contrasenia_2) {
-    
-}
+
 
