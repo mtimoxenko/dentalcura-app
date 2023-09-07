@@ -35,4 +35,28 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(DuplicateNiNumberException.class)
+    public ResponseEntity<String> handleDuplicateNiNumberException(DuplicateNiNumberException ex) {
+        LOGGER.error(ex.getMessage());
+
+        String errorMessage = "Duplicate niNumber: " + ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateLicenseNumberException.class)
+    public ResponseEntity<String> handleDuplicateLicenseNumberException(DuplicateLicenseNumberException ex) {
+        LOGGER.error(ex.getMessage());
+
+        String errorMessage = "Duplicate licenseNumber: " + ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateEmailException.class)
+    public ResponseEntity<String> handleDuplicateEmailException(DuplicateEmailException ex) {
+        LOGGER.error(ex.getMessage());
+
+        String errorMessage = "Duplicate email: " + ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
 }
