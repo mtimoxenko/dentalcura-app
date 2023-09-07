@@ -12,6 +12,7 @@ import com.dentalcura.webapp.model.Dentist;
 import com.dentalcura.webapp.model.Patient;
 import com.dentalcura.webapp.repository.IAppointmentRepository;
 import com.dentalcura.webapp.service.IAppointmentService;
+import com.dentalcura.webapp.utils.exceptions.CustomNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
@@ -70,6 +71,9 @@ public class AppointmentService implements IAppointmentService {
 
     @Override
     public AppointmentResponse selectAppointmentByID(Long id) {
+        if (!appointmentRepository.existsById(id))
+            throw new CustomNotFoundException("Appointment id [" + id + "] not found");
+
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
 
         if (optionalAppointment.isPresent()) {
@@ -97,9 +101,13 @@ public class AppointmentService implements IAppointmentService {
 
     @Override
     public void updateAppointmentByID(Long id, UpdateAppointmentRequest updateAppointmentRequest) {
+        if (!appointmentRepository.existsById(id))
+            throw new CustomNotFoundException("Appointment id [" + id + "] not found");
+
         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
 
         if(optionalAppointment.isPresent()) {
+
             Appointment appointment = optionalAppointment.get();
             LOGGER.info("Request to update appointment id [" + id + "]");
 
@@ -108,13 +116,13 @@ public class AppointmentService implements IAppointmentService {
             LOGGER.info("Appointment updated to [" + appointment.getDate() + "]");
         }
 
-//        Appointment appointment = mapper.convertValue(updateAppointmentRequest, Appointment.class);
-//        appointment.setId(id);
-
     }
 
     @Override
     public void deleteAppointmentByID(Long id) {
+        if (!appointmentRepository.existsById(id))
+            throw new CustomNotFoundException("Appointment id [" + id + "] not found");
+
         appointmentRepository.deleteById(id);
         LOGGER.info("Appointment deleted from DB");
     }

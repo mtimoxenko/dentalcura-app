@@ -1,4 +1,4 @@
-package com.dentalcura.webapp;
+package com.dentalcura.webapp.utils.exceptions;
 
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -14,10 +14,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> allErrors(Exception e, WebRequest req){
-
         LOGGER.error(e.getMessage());
 
         return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(CustomNotFoundException.class)
+    public ResponseEntity<String> handleCustomNotFoundException(CustomNotFoundException ex) {
+        LOGGER.error(ex.getMessage());
+
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
 }
