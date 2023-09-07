@@ -18,9 +18,11 @@ public class Patient{
     private Long id;
 
 
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String surname;
-    @Column(name = "ni_number") // Especifica el nombre de la columna en la base de datos
+    @Column(name = "ni_number", nullable = false) // Especifica el nombre de la columna en la base de datos
     private Integer niNumber;
     @Column(name = "reg_date") // Especifica el nombre de la columna en la base de datos
     private String registrationDate;

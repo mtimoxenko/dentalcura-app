@@ -86,7 +86,7 @@ class AppointmentServiceTest {
     void deleteAppointmentByID() {
         
         CreateAppointmentRequest createAppointmentRequest = new CreateAppointmentRequest(
-                "test",
+                "dateToDelete",
                 null,
                 null
         );
@@ -94,7 +94,7 @@ class AppointmentServiceTest {
         Appointment appointmentToDelete = mapper.convertValue(createAppointmentRequest, Appointment.class);
         appointmentRepository.save(appointmentToDelete);
 
-        appointmentRepository.deleteById(1L);
+        appointmentRepository.deleteById(6L);
 
         List<Appointment> appointments = appointmentRepository.findAll();
 
@@ -102,6 +102,7 @@ class AppointmentServiceTest {
 
         for (Appointment findAppointment: appointments) {
             if (findAppointment.equals(appointmentToDelete)) {
+                System.out.println(findAppointment);
                 found = true;
                 break;
             }
