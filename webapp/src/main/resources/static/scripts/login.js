@@ -37,7 +37,6 @@ window.addEventListener('load', function () {
             console.log(data);
 
             if (data.token) {
-            //    localStorage.setItem('jwt', JSON.stringify(data.jwt));
                 sessionStorage.setItem('userName', JSON.stringify(data.userName))
                 sessionStorage.setItem('jwt', JSON.stringify(data.token))
 

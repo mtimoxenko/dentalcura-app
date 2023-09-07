@@ -10,6 +10,7 @@ import com.dentalcura.webapp.model.Appointment;
 import com.dentalcura.webapp.model.Dentist;
 import com.dentalcura.webapp.repository.IDentistRepository;
 import com.dentalcura.webapp.service.IDentistService;
+import com.dentalcura.webapp.utils.exceptions.CustomNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
@@ -78,6 +79,9 @@ public class DentistService implements IDentistService {
 
     @Override
     public DentistResponse selectDentistByID(Long id) {
+        if (!dentistRepository.existsById(id))
+            throw new CustomNotFoundException("Dentist id [" + id + "] not found");
+
         Optional<Dentist> optionalDentist = dentistRepository.findById(id);
 
 
@@ -114,6 +118,9 @@ public class DentistService implements IDentistService {
 
     @Override
     public void updateDentistByID(Long id, UpdateDentistRequest updateDentistRequest) {
+        if (!dentistRepository.existsById(id))
+            throw new CustomNotFoundException("Dentist id [" + id + "] not found");
+
         Optional<Dentist> optionalDentist = dentistRepository.findById(id);
 
         if (optionalDentist.isPresent()) {
@@ -130,6 +137,9 @@ public class DentistService implements IDentistService {
 
     @Override
     public void deleteDentistByID(Long id) {
+        if (!dentistRepository.existsById(id))
+            throw new CustomNotFoundException("Dentist id [" + id + "] not found");
+
         dentistRepository.deleteById(id);
         LOGGER.info("Dentist deleted from DB");
     }
