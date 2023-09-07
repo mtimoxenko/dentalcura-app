@@ -6,6 +6,9 @@ import com.dentalcura.webapp.model.Patient;
 import com.dentalcura.webapp.model.User;
 import com.dentalcura.webapp.repository.IUserRepository;
 import com.dentalcura.webapp.service.IUserService;
+import com.dentalcura.webapp.utils.exceptions.CustomNotFoundException;
+import com.dentalcura.webapp.utils.exceptions.DuplicateEmailException;
+import com.dentalcura.webapp.utils.exceptions.DuplicateNiNumberException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +37,11 @@ public class UserService implements IUserService {
 
     @Override
     public void insertUser(CreateUserRequest createUserRequest) {
+
+        if (isNiNumberDuplicated(createUserRequest.email())) {
+            throw new DuplicateEmailException("Email [" + createUserRequest.email() + "] is already in use.");
+        }
+
         User user = mapper.convertValue(createUserRequest, User.class);
         userRepository.save(user);
         LOGGER.info("New user was registered [" + user.getName() + " " + user.getSurname() + "]");
@@ -53,6 +61,9 @@ public class UserService implements IUserService {
 
     @Override
     public UserResponse selectUserByID(Long id) {
+        if (!userRepository.existsById(id))
+            throw new CustomNotFoundException("User id [" + id + "] not found");
+
         Optional<User> user = userRepository.findById(id);
         UserResponse userResponse = null;
 
@@ -64,6 +75,12 @@ public class UserService implements IUserService {
 
     @Override
     public void updateUserByID(Long id, UpdateUserRequest updateUserRequest) {
+        if (!userRepository.existsById(id))
+            throw new CustomNotFoundException("User id [" + id + "] not found");
+        if (isNiNumberDuplicated(updateUserRequest.email())) {
+            throw new DuplicateEmailException("Email [" + updateUserRequest.email() + "] is already in use.");
+        }
+
         Optional<User> optionalUser = userRepository.findById(id);
 
         if (optionalUser.isPresent()) {
@@ -81,16 +98,13 @@ public class UserService implements IUserService {
             LOGGER.info("User [" + user.getName() + " " + user.getSurname() + "] updated");
         }
 
-
-//        LOGGER.info("Request to update user");
-//        User user = mapper.convertValue(updateUserRequest, User.class);
-//        user.setId(id);
-//        userRepository.save(user);
-//        LOGGER.info("User updated to [" + user.getName() + " " +user.getSurname() + "]");
     }
 
     @Override
     public void deleteUserByID(Long id) {
+        if (!userRepository.existsById(id))
+            throw new CustomNotFoundException("User id [" + id + "] not found");
+
         userRepository.deleteById(id);
         LOGGER.info("User deleted from DB");
     }
@@ -110,5 +124,19 @@ public class UserService implements IUserService {
         }
 
         return new LoginUserResponse(token, userName);
+    }
+
+    private boolean isNiNumberDuplicated(String email){
+        List<User> users = userRepository.findAll();
+        boolean isDuplicated = false;
+
+        for(User user: users){
+            if (user.getEmail().equals(email)) {
+                isDuplicated = true;
+                break;
+            }
+        }
+
+        return isDuplicated;
     }
 }

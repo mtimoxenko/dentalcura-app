@@ -44,8 +44,12 @@ window.addEventListener('load', function () {
             console.log("Promise OK!")
             console.log(data)
 
+<<<<<<< HEAD
             //if (data.jwt) {
             //    localStorage.setItem('jwt', JSON.stringify(data.jwt));
+=======
+            if (data.token) {
+>>>>>>> 5781c147f0c3ab5e87b63b060b493cc51690cd25
                 sessionStorage.setItem('userName', JSON.stringify(data.userName))
 
                 if (data.token == 33) {

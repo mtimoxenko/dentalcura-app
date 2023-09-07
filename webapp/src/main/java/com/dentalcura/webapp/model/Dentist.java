@@ -17,10 +17,11 @@ public class Dentist{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String surname;
-    @Column(name = "license_number") // Especifica el nombre de la columna en la base de datos
+    @Column(name = "license_number", nullable = false) // Especifica el nombre de la columna en la base de datos
     private Integer licenseNumber;
 
 
