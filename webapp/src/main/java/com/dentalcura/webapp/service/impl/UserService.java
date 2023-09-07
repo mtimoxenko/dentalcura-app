@@ -39,7 +39,7 @@ public class UserService implements IUserService {
     public void insertUser(CreateUserRequest createUserRequest) {
 
         if (isNiNumberDuplicated(createUserRequest.email())) {
-            throw new DuplicateEmailException("Email is already in use.");
+            throw new DuplicateEmailException("Email [" + createUserRequest.email() + "] is already in use.");
         }
 
         User user = mapper.convertValue(createUserRequest, User.class);
@@ -78,7 +78,7 @@ public class UserService implements IUserService {
         if (!userRepository.existsById(id))
             throw new CustomNotFoundException("User id [" + id + "] not found");
         if (isNiNumberDuplicated(updateUserRequest.email())) {
-            throw new DuplicateEmailException("Email is already in use.");
+            throw new DuplicateEmailException("Email [" + updateUserRequest.email() + "] is already in use.");
         }
 
         Optional<User> optionalUser = userRepository.findById(id);
