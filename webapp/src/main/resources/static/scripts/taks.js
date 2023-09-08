@@ -242,6 +242,7 @@ window.addEventListener('load', function () {
 
       const id = searchAppointmentId.value
       const url = `${endpointAppointment}/${id}`
+      const updateButton = document.querySelector('.update-button')
       const deleteButton = document.querySelector('#delete-button')
 
       const settings = {
@@ -255,6 +256,7 @@ window.addEventListener('load', function () {
             patient.innerText = data.patient.surname + (', ') + data.patient.name
             dentist.innerText = data.dentist.surname + (', ') + data.dentist.name
             date.value = data.date
+            updateButton.disabled = false
             updateAppointment()
             deleteButton.disabled = false
             appointmentDelete()
@@ -263,6 +265,7 @@ window.addEventListener('load', function () {
         patient.innerText = '/'
         dentist.innerText = '/'
         date.value = ''
+        updateButton.disabled = true
         deleteButton.disabled = true
       })
     })

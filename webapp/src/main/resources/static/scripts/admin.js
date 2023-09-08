@@ -147,7 +147,7 @@ window.addEventListener('load', function () {
       const name = document.querySelector('.dentist-load #inputName')
       const surname = document.querySelector('.dentist-load #inputSurname')
       const licenseNumber = document.querySelector('.dentist-load #inputLicenseNumber')
-
+      
       form.addEventListener('submit', function(e){
         e.preventDefault()
 
@@ -169,7 +169,7 @@ window.addEventListener('load', function () {
 
 
         if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
-          alert('You must complete Name correctly, without leaving empty fields or spaces')
+          name.style.border = '2px solid red'
         }
         else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
           alert('You must complete Surname correctly, without leaving empty fields or spaces')
