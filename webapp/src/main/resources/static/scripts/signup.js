@@ -35,6 +35,7 @@ window.addEventListener('load', function () {
             body: JSON.stringify(payload),   
         }
 
+<<<<<<< HEAD
 
         if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
             errorMessage()
@@ -70,6 +71,38 @@ window.addEventListener('load', function () {
                 })
             form.reset()            
         }
+=======
+        
+ 
+        const tessssst = document.querySelector('#test')
+        
+        fetch(endpoint, config)
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            return response.text().then((errorMessage) => {
+              throw new Error(errorMessage);
+            });
+          }
+        })
+        .then((data) => {
+          // Handle success
+          console.log('Data:', data);
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error(error.message); // Display the error message
+          console.log(error.message); // Display the log message
+          tessssst.innerText = `${error.message}`;
+        });
+      
+
+
+
+
+        form.reset()
+>>>>>>> 6fccdf4d4d36eb050268a50440f81f80744d49c4
     })
 
 
