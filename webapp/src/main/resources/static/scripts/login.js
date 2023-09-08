@@ -41,15 +41,9 @@ window.addEventListener('load', function () {
         fetch(endpointLogin, config)
         .then((response) => response.json())
         .then((data) => {
-            console.log("Promise OK!")
             console.log(data)
 
-<<<<<<< HEAD
-            //if (data.jwt) {
-            //    localStorage.setItem('jwt', JSON.stringify(data.jwt));
-=======
             if (data.token) {
->>>>>>> 5781c147f0c3ab5e87b63b060b493cc51690cd25
                 sessionStorage.setItem('userName', JSON.stringify(data.userName))
 
                 if (data.token == 33) {
@@ -57,16 +51,15 @@ window.addEventListener('load', function () {
                 }
                 else if (data.token == 1){
                     location.replace('./tasks.html')                    
-                }                
-                else if (data.token == 0){
-                    alert('User not found')               
                 }
-
-            //}
+            }
+            else{
+                errorResponse()
+            }
 
         }).catch(err => {
-            console.log("Promise rejected...");
-            console.log(err);      
+            console.log("Promise rejected...")
+            console.log(err)
         })
     }
 
@@ -85,6 +78,19 @@ window.addEventListener('load', function () {
         form.appendChild(divTemplate)
     }
 
+    function errorResponse(){
+        const bugBox = document.querySelector('#errores')
     
+        if (bugBox) {
+            bugBox.remove()
+        }
+    
+        const divTemplate = document.createElement('div')
+        divTemplate.setAttribute('id', 'errores')
+        divTemplate.style = "background:rgba(255, 0, 0, 0.3);padding:.5em 1em;color: white;margin-top: 1em;"
+        divTemplate.innerHTML += `<p><small>User not found</small></p>`
+        form.appendChild(divTemplate)
+    }
 
+    
 })

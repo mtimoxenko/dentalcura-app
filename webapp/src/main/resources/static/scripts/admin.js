@@ -292,6 +292,7 @@ window.addEventListener('load', function () {
           dentistDelete()
         })
         .catch(err=>{
+          console.log(err);
           name.value = ""
           surname.value = ""
           dentistDeleteButton.disabled = true

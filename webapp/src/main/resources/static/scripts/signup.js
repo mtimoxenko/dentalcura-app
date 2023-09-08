@@ -51,19 +51,21 @@ window.addEventListener('load', function () {
         else{
             fetch(endpoint, config)
                 .then((response) => {
-                    console.log(response);
-                    response.json()})
-                .then(data => {
-                    console.log(data)
+                    console.log(response)
+                    response.json()
                     sessionStorage.setItem('userName', JSON.stringify(payload.name))
 
-                    if(payload.admin){
+                    if(!response.ok){
+                        errorResponse(payload)
+                    }
+                    else if(payload.admin && response.ok){
                         location.replace('./admin.html')
                     }
-                    else if(!payload.admin){                  
+                    else if(!payload.admin && response.ok){                  
                         location.replace('./tasks.html')
-                    }
-                }).catch(err => {
+                    }                
+                })
+                .catch(err => {
                     console.log(err)
                 })
             form.reset()            
@@ -82,6 +84,20 @@ window.addEventListener('load', function () {
         divTemplate.setAttribute('id', 'errores')
         divTemplate.style = "background:rgba(255, 0, 0, 0.3);padding:.5em 1em;color: white;margin-top: 1em;"
         divTemplate.innerHTML += `<p><small>You must complete data correctly, without leaving empty fields or spaces</small></p>`
+        form.appendChild(divTemplate)
+    }
+
+    function errorResponse(info){
+        const bugBox = document.querySelector('#errores')
+    
+        if (bugBox) {
+            bugBox.remove()
+        }
+    
+        const divTemplate = document.createElement('div')
+        divTemplate.setAttribute('id', 'errores')
+        divTemplate.style = "background:rgba(255, 0, 0, 0.3);padding:.5em 1em;color: white;margin-top: 1em;"
+        divTemplate.innerHTML = `<p><small>Email ${info.email} is already in use</small></p>`
         form.appendChild(divTemplate)
     }
     
