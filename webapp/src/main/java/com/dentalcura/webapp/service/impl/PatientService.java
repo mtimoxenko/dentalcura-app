@@ -6,9 +6,12 @@ import com.dentalcura.webapp.dto.patient.UpdatePatientRequest;
 import com.dentalcura.webapp.dto.patient.PatientResponse;
 import com.dentalcura.webapp.model.Address;
 import com.dentalcura.webapp.model.Patient;
+import com.dentalcura.webapp.model.User;
 import com.dentalcura.webapp.repository.IPatientRepository;
 import com.dentalcura.webapp.service.IPatientService;
 import com.dentalcura.webapp.utils.exceptions.CustomNotFoundException;
+import com.dentalcura.webapp.utils.exceptions.DuplicateEmailException;
+import com.dentalcura.webapp.utils.exceptions.DuplicateNiNumberException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +38,10 @@ public class PatientService implements IPatientService {
 
     @Override
     public void insertPatient(CreatePatientRequest createPatientRequest) {
+        if (isNiNumberDuplicated(createPatientRequest.niNumber())) {
+            throw new DuplicateNiNumberException("NI Number [" + createPatientRequest.niNumber() + "] is already in use.");
+        }
+
         Patient patient = mapper.convertValue(createPatientRequest, Patient.class);
         Address address = patient.getAddress();
 
@@ -136,5 +143,21 @@ public class PatientService implements IPatientService {
 
         patientRepository.deleteById(id);
         LOGGER.info("Patient deleted from DB");
+    }
+
+
+
+    private boolean isNiNumberDuplicated(Integer niNum){
+        List<Patient> patients = patientRepository.findAll();
+        boolean isDuplicated = false;
+
+        for(Patient patient: patients){
+            if (patient.getNiNumber().equals(niNum)) {
+                isDuplicated = true;
+                break;
+            }
+        }
+
+        return isDuplicated;
     }
 }

@@ -38,7 +38,7 @@ public class UserService implements IUserService {
     @Override
     public void insertUser(CreateUserRequest createUserRequest) {
 
-        if (isNiNumberDuplicated(createUserRequest.email())) {
+        if (isEmailDuplicated(createUserRequest.email())) {
             throw new DuplicateEmailException("Email [" + createUserRequest.email() + "] is already in use.");
         }
 
@@ -77,7 +77,7 @@ public class UserService implements IUserService {
     public void updateUserByID(Long id, UpdateUserRequest updateUserRequest) {
         if (!userRepository.existsById(id))
             throw new CustomNotFoundException("User id [" + id + "] not found");
-        if (isNiNumberDuplicated(updateUserRequest.email())) {
+        if (isEmailDuplicated(updateUserRequest.email())) {
             throw new DuplicateEmailException("Email [" + updateUserRequest.email() + "] is already in use.");
         }
 
@@ -126,7 +126,7 @@ public class UserService implements IUserService {
         return new LoginUserResponse(token, userName);
     }
 
-    private boolean isNiNumberDuplicated(String email){
+    private boolean isEmailDuplicated(String email){
         List<User> users = userRepository.findAll();
         boolean isDuplicated = false;
 
