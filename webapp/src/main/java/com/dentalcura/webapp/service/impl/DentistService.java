@@ -8,9 +8,11 @@ import com.dentalcura.webapp.dto.dentist.DentistResponse;
 import com.dentalcura.webapp.dto.patient.PatientResponseToDentist;
 import com.dentalcura.webapp.model.Appointment;
 import com.dentalcura.webapp.model.Dentist;
+import com.dentalcura.webapp.model.Patient;
 import com.dentalcura.webapp.repository.IDentistRepository;
 import com.dentalcura.webapp.service.IDentistService;
 import com.dentalcura.webapp.utils.exceptions.CustomNotFoundException;
+import com.dentalcura.webapp.utils.exceptions.DuplicateNiNumberException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +39,10 @@ public class DentistService implements IDentistService {
 
     @Override
     public void insertDentist(CreateDentistRequest createDentistRequest) {
+        if (isLicenseNumberDuplicated(createDentistRequest.licenseNumber())) {
+            throw new DuplicateNiNumberException("License number [" + createDentistRequest.licenseNumber() + "] is already in use.");
+        }
+
         Dentist dentist = mapper.convertValue(createDentistRequest, Dentist.class);
         dentistRepository.save(dentist);
         LOGGER.info("New dentist was registered [" + dentist.getName() + " " + dentist.getSurname() + "]");
@@ -143,4 +149,20 @@ public class DentistService implements IDentistService {
         dentistRepository.deleteById(id);
         LOGGER.info("Dentist deleted from DB");
     }
+
+
+    private boolean isLicenseNumberDuplicated(Integer licNum){
+        List<Dentist> dentists = dentistRepository.findAll();
+        boolean isDuplicated = false;
+
+        for(Dentist dentist: dentists){
+            if (dentist.getLicenseNumber().equals(licNum)) {
+                isDuplicated = true;
+                break;
+            }
+        }
+
+        return isDuplicated;
+    }
+
 }

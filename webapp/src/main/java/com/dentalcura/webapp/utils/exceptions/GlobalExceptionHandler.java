@@ -59,4 +59,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(DuplicateAppointmentException.class)
+    public ResponseEntity<String> handleDuplicateAppointmentException(DuplicateAppointmentException ex) {
+        LOGGER.error(ex.getMessage());
+
+        String errorMessage = "Duplicate appointment: " + ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
 }
