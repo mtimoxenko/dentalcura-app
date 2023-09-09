@@ -181,10 +181,22 @@ window.addEventListener('load', function () {
     }
     else{
       fetch(endpointAppointment, settings)
-      .then(response => {response.json()
-        getAppointment()      
+      .then(response => {
+          if (response.ok) {
+              response.json()
+              getAppointment()            
+          }
+          else{
+              return response.text().then((errorMessage) => {
+              throw new Error(errorMessage)
+              })
+          }
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+          console.error(error.message)
+          console.log(error.message)
+          errorResponse(formAddAppointment, error.message)
+      })
       formAddAppointment.reset()      
     }
 
@@ -268,6 +280,8 @@ window.addEventListener('load', function () {
         updateButton.disabled = true
         deleteButton.disabled = true
       })
+      const bugBox = document.querySelector('#errores')
+      bugBox.remove()
     })
   }
 
@@ -283,6 +297,7 @@ window.addEventListener('load', function () {
     const searchForm = document.querySelector('.appointment-search')
 
     const updateButton = document.querySelector('.update-button')
+    const deleteButton = document.querySelector('#delete-button')
     const appointmentId = document.getElementById('inputAppointmentId')
 
     const date = document.getElementById('inputDate')
@@ -309,16 +324,19 @@ window.addEventListener('load', function () {
       }
 
       if(payload.date == ''){
-        alert('You must complete Date field')
+        errorMessage(formAddAppointment)
       }
       else{
         fetch(url, settings)
         .then(response => {
           console.log(response.status)
           getAppointment()
+          deleteButton.disabled = true
         })
         updateform.reset()
         searchForm.reset()
+        const bugBox = document.querySelector('#errores')
+        bugBox.remove()
       }
     })
   }
@@ -367,7 +385,8 @@ window.addEventListener('load', function () {
                 getAppointment()
               })
               updateform.reset()
-              searchForm.reset()               
+              searchForm.reset()
+              deleteButton.disabled = true
             }
           })
       })

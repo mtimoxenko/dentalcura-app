@@ -73,9 +73,11 @@ nav .user-info button {
     margin-bottom: 1rem;
     display: flex;
     width: 80%;
+    position: relative;
 }
 
 #dentist-table, #patient-table{
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 30%;
@@ -84,6 +86,7 @@ nav .user-info button {
 .tables ul{
     margin-top: 5%;
     list-style-type: square;
+    padding-bottom: 25%;
 }
 
 form{
@@ -170,6 +173,13 @@ form button:hover{
 
 #delete-button:hover{
     background-color: rgb(159, 0, 0);
+}
+
+#errores{
+    position: absolute;
+    bottom: 3rem;
+    left: 3.5rem;
+    max-width: 30%;
 }
 
 footer {

@@ -13,7 +13,9 @@ window.addEventListener('load', function () {
     const endpointDentist = 'http://localhost:8080/dentist'
     const endpointPatient = 'http://localhost:8080/patient'
 
-    const btnCloseApp = document.querySelector('#closeApp');
+    const btnCloseApp = document.querySelector('#closeApp')
+    const article1 = document.querySelector('.tables')
+    const article2 = document.querySelector('.article2')
 
 
     getUserName()
@@ -147,7 +149,8 @@ window.addEventListener('load', function () {
       const name = document.querySelector('.dentist-load #inputName')
       const surname = document.querySelector('.dentist-load #inputSurname')
       const licenseNumber = document.querySelector('.dentist-load #inputLicenseNumber')
-      
+
+
       form.addEventListener('submit', function(e){
         e.preventDefault()
 
@@ -168,25 +171,39 @@ window.addEventListener('load', function () {
         console.log(config)
 
 
-        if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
-          name.style.border = '2px solid red'
+        if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {       
+          errorMessage(article1)
         }
         else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
-          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+          errorMessage(article1)
         }
         else if(payload.licenseNumber == '' || payload.licenseNumber.includes(' ') || isNaN(payload.licenseNumber)){
-          alert('You must complete License Number field correctly')
+          errorMessage(article1)       
         }
         else{
             fetch(endpointDentist, config)
-            .then((response) => {response.json()
-              getDentistAll()             
+            .then((response) => {
+                if (response.ok){
+                    response.json()
+                    getDentistAll()                       
+                }
+                else{
+                    return response.text().then((errorMessage) => {
+                    throw new Error(errorMessage)
+                    })
+                }
             })
-            .catch(err => {
-                console.log(err)
+            .catch(error => {
+              console.error(error.message)
+              console.log(error.message)
+              errorResponse(article1, error.message)
             })
-            form.reset()
+
+        form.reset()      
+        const bugBox = document.querySelector('#errores')
+        bugBox.remove()
         }
+
       })
     }
 
@@ -203,6 +220,7 @@ window.addEventListener('load', function () {
       const streetNumber = document.querySelector('.patient-load #inputStreetNumber')
       const floor = document.querySelector('.patient-load #inputFloor')
       const department = document.querySelector('.patient-load #inputDepartment')
+
 
       form.addEventListener('submit', function(e){
         e.preventDefault()      
@@ -232,24 +250,38 @@ window.addEventListener('load', function () {
 
 
         if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
-          alert('You must complete Name correctly, without leaving empty fields or spaces')
+          errorMessage(article2)
         }
         else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
-          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+          errorMessage(article2)
         }
         else if(payload.niNumber == '' || payload.niNumber.includes(' ') || isNaN(payload.niNumber)){
-          alert('You must complete NI Number field correctly')
+          errorMessage(article2)
         }
         else{
-          fetch(endpointPatient, config)
-            .then((response) => {response.json()
-              getPatientAll()             
+            fetch(endpointPatient, config)
+            .then((response) => {
+                if (response.ok){
+                    response.json()
+                    getPatientAll()                       
+                }
+                else{
+                    return response.text().then((errorMessage) => {
+                    throw new Error(errorMessage)
+                    })
+                }
             })
-            .catch(err => {
-              console.log(err)
+            .catch(error => {
+            console.error(error.message)
+            console.log(error.message)
+            errorResponse(article2, error.message)
             })
-          form.reset()          
+
+        form.reset()
+        const bugBox = document.querySelector('#errores')
+        bugBox.remove()
         }
+
       })
     }
 
@@ -269,12 +301,12 @@ window.addEventListener('load', function () {
 
       const searchDentistId = document.getElementById('inputDentistId')
 
-
       searchForm.addEventListener('submit', function(e){
         e.preventDefault()
 
         const id = searchDentistId.value
         const url = `${endpointDentist}/${id}`
+        const updateButton = document.querySelector('.dentist-update .update-button')
         const dentistDeleteButton = document.querySelector('.dentist-update #delete-button')
 
         const settings = {
@@ -287,6 +319,7 @@ window.addEventListener('load', function () {
           console.log(data)
           name.value = data.name
           surname.value = data.surname
+          updateButton.disabled = false
           updateDentist()
           dentistDeleteButton.disabled = false
           dentistDelete()
@@ -295,8 +328,11 @@ window.addEventListener('load', function () {
           console.log(err);
           name.value = ""
           surname.value = ""
+          updateButton.disabled = true
           dentistDeleteButton.disabled = true
         })
+        const bugBox = document.querySelector('#errores')
+        bugBox.remove()
       })
     }
 
@@ -320,7 +356,10 @@ window.addEventListener('load', function () {
 
         const id = searchPatientId.value
         const url = `${endpointPatient}/${id}`
+        const updateButton = document.querySelector('.patient-update .update-button')
+        updateButton.disabled = true
         const patientDeleteButton = document.querySelector('.patient-update #delete-button')
+        patientDeleteButton.disabled = true
 
         const settings = {
           method: 'GET',
@@ -336,6 +375,7 @@ window.addEventListener('load', function () {
             streetNumber.value = data.address.streetNumber
             floor.value = data.address.floor
             department.value = data.address.department
+            updateButton.disabled = false
             updatePatient()
             patientDeleteButton.disabled = false
             patientDelete()
@@ -347,8 +387,11 @@ window.addEventListener('load', function () {
           streetNumber.value = ""
           floor.value = ""
           department.value = ""
+          updateButton.disabled = true
           patientDeleteButton.disabled = true
         })
+        const bugBox = document.querySelector('#errores')
+        bugBox.remove()
       })
     }
 
@@ -365,6 +408,7 @@ window.addEventListener('load', function () {
 
       const updateButton = document.querySelector('.dentist-update .update-button')
       const dentistId = document.getElementById('inputDentistId')
+      const dentistDeleteButton = document.querySelector('.dentist-update #delete-button')
 
       const name = document.querySelector('.dentist-update #inputName')
       const surname = document.querySelector('.dentist-update #inputSurname')
@@ -393,21 +437,24 @@ window.addEventListener('load', function () {
 
 
         if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
-          alert('You must complete Name correctly, without leaving empty fields or spaces')
+          errorMessage(article1)
         }
         else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
-          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+          errorMessage(article1)
         }
         else{
           fetch(url, settings)
           .then(response => {
           console.log(response.status)
           getDentistAll()
+          dentistDeleteButton.disabled = true          
         })
         updateform.reset()
         searchForm.reset()
+        const bugBox = document.querySelector('#errores')
+        bugBox.remove()
         }
-      })
+      }) 
     }
 
 
@@ -418,6 +465,7 @@ window.addEventListener('load', function () {
 
       const updateButton = document.querySelector('.patient-update .update-button')
       const patientId = document.getElementById('inputPatientId')
+      const patientDeleteButton = document.querySelector('.patient-update #delete-button')
 
       const name = document.querySelector('.patient-update #inputName')
       const surname = document.querySelector('.patient-update #inputSurname')
@@ -459,19 +507,22 @@ window.addEventListener('load', function () {
 
 
         if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
-          alert('You must complete Name correctly, without leaving empty fields or spaces')
+          errorMessage(article2)
         }
         else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
-          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+          errorMessage(article2)
         }
         else{
           fetch(url, settings)
           .then(response => {
             console.log(response.status)
             getPatientAll()
+            patientDeleteButton.disabled = true
           })
           searchForm.reset()
-          updateform.reset()          
+          updateform.reset()
+          const bugBox = document.querySelector('#errores')
+          bugBox.remove()
         }
       })
     }
@@ -521,7 +572,8 @@ window.addEventListener('load', function () {
                   getDentistAll()
                 })
               updateform.reset()
-              searchForm.reset()                
+              searchForm.reset()
+              dentistDeleteButton.disabled = true    
               }
             })
 
@@ -569,7 +621,8 @@ window.addEventListener('load', function () {
                   getPatientAll()
                 })
               updateform.reset()
-              searchForm.reset()                
+              searchForm.reset()
+              patientDeleteButton.disabled = true
               }
             })
 

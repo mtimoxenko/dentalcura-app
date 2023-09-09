@@ -68,7 +68,7 @@ nav .user-info button {
 
 .forms{
     background-color: var(--negro);
-    padding: 2rem 3rem;
+    padding: 2rem 3rem 1rem;
     margin-bottom: 1rem;
     display: flex;
     flex-direction: row;
@@ -104,8 +104,7 @@ legend{
     font-weight: 400;
     height: 3rem;
     align-self: center;
-    position: absolute;
-    bottom: 1rem;
+    position: relative;
 }
 
 .update-form button{

@@ -35,105 +35,52 @@ window.addEventListener('load', function () {
             body: JSON.stringify(payload),   
         }
 
-<<<<<<< HEAD
 
         if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
-            errorMessage()
+            errorMessage(form)
         }
         else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
-            errorMessage()
+            errorMessage(form)
         }
         else if(payload.email == '' || payload.email.includes(' ') || !payload.email.includes('@')){
-            errorMessage()
+            errorMessage(form)
         }
         else if (payload.password == '' || payload.password.includes(' ')) {
-            errorMessage()
+            errorMessage(form)
         }
         else{
             fetch(endpoint, config)
                 .then((response) => {
-                    console.log(response)
-                    response.json()
-                    sessionStorage.setItem('userName', JSON.stringify(payload.name))
+                    if (response.ok) {
 
-                    if(!response.ok){
-                        errorResponse(payload)
+                        response.json()
+                        sessionStorage.setItem('userName', JSON.stringify(payload.name))
+
+                        if(payload.admin){
+                            location.replace('./admin.html')
+                        }
+                        else if(!payload.admin){                  
+                            location.replace('./tasks.html')
+                        }     
                     }
-                    else if(payload.admin && response.ok){
-                        location.replace('./admin.html')
+                    else {
+                        return response.text().then((errorMessage) => {
+                            throw new Error(errorMessage)
+                        })
                     }
-                    else if(!payload.admin && response.ok){                  
-                        location.replace('./tasks.html')
-                    }                
                 })
-                .catch(err => {
-                    console.log(err)
+
+                .catch(error => {
+                    console.error(error.message)
+                    console.log(error.message)
+                    errorResponse(form, error.message)                    
                 })
+
             form.reset()            
         }
-=======
-        
- 
-        const tessssst = document.querySelector('#test')
-        
-        fetch(endpoint, config)
-        .then((response) => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            return response.text().then((errorMessage) => {
-              throw new Error(errorMessage);
-            });
-          }
-        })
-        .then((data) => {
-          // Handle success
-          console.log('Data:', data);
-        })
-        .catch((error) => {
-          // Handle errors
-          console.error(error.message); // Display the error message
-          console.log(error.message); // Display the log message
-          tessssst.innerText = `${error.message}`;
-        });
-      
 
-
-
-
-        form.reset()
->>>>>>> 6fccdf4d4d36eb050268a50440f81f80744d49c4
     })
 
-
-    function errorMessage(){
-        const bugBox = document.querySelector('#errores')
-    
-        if (bugBox) {
-            bugBox.remove()
-        }
-    
-        const divTemplate = document.createElement('div')
-        divTemplate.setAttribute('id', 'errores')
-        divTemplate.style = "background:rgba(255, 0, 0, 0.3);padding:.5em 1em;color: white;margin-top: 1em;"
-        divTemplate.innerHTML += `<p><small>You must complete data correctly, without leaving empty fields or spaces</small></p>`
-        form.appendChild(divTemplate)
-    }
-
-    function errorResponse(info){
-        const bugBox = document.querySelector('#errores')
-    
-        if (bugBox) {
-            bugBox.remove()
-        }
-    
-        const divTemplate = document.createElement('div')
-        divTemplate.setAttribute('id', 'errores')
-        divTemplate.style = "background:rgba(255, 0, 0, 0.3);padding:.5em 1em;color: white;margin-top: 1em;"
-        divTemplate.innerHTML = `<p><small>Email ${info.email} is already in use</small></p>`
-        form.appendChild(divTemplate)
-    }
-    
 
 
 })
