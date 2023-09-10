@@ -34,7 +34,7 @@ nav .user-info {
 nav .user-info .user-image {
     width: 40px;
     height: 40px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.25);
     background-image: url('../assets/user.png');
     background-repeat: no-repeat;
     background-position: center;
@@ -44,7 +44,7 @@ nav .user-info .user-image {
 }
 
 nav .user-info button {
-    background-color: var(--laranja);
+    background-color: rgba(255, 255, 255, 0.3);
     color: white;
     padding: .5rem 1rem;
     margin-left: 2rem;

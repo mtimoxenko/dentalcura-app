@@ -58,22 +58,16 @@ window.addEventListener('load', function () {
   renderDentist()
 
 
-  function renderDate(){
-    const selectDate = document.getElementById('select-date')
+  function dateCatch(){
+    const year = document.getElementById('year').value
+    const month = document.getElementById('month').value
+    const day = document.getElementById('day').value
+    const time = document.getElementById('time').value
 
-    fetch(endpointDate)
-      .then(response=>response.json())
-      .then(data=>{
-        console.log(data);
-        data.forEach(date=>{
-          selectDate.innerHTML+=`
-          <div><input type="radio" name="date" id="${date.fecha_hora}">
-          <label for="${date.fecha_hora}">${date.fecha_hora}</label>
-          </div>`
-        })
-      })
+    return year+'/'+month+'/'+day+' - '+time
   }
-  renderDate()
+
+
 
     /* -------------------------------------- */
     /*           [1] FUNCTION: Logout         */
@@ -93,7 +87,7 @@ window.addEventListener('load', function () {
       background: 'rgba(255, 255, 255, .9)'
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.clear();
+        localStorage.clear()
         location.replace('./index.html')
       }
     })
@@ -138,7 +132,7 @@ window.addEventListener('load', function () {
 
     const dentist = document.querySelectorAll('[name=dentist]')
     const patient = document.querySelectorAll('[name=patient]')
-    const date = document.querySelectorAll('[name=date]')
+    const date = dateCatch()
 
     const payload = {
       date: "",
@@ -158,12 +152,8 @@ window.addEventListener('load', function () {
       }
     })
 
-    date.forEach(date=>{
-      if(date.checked){
-        console.log(date)
-        payload.date = date.id
-      }
-    })
+    payload.date = date
+
 
     console.log(payload)
 
@@ -176,8 +166,8 @@ window.addEventListener('load', function () {
     }
     
     
-    if(payload.date == '' || payload.patient.id == '' || payload.dentist.id == ''){
-      alert('You must select patient, dentist and date')
+    if(payload.date.includes('0000') || payload.patient.id == '' || payload.dentist.id == ''){
+      alert('You must select patient, dentist and date-time')
     }
     else{
       fetch(endpointAppointment, settings)
@@ -332,11 +322,11 @@ window.addEventListener('load', function () {
           console.log(response.status)
           getAppointment()
           deleteButton.disabled = true
+          const bugBox = document.querySelector('#errores')
+          bugBox.remove()          
         })
         updateform.reset()
         searchForm.reset()
-        const bugBox = document.querySelector('#errores')
-        bugBox.remove()
       }
     })
   }

@@ -33,7 +33,7 @@ nav .user-info {
 nav .user-info .user-image {
     width: 40px;
     height: 40px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.25);
     background-image: url('../assets/user.png');
     background-repeat: no-repeat;
     background-position: center;
@@ -47,7 +47,7 @@ fieldset{
 }
 
 nav .user-info button {
-    background-color: var(--laranja);
+    background-color: rgba(255, 255, 255, 0.3);
     color: white;
     padding: .5rem 1rem;
     margin-left: 2rem;
@@ -94,6 +94,19 @@ legend{
     margin-bottom: .2rem;
 }
 
+.dateList{
+    margin: .5rem;
+}
+
+#year, #month, #day, #time{
+    padding: .1rem;
+}
+
+#errores{
+    position: absolute;
+    bottom: 3.3rem;
+}
+
 .new-appointment button{
     background-color: var(--azul);
     color: white;
@@ -103,8 +116,9 @@ legend{
     margin-top: 2rem;
     font-weight: 400;
     height: 3rem;
-    align-self: center;
-    position: relative;
+    align-self: end;
+    position: absolute;
+    bottom: 3rem;
 }
 
 .update-form button{
@@ -160,7 +174,8 @@ form button:hover{
 }
 
 .appointment-update label{
-    align-self: center;
+    align-self: flex-start;
+    margin-bottom: .1rem;
 }
 
 .appointment-update input{

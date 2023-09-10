@@ -447,12 +447,12 @@ window.addEventListener('load', function () {
           .then(response => {
           console.log(response.status)
           getDentistAll()
-          dentistDeleteButton.disabled = true          
+          dentistDeleteButton.disabled = true
+          const bugBox = document.querySelector('#errores')
+          bugBox.remove()          
         })
         updateform.reset()
         searchForm.reset()
-        const bugBox = document.querySelector('#errores')
-        bugBox.remove()
         }
       }) 
     }
@@ -518,11 +518,11 @@ window.addEventListener('load', function () {
             console.log(response.status)
             getPatientAll()
             patientDeleteButton.disabled = true
+            const bugBox = document.querySelector('#errores')
+            bugBox.remove()            
           })
           searchForm.reset()
           updateform.reset()
-          const bugBox = document.querySelector('#errores')
-          bugBox.remove()
         }
       })
     }
