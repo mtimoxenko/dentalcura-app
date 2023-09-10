@@ -175,6 +175,14 @@ form button:hover{
     background-color: rgb(159, 0, 0);
 }
 
+.admission-date{
+    margin: .5rem;
+}
+
+#year, #month, #day{
+    padding: .1rem;
+}
+
 #errores{
     position: absolute;
     bottom: 3rem;

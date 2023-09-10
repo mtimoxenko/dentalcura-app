@@ -84,6 +84,8 @@ window.addEventListener('load', function () {
     }
 
 
+
+
       /* -------------------------------------- */
       /*           [1] FUNCTION: Logout         */
       /* -------------------------------------- */
@@ -220,16 +222,23 @@ window.addEventListener('load', function () {
       const streetNumber = document.querySelector('.patient-load #inputStreetNumber')
       const floor = document.querySelector('.patient-load #inputFloor')
       const department = document.querySelector('.patient-load #inputDepartment')
+      const year = document.getElementById('year')
+      const month = document.getElementById('month')
+      const day = document.getElementById('day')
+  
+      //return year+'/'+month+'/'+day
 
 
       form.addEventListener('submit', function(e){
-        e.preventDefault()      
+        e.preventDefault()
+
+        const date = `${year.value}/${month.value}/${day.value}`
 
         const payload = {
           name: name.value,
           surname: surname.value,
           niNumber: niNumber.value,
-          registrationDate: "Origin of the Universe",
+          registrationDate: date,
           address:{
             streetName: streetName.value,
             streetNumber: streetNumber.value,
@@ -257,6 +266,9 @@ window.addEventListener('load', function () {
         }
         else if(payload.niNumber == '' || payload.niNumber.includes(' ') || isNaN(payload.niNumber)){
           errorMessage(article2)
+        }
+        else if(payload.registrationDate.includes('000')){
+          errorMessage(article2)       
         }
         else{
             fetch(endpointPatient, config)

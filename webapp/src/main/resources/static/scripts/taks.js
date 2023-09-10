@@ -135,7 +135,7 @@ window.addEventListener('load', function () {
     const date = dateCatch()
 
     const payload = {
-      date: "",
+      date: date,
       patient: {id:""}, 
       dentist: {id:""} 
     }
@@ -152,9 +152,6 @@ window.addEventListener('load', function () {
       }
     })
 
-    payload.date = date
-
-
     console.log(payload)
 
     const settings = {
@@ -166,7 +163,7 @@ window.addEventListener('load', function () {
     }
     
     
-    if(payload.date.includes('0000') || payload.patient.id == '' || payload.dentist.id == ''){
+    if(payload.date.includes('000') || payload.patient.id == '' || payload.dentist.id == ''){
       alert('You must select patient, dentist and date-time')
     }
     else{
