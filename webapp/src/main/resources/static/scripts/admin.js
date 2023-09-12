@@ -1,6 +1,6 @@
-// if (!localStorage.jwt) {
-//   location.replace('./index.html');
-// }
+if (!sessionStorage.userName) {
+  location.replace('./index.html')
+}
 
 
 window.addEventListener('load', function () {
