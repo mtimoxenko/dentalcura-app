@@ -1,11 +1,12 @@
-if (!sessionStorage.jwt || sessionStorage.jwt != 33) {
-  location.replace('./index.html');
-}
+// if (!localStorage.jwt) {
+//   location.replace('./index.html');
+// }
 
 
 window.addEventListener('load', function () {
     /* ------------------------- AOS lib. init -------------------------------- */
     AOS.init();
+  
 
     // const token = JSON.parse(localStorage.jwt);
     
@@ -18,8 +19,10 @@ window.addEventListener('load', function () {
     getUserName()
     getDentistAll()
     getPatientAll()
-    dentistLoad()
     patientLoad()
+    dentistLoad()
+    searchDentistById()
+    searchPatientById()
 
 
     /* ------------------------------------------------------------------------------- */
@@ -33,7 +36,9 @@ window.addEventListener('load', function () {
       .then(data=>{
         console.log(data)
         renderDentist(data)
-        searchDentistById()
+      })
+      .catch(err => {
+        console.log(err)
       })
     }
 
@@ -43,7 +48,7 @@ window.addEventListener('load', function () {
 
       list.forEach(dentist=>{
         selectDentist.innerHTML+=`
-        <li>${dentist.name} ${dentist.surname}, Lic: ${dentist.licenseNumber}
+        <li>${dentist.id} - ${dentist.surname}, ${dentist.name}. Lic: ${dentist.licenseNumber}
         <div></div>
         </li>`
       })
@@ -52,12 +57,15 @@ window.addEventListener('load', function () {
 
 
     function getPatientAll(){
-      fetch(endpointPatient)
+
+      const settings = {
+        method: 'GET'}
+
+      fetch(endpointPatient, settings)
       .then(response=>response.json())
       .then(data=>{
         console.log(data)
         renderPatient(data)
-        searchPatientById()
       })
     }
   
@@ -67,7 +75,7 @@ window.addEventListener('load', function () {
 
       list.forEach(patient=>{
         selectPatient.innerHTML+=`
-        <li>${patient.name} ${patient.surname}, NI Number: ${patient.niNumber}
+        <li>${patient.id} - ${patient.surname}, ${patient.name}. Nin: ${patient.niNumber}
         <div></div>
         </li>`
       })
@@ -83,19 +91,21 @@ window.addEventListener('load', function () {
       Swal.fire({
         title: 'Are you leaving?',
         icon: 'question',
+        iconColor: '#545454',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Confirm',
-        cancelButtonText: 'Cancel'
+        cancelButtonText: 'Cancel',
+        background: 'rgba(255, 255, 255, .9)'
       }).then((result) => {
         if (result.isConfirmed) {
-          localStorage.clear();
-          location.replace('./index.html');
+          localStorage.clear()
+          location.replace('./index.html')
         }
-      });
+      })
   
-    });
+    })
   
     /* ------------------------------------------------------------------ */
     /*                 [2] FUNCTION: Get user name [GET]                  */
@@ -157,16 +167,26 @@ window.addEventListener('load', function () {
 
         console.log(config)
 
-      fetch(endpointDentist, config)
-          .then((response) => response.json())
-          .then(data=>{
-              console.log(data)
-              getDentistAll()
-          }).catch(err => {
-              console.log(err)
-          })
 
-          form.reset()
+        if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.licenseNumber == '' || payload.licenseNumber.includes(' ') || isNaN(payload.licenseNumber)){
+          alert('You must complete License Number field correctly')
+        }
+        else{
+            fetch(endpointDentist, config)
+            .then((response) => {response.json()
+              getDentistAll()             
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            form.reset()
+        }
       })
     }
 
@@ -210,16 +230,26 @@ window.addEventListener('load', function () {
 
         console.log(payload)
 
-        fetch(endpointPatient, config)
-          .then((response) => response.json())
-          .then(data=>{
-            console.log(data)
-            getPatientAll() 
-          }).catch(err => {
-            console.log(err)
-          })
 
-        form.reset()
+        if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.niNumber == '' || payload.niNumber.includes(' ') || isNaN(payload.niNumber)){
+          alert('You must complete NI Number field correctly')
+        }
+        else{
+          fetch(endpointPatient, config)
+            .then((response) => {response.json()
+              getPatientAll()             
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          form.reset()          
+        }
       })
     }
 
@@ -245,6 +275,7 @@ window.addEventListener('load', function () {
 
         const id = searchDentistId.value
         const url = `${endpointDentist}/${id}`
+        const dentistDeleteButton = document.querySelector('.dentist-update #delete-button')
 
         const settings = {
           method: 'GET',
@@ -254,10 +285,17 @@ window.addEventListener('load', function () {
         .then(response=>response.json())
         .then(data=>{
           console.log(data)
-            name.value = data.name
-            surname.value = data.surname
-            updateDentist()
-            dentistDelete()
+          name.value = data.name
+          surname.value = data.surname
+          updateDentist()
+          dentistDeleteButton.disabled = false
+          dentistDelete()
+        })
+        .catch(err=>{
+          console.log(err);
+          name.value = ""
+          surname.value = ""
+          dentistDeleteButton.disabled = true
         })
       })
     }
@@ -282,6 +320,7 @@ window.addEventListener('load', function () {
 
         const id = searchPatientId.value
         const url = `${endpointPatient}/${id}`
+        const patientDeleteButton = document.querySelector('.patient-update #delete-button')
 
         const settings = {
           method: 'GET',
@@ -290,7 +329,7 @@ window.addEventListener('load', function () {
         fetch(url, settings)
         .then(response=>response.json())
         .then(data=>{
-          console.log(data);
+          console.log(data)
             name.value = data.name
             surname.value = data.surname
             streetName.value = data.address.streetName
@@ -298,12 +337,21 @@ window.addEventListener('load', function () {
             floor.value = data.address.floor
             department.value = data.address.department
             updatePatient()
+            patientDeleteButton.disabled = false
             patientDelete()
+        })
+        .catch(err=>{
+          name.value = ""
+          surname.value = ""
+          streetName.value = ""
+          streetNumber.value = ""
+          floor.value = ""
+          department.value = ""
+          patientDeleteButton.disabled = true
         })
       })
     }
 
-    searchPatientById()
 
 
     /* ----------------------------------------------------------------------------------- */
@@ -343,13 +391,22 @@ window.addEventListener('load', function () {
           body: JSON.stringify(payload)
         }
 
-        fetch(url, settings)
-        .then(response => {
+
+        if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+        }
+        else{
+          fetch(url, settings)
+          .then(response => {
           console.log(response.status)
           getDentistAll()
         })
         updateform.reset()
         searchForm.reset()
+        }
       })
     }
 
@@ -398,15 +455,24 @@ window.addEventListener('load', function () {
           body: JSON.stringify(payload)
         }
 
-        console.log(payload);
+        console.log(payload)
 
-        fetch(url, settings)
-        .then(response => {
-          console.log(response.status);
-          getPatientAll()
-        })
-        searchForm.reset()
-        updateform.reset()
+
+        if (payload.name == '' || payload.name.includes(' ') || !isNaN(payload.name)) {
+          alert('You must complete Name correctly, without leaving empty fields or spaces')
+        }
+        else if(payload.surname == '' || payload.surname.includes(' ') || !isNaN(payload.surname)){
+          alert('You must complete Surname correctly, without leaving empty fields or spaces')
+        }
+        else{
+          fetch(url, settings)
+          .then(response => {
+            console.log(response.status)
+            getPatientAll()
+          })
+          searchForm.reset()
+          updateform.reset()          
+        }
       })
     }
 
@@ -415,6 +481,7 @@ window.addEventListener('load', function () {
     /* ----------------------------------------------------------------------------------- */
     /*                 [6] FUNCTION: Delete Dentist & Patient [DELETE]                     */
     /* ----------------------------------------------------------------------------------- */
+
 
     function dentistDelete() {
 
@@ -436,13 +503,28 @@ window.addEventListener('load', function () {
               method: 'DELETE'
             }
 
-            fetch(url, settings)
-            .then(response => {
-              console.log(response.status);
-              getDentistAll()
+            Swal.fire({
+              title: `Confirm delete dentist Id: ${id}`,
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirm',
+              cancelButtonText: 'Cancel',
+              background: 'rgba(0, 0, 0, .8)'
             })
-            updateform.reset()
-            searchForm.reset()
+            .then((result) => {
+              if (result.isConfirmed) {
+                fetch(url, settings)
+                .then(response => {
+                  console.log(response.status)
+                  getDentistAll()
+                })
+              updateform.reset()
+              searchForm.reset()                
+              }
+            })
+
         })
     }
 
@@ -464,18 +546,33 @@ window.addEventListener('load', function () {
             const url = `${endpointPatient}/${id}`
 
             console.log(id)
-  
+
             const settings = {
               method: 'DELETE'
             }
 
-            fetch(url, settings)
-            .then(response => {
-              console.log(response.status);
-              getPatientAll()
+            Swal.fire({
+              title: `Confirm delete patient Id: ${id}`,
+              icon: 'question',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirm',
+              cancelButtonText: 'Cancel',
+              background: 'rgba(0, 0, 0, .8)'
             })
-            searchForm.reset()
-            updateform.reset()
+            .then((result) => {
+              if (result.isConfirmed) {
+                fetch(url, settings)
+                .then(response => {
+                  console.log(response.status)
+                  getPatientAll()
+                })
+              updateform.reset()
+              searchForm.reset()                
+              }
+            })
+
         })
     }
 
