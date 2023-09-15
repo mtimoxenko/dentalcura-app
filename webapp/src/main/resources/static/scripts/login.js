@@ -45,6 +45,7 @@ window.addEventListener('load', function () {
 
             if (data.token) {
                 sessionStorage.setItem('userName', JSON.stringify(data.userName))
+                sessionStorage.setItem('jwt', JSON.stringify(data.token))
 
                 if (data.token == 33) {
                     location.replace('./admin.html')
@@ -88,7 +89,7 @@ window.addEventListener('load', function () {
         const divTemplate = document.createElement('div')
         divTemplate.setAttribute('id', 'errores')
         divTemplate.style = "background:rgba(255, 0, 0, 0.3);padding:.5em 1em;color: white;margin-top: 1em;"
-        divTemplate.innerHTML += `<p><small>User not found</small></p>`
+        divTemplate.innerHTML += `<p><small>Invalid data entered. User not found.</small></p>`
         form.appendChild(divTemplate)
     }
 

@@ -34,7 +34,7 @@ nav .user-info {
 nav .user-info .user-image {
     width: 40px;
     height: 40px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.25);
     background-image: url('../assets/user.png');
     background-repeat: no-repeat;
     background-position: center;
@@ -44,7 +44,7 @@ nav .user-info .user-image {
 }
 
 nav .user-info button {
-    background-color: var(--laranja);
+    background-color: rgba(255, 255, 255, 0.3);
     color: white;
     padding: .5rem 1rem;
     margin-left: 2rem;
@@ -73,9 +73,11 @@ nav .user-info button {
     margin-bottom: 1rem;
     display: flex;
     width: 80%;
+    position: relative;
 }
 
 #dentist-table, #patient-table{
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 30%;
@@ -84,6 +86,7 @@ nav .user-info button {
 .tables ul{
     margin-top: 5%;
     list-style-type: square;
+    padding-bottom: 25%;
 }
 
 form{
@@ -170,6 +173,21 @@ form button:hover{
 
 #delete-button:hover{
     background-color: rgb(159, 0, 0);
+}
+
+.admission-date{
+    margin: .5rem;
+}
+
+#year, #month, #day{
+    padding: .1rem;
+}
+
+#errores{
+    position: absolute;
+    bottom: 3rem;
+    left: 3.5rem;
+    max-width: 30%;
 }
 
 footer {

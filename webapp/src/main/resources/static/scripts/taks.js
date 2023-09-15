@@ -1,6 +1,6 @@
-// if (!localStorage.jwt) {
-//   location.replace('./index.html');
-// }
+if (!sessionStorage.jwt || sessionStorage.jwt != 1 ) {
+  location.replace('./index.html');
+}
 
 
 window.addEventListener('load', function () {
@@ -58,22 +58,16 @@ window.addEventListener('load', function () {
   renderDentist()
 
 
-  function renderDate(){
-    const selectDate = document.getElementById('select-date')
+  function dateCatch(){
+    const year = document.getElementById('year').value
+    const month = document.getElementById('month').value
+    const day = document.getElementById('day').value
+    const time = document.getElementById('time').value
 
-    fetch(endpointDate)
-      .then(response=>response.json())
-      .then(data=>{
-        console.log(data);
-        data.forEach(date=>{
-          selectDate.innerHTML+=`
-          <div><input type="radio" name="date" id="${date.fecha_hora}">
-          <label for="${date.fecha_hora}">${date.fecha_hora}</label>
-          </div>`
-        })
-      })
+    return year+'/'+month+'/'+day+' - '+time
   }
-  renderDate()
+
+
 
     /* -------------------------------------- */
     /*           [1] FUNCTION: Logout         */
@@ -93,7 +87,7 @@ window.addEventListener('load', function () {
       background: 'rgba(255, 255, 255, .9)'
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.clear();
+        localStorage.clear()
         location.replace('./index.html')
       }
     })
@@ -138,10 +132,10 @@ window.addEventListener('load', function () {
 
     const dentist = document.querySelectorAll('[name=dentist]')
     const patient = document.querySelectorAll('[name=patient]')
-    const date = document.querySelectorAll('[name=date]')
+    const date = dateCatch()
 
     const payload = {
-      date: "",
+      date: date,
       patient: {id:""}, 
       dentist: {id:""} 
     }
@@ -158,13 +152,6 @@ window.addEventListener('load', function () {
       }
     })
 
-    date.forEach(date=>{
-      if(date.checked){
-        console.log(date)
-        payload.date = date.id
-      }
-    })
-
     console.log(payload)
 
     const settings = {
@@ -176,15 +163,27 @@ window.addEventListener('load', function () {
     }
     
     
-    if(payload.date == '' || payload.patient.id == '' || payload.dentist.id == ''){
-      alert('You must select patient, dentist and date')
+    if(payload.date.includes('000') || payload.patient.id == '' || payload.dentist.id == ''){
+      alert('You must select patient, dentist and date-time')
     }
     else{
       fetch(endpointAppointment, settings)
-      .then(response => {response.json()
-        getAppointment()      
+      .then(response => {
+          if (response.ok) {
+              response.json()
+              getAppointment()            
+          }
+          else{
+              return response.text().then((errorMessage) => {
+              throw new Error(errorMessage)
+              })
+          }
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+          console.error(error.message)
+          console.log(error.message)
+          errorResponse(formAddAppointment, error.message)
+      })
       formAddAppointment.reset()      
     }
 
@@ -242,6 +241,7 @@ window.addEventListener('load', function () {
 
       const id = searchAppointmentId.value
       const url = `${endpointAppointment}/${id}`
+      const updateButton = document.querySelector('.update-button')
       const deleteButton = document.querySelector('#delete-button')
 
       const settings = {
@@ -255,6 +255,7 @@ window.addEventListener('load', function () {
             patient.innerText = data.patient.surname + (', ') + data.patient.name
             dentist.innerText = data.dentist.surname + (', ') + data.dentist.name
             date.value = data.date
+            updateButton.disabled = false
             updateAppointment()
             deleteButton.disabled = false
             appointmentDelete()
@@ -263,8 +264,11 @@ window.addEventListener('load', function () {
         patient.innerText = '/'
         dentist.innerText = '/'
         date.value = ''
+        updateButton.disabled = true
         deleteButton.disabled = true
       })
+      const bugBox = document.querySelector('#errores')
+      bugBox.remove()
     })
   }
 
@@ -280,6 +284,7 @@ window.addEventListener('load', function () {
     const searchForm = document.querySelector('.appointment-search')
 
     const updateButton = document.querySelector('.update-button')
+    const deleteButton = document.querySelector('#delete-button')
     const appointmentId = document.getElementById('inputAppointmentId')
 
     const date = document.getElementById('inputDate')
@@ -306,13 +311,16 @@ window.addEventListener('load', function () {
       }
 
       if(payload.date == ''){
-        alert('You must complete Date field')
+        errorMessage(formAddAppointment)
       }
       else{
         fetch(url, settings)
         .then(response => {
           console.log(response.status)
           getAppointment()
+          deleteButton.disabled = true
+          const bugBox = document.querySelector('#errores')
+          bugBox.remove()          
         })
         updateform.reset()
         searchForm.reset()
@@ -364,7 +372,8 @@ window.addEventListener('load', function () {
                 getAppointment()
               })
               updateform.reset()
-              searchForm.reset()               
+              searchForm.reset()
+              deleteButton.disabled = true
             }
           })
       })
