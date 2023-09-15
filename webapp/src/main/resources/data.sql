@@ -20,11 +20,11 @@ VALUES
 -- Insert 5 random rows into the appointment table
 INSERT INTO appointment (dentist_id, patient_id, date)
 VALUES
-    (2, 3, '2023-09-01'),
-    (1, 2, '2023-09-02'),
-    (3, 1, '2023-09-03'),
-    (4, 5, '2023-09-04'),
-    (2, 4, '2023-09-05');
+    (2, 3, '2023/09/01 - 12:30'),
+    (1, 2, '2023/09/02 - 14:30'),
+    (3, 1, '2023/09/03 - 12:00'),
+    (4, 5, '2023/09/04 - 16:00'),
+    (2, 4, '2023/09/05 - 12:30');
 
 -- Insert 5 random rows into the address table for patients with department code
 INSERT INTO address (floor, street_num, patient_id, department, street_name)
